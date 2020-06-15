@@ -22,7 +22,7 @@ $config = [
   {{-- Global configuration object --}}
   <script>
     window.config = @json($config);
-  </script>
+  </script> 
 
   {{-- Load the application scripts --}}
   <script src="{{ mix('dist/js/app.js') }}"></script>
