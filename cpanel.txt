@@ -8,3 +8,7 @@ Kazi Md Faisal
 
 Kazi Md - First
 Faisal - Last
+
+ip = 198.251.69.22
+user=root
+pass=1S?3Q542bj
