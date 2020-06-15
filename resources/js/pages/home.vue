@@ -1,9 +1,9 @@
 <template>
   <card :title="$t('home')">
-    {{ $t('you_are_logged_in') }} a b  a sa
+    {{ $t('you_are_logged_in') }} a b  a sa s
   </card>
 </template>
-
+ 
 <script>
 export default {
   middleware: 'auth',
