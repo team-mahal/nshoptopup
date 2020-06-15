@@ -1,6 +1,6 @@
 <template>
   <card :title="$t('home')">
-    {{ $t('you_are_logged_in') }} a b 
+    {{ $t('you_are_logged_in') }} a b  a
   </card>
 </template>
 
