@@ -12,3 +12,8 @@ Faisal - Last
 ip = 198.251.69.22
 user=root
 pass=1S?3Q542bj
+
+database:
+uername= newuser
+password= password
+database=kmf

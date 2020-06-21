@@ -1,10 +1,11 @@
 <template>
-  <div class="main-layout">
+<div>
     <navbar />
-
-    <div class="container mt-4">
-      <child />
-    </div>
+      <div class="main-layout container mx-auto">
+        <div class="mt-4">
+          <child />
+        </div>
+      </div>
   </div>
 </template>
 

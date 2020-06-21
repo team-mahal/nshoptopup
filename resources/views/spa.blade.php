@@ -14,7 +14,7 @@ $config = [
 
   <title>{{ config('app.name') }}</title>
 
-  <link rel="stylesheet" href="/dist/css/app.css">
+  <link rel="stylesheet" href="{{ mix('dist/css/main.css') }}">
 </head>
 <body>
   <div id="app"></div>
