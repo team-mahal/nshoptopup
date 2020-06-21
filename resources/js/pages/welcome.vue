@@ -1,21 +1,16 @@
 <template>
 <div>
-	<div class="top-right links">
-		<template v-if="authenticated">
-			<router-link :to="{ name: 'home' }">
-				{{ $t('home') }}
-			</router-link>
-		</template>
-		<template v-else>
-			<router-link :to="{ name: 'login' }">
-				{{ $t('login') }}
-			</router-link>
-			<router-link :to="{ name: 'register' }">
-				{{ $t('register') }}
-			</router-link>
-		</template>
-	</div>
+	<p>ppppppp</p>
+	<div>
+		<carousel :autoplay="true" items="1" autoHeight="true">
 
+		    <img src="https://cdn.unipin.com/images/banners/1592558706-MA-200609-1_UniPin_GoG_Available_700x280.jpg">
+		    <img src="https://cdn.unipin.com/images/banners/1592558706-MA-200609-1_UniPin_GoG_Available_700x280.jpg">
+		    <img src="https://cdn.unipin.com/images/banners/1592558706-MA-200609-1_UniPin_GoG_Available_700x280.jpg">
+		    <img src="https://cdn.unipin.com/images/banners/1592558706-MA-200609-1_UniPin_GoG_Available_700x280.jpg">
+
+		</carousel>
+	</div>
 	<div class="text-center">
 		<div class="title mb-4">
 			{{ title }}
@@ -26,9 +21,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
-
+import carousel from 'vue-owl-carousel'
 export default {
 	layout: 'default',
+	components: { carousel },
 
 	metaInfo () {
 		return { title: this.$t('home') }
