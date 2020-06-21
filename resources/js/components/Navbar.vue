@@ -1,60 +1,52 @@
 <template>
-	<nav class="p-3 shadow-md">
-		<div class="container mx-auto">
+<nav class="p-3 shadow-md">
+	<div class="container mx-auto">
+		<div class="flex justify-between items-center">
 			<router-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand">
-				{{ appName }}
+				<img src="/logo.png" class="w-48">
 			</router-link>
+			
+			<div class="text-right w-full">
+				<div v-if="user" class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle text-dark"
+						 href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+					>
+						<img :src="user.photo_url" class="rounded-circle profile-photo mr-1">
+						{{ user.name }}
+					</a>
+					<div class="dropdown-menu">
+						<router-link :to="{ name: 'settings.profile' }" class="dropdown-item pl-3">
+							<fa icon="cog" fixed-width />
+							{{ $t('settings') }}
+						</router-link>
 
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false">
-				<span class="navbar-toggler-icon" />
-			</button>
-
-			<div id="navbarToggler" class="collapse navbar-collapse">
-				<ul class="navbar-nav">
-					<!-- <li class="nav-item">
-						<a class="nav-link" href="#">Link</a>
-					</li> -->
-				</ul>
-
-				<ul class="navbar-nav ml-auto">
-					<!-- Authenticated -->
-					<li v-if="user" class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle text-dark"
-							 href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-						>
-							<img :src="user.photo_url" class="rounded-circle profile-photo mr-1">
-							{{ user.name }}
-						</a>
-						<div class="dropdown-menu">
-							<router-link :to="{ name: 'settings.profile' }" class="dropdown-item pl-3">
-								<fa icon="cog" fixed-width />
-								{{ $t('settings') }}
-							</router-link>
-
-							<div class="dropdown-divider" />
+						<div class="dropdown-divider" />
 							<a href="#" class="dropdown-item pl-3" @click.prevent="logout">
 								<fa icon="sign-out-alt" fixed-width />
 								{{ $t('logout') }}
 							</a>
 						</div>
-					</li>
+					</div>
 					<!-- Guest -->
 					<template v-else>
-						<li class="nav-item">
-							<router-link :to="{ name: 'login' }" class="nav-link" active-class="active">
-								{{ $t('login') }}
-							</router-link>
-						</li>
-						<li class="nav-item">
-							<router-link :to="{ name: 'register' }" class="nav-link" active-class="active">
-								{{ $t('register') }}
-							</router-link>
-						</li>
+						<div class="flex justify-end items-center">
+							<div class="w-20">
+								<router-link :to="{ name: 'login' }" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" active-class="active">
+									{{ $t('login') }}
+								</router-link>
+							</div>
+							<div class="w-20">
+								<router-link :to="{ name: 'register' }" class="bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2" active-class="active">
+									{{ $t('register') }}
+								</router-link>
+							</div>
+						</div>
 					</template>
-				</ul>
+				</div>
 			</div>
 		</div>
-	</nav>
+	</div>
+</nav>
 </template>
 
 <script>

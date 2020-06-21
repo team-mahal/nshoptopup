@@ -1,44 +1,59 @@
 <template>
-  <button :type="nativeType" :disabled="loading" :class="{
-    [`btn-${type}`]: true,
-    'btn-block': block,
-    'btn-lg': large,
-    'btn-loading': loading
-  }" class="btn"
-  >
-    <slot />
-  </button>
+	<button :type="nativeType" :disabled="loading" class="btn" :class="{
+			[`${type}`]: true,
+			'block w-full': block,
+			[`btn-${size}`]: true,
+			'btn-loading': loading,
+			'rounded': squared,
+			'opacity-50 cursor-not-allowed': disabled,
+			'border-b-4': d3,
+			'rounded-full font-bold ': pill,
+			'opacity-50': loading
+		}">
+		<slot/>
+	</button>
 </template>
 
 <script>
 export default {
-  name: 'VButton',
-
-  props: {
-    type: {
-      type: String,
-      default: 'primary'
-    },
-
-    nativeType: {
-      type: String,
-      default: 'submit'
-    },
-
-    loading: {
-      type: Boolean,
-      default: false
-    },
-
-    block: {
-      type: Boolean,
-      default: false
-    },
-
-    large: {
-      type: Boolean,
-      default: false
-    }
-  }
+	name: 'TButton',
+	props: {
+		type: {
+			type: String,
+			default: 'primary'
+		},
+		nativeType: {
+			type: String,
+			default: 'submit'
+		},
+		loading: {
+			type: Boolean,
+			default: false
+		},
+		block: {
+			type: Boolean,
+			default: false
+		},
+		size: {
+			type: String,
+			default: 'md'
+		},
+		pill: {
+			type: Boolean,
+			default: false
+		},
+		squared: {
+			type: Boolean,
+			default: false
+		},
+		d3: {
+			type: Boolean,
+			default: false
+		},
+		disabled: {
+			type: Boolean,
+			default: false
+		}
+	}
 }
-</script>
+</script> 
