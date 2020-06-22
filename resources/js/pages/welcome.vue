@@ -3,10 +3,14 @@
 	<div>
 		<carousel :autoplay="true" :items="1" autoHeight="true">
 
-		    <img src="https://cdn.unipin.com/images/banners/1592558706-MA-200609-1_UniPin_GoG_Available_700x280.jpg">
-		    <img src="https://cdn.unipin.com/images/banners/1592558706-MA-200609-1_UniPin_GoG_Available_700x280.jpg">
-		    <img src="https://cdn.unipin.com/images/banners/1592558706-MA-200609-1_UniPin_GoG_Available_700x280.jpg">
-		    <img src="https://cdn.unipin.com/images/banners/1592558706-MA-200609-1_UniPin_GoG_Available_700x280.jpg">
+		    <img src="/admin/img/banner.jpg">
+		    <img src="/admin/img/banner.jpg">
+		    <img src="/admin/img/banner.jpg">
+		    <img src="/admin/img/banner.jpg">
+		    <img src="/admin/img/banner.jpg">
+		    <img src="/admin/img/banner.jpg">
+		    <img src="/admin/img/banner.jpg">
+		    <img src="/admin/img/banner.jpg">
 
 		</carousel>
 	</div>
@@ -14,7 +18,7 @@
 		<h2 class="text-4xl text-red-300 font-bold">FAVOURITE GAMES</h2>
 		<div class="flex flex-wrap">
 			<div class="w-48 rounded overflow-hidden shadow-lg mr-5">
-			  <img class="w-full" src="https://cdn.unipin.com/images/icon_product_pages/1578906437-icon-Game-icon-4.jpg" alt="Sunset in the mountains">
+			  <img class="w-full" src="/admin/img/banner.jpg" alt="Sunset in the mountains">
 			  <div class="px-6 py-4">
 			    <div class="font-bold text-sm mb-2">The Coldest Sunset</div>
 			    <p class="text-gray-700 text-base">
