@@ -1,6 +1,6 @@
 @php
 $config = [
-    'appName' => config('app.name'),
+    'appName' => "KMF Gamer Mall",
     'locale' => $locale = app()->getLocale(),
     'locales' => config('app.locales'),
     'githubAuth' => config('services.github.client_id'),
