@@ -1,7 +1,7 @@
 <template>
 <div>
     <navbar />
-      <div class="main-layout container mx-auto">
+      <div class="main-layout">
         <div class="mt-4">
           <child />
         </div>
