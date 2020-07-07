@@ -64,6 +64,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="{{ url('/admin/product') }}">Product</a>
             <a class="collapse-item" href="{{ url('/admin/brand') }}">Brand</a>
+            <a class="collapse-item" href="{{ url('/admin/package') }}">Package</a>
           </div>
         </div>
       </li>
