@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>SB Admin 2 - Dashboard</title>
 
@@ -65,6 +66,7 @@
             <a class="collapse-item" href="{{ url('/admin/product') }}">Product</a>
             <a class="collapse-item" href="{{ url('/admin/brand') }}">Brand</a>
             <a class="collapse-item" href="{{ url('/admin/package') }}">Package</a>
+            <a class="collapse-item" href="{{ url('/admin/order') }}">Order</a>
           </div>
         </div>
       </li>

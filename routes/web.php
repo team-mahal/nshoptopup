@@ -34,4 +34,9 @@ Route::prefix('admin')->group(function () {
     Route::get('packageEdit/{id}','Admin\PackageController@edit')->name('packageEdit');
     Route::get('packageDelete/{id}','Admin\PackageController@destroy')->name('packageDelete');
     Route::post('packageUpdate/{id}', "Admin\PackageController@update")->name('packageUpdate');
+
+
+    //Package
+    Route::get('order', "Admin\OrderController@index")->name('order.index');
+    Route::post('orderUpdate','Admin\OrderController@update')->name('orderUpdate');
 });
