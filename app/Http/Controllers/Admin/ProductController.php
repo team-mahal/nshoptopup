@@ -12,12 +12,12 @@ class ProductController extends Controller
     public function index()
     {
         $data = DB::table('products')->orderBy('id', 'DESC')->get();
-       return view('admin.product.index', ['data' => $data]);
+       return view('admin.setup.product.index', ['data' => $data]);
     }
 
     public function create()
     {
-        return view('admin.product.create');
+        return view('admin.setup.product.create');
     }
 
     public function store(Request $request)
@@ -51,7 +51,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        return view('admin.product.edit', ['product' => $product]);
+        return view('admin.setup.product.edit', ['product' => $product]);
     }
 
     public function update(Request $request, $id)

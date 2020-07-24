@@ -12,12 +12,12 @@ class brandController extends Controller
     public function index()
     {
         $data = DB::table('brands')->orderBy('id', 'DESC')->get();
-       return view('admin.brand.index', ['data' => $data]);
+       return view('admin.setup.brand.index', ['data' => $data]);
     }
 
     public function create()
     {
-        return view('admin.brand.create');
+        return view('admin.setup.brand.create');
     }
 
     public function store(Request $request)
@@ -51,7 +51,7 @@ class brandController extends Controller
     public function edit($id)
     {
         $brand = Brand::find($id);
-        return view('admin.brand.edit', ['brand' => $brand]);
+        return view('admin.setup.brand.edit', ['brand' => $brand]);
     }
 
     public function update(Request $request, $id)
