@@ -39,4 +39,12 @@ Route::prefix('admin')->group(function () {
     //Package
     Route::get('order', "Admin\OrderController@index")->name('order.index');
     Route::post('orderUpdate','Admin\OrderController@update')->name('orderUpdate');
+
+    //paymentMethod
+    Route::get('paymentMethod', "Admin\PaymentMethodController@index")->name('paymentMethod.index');
+    Route::get('paymentMethodCreate', "Admin\PaymentMethodController@create");
+    Route::post('paymentMethodStore', "Admin\PaymentMethodController@store")->name('paymentMethodStore');
+    Route::get('paymentMethodEdit/{id}','Admin\PaymentMethodController@edit')->name('paymentMethodEdit');
+    Route::get('paymentMethodDelete/{id}','Admin\PaymentMethodController@destroy')->name('paymentMethodDelete');
+    Route::post('paymentMethodUpdate/{id}', "Admin\PaymentMethodController@update")->name('paymentMethodUpdate');
 });

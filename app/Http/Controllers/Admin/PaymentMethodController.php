@@ -1,23 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\brand;
+use App\PaymentMethod;
 use DB;
 
-class brandController extends Controller
+
+class PaymentMethodController extends Controller
 {
     public function index()
     {
-        $datas = DB::table('brands')->orderBy('id', 'DESC')->paginate(10);
-       return view('admin.setup.brand.index', ['datas' => $datas]);
+        $datas = DB::table('payment_methods')->orderBy('id', 'DESC')->paginate(10);
+        return view('admin.setup.paymentMethod.index', ['datas' => $datas]);
     }
 
     public function create()
     {
-        return view('admin.setup.brand.create');
+        return view('admin.setup.paymentMethod.create');
     }
 
     public function store(Request $request)
@@ -25,19 +26,19 @@ class brandController extends Controller
         $request->validate([
             'logo' => 'required|mimes:jpeg,png,jpg,txt,xlx,xls,pdf|max:2048'
             ]);
-        $brand = new Brand;
-        $brand->name = $request->input('name');
+        $paymentMethod = new paymentMethod;
+        $paymentMethod->name = $request->input('name');
+        $paymentMethod->number = $request->input('number');
             if($request->hasFile('logo')) {
             $logo = $request->file('logo');
             $fileName = time().'.'.$request->file('logo')->extension();  
-            $request->file('logo')->move(public_path('brand'), $fileName);
+            $request->file('logo')->move(public_path('paymentMethod'), $fileName);
 
-            $brand->logo = $fileName;
-            // $product->file_path = '/storage/' . $filePath;
-            $brand->save();
+            $paymentMethod->logo = $fileName;
+            $paymentMethod->save();
 
             return back()
-            ->with('success','Brand Create Successfully.')
+            ->with('success','Payment Method Create Successfully.')
             ->with('file', $fileName);
         }
     }
@@ -50,8 +51,8 @@ class brandController extends Controller
     
     public function edit($id)
     {
-        $brand = Brand::find($id);
-        return view('admin.setup.brand.edit', ['brand' => $brand]);
+        $paymentMethod = paymentMethod::find($id);
+        return view('admin.setup.paymentMethod.edit', ['paymentMethod' => $paymentMethod]);
     }
 
     public function update(Request $request, $id)
@@ -59,32 +60,32 @@ class brandController extends Controller
         $request->validate([
             'logo' => 'mimes:jpeg,png,jpg,txt,xlx,xls,pdf|max:2048'
             ]);
-        $brand = Brand::find($id);
+        $paymentMethod = paymentMethod::find($id);
         $name = $request->input('name');
 
         if($request->file('logo') != ''){        
             if($request->hasFile('logo')) {
-                $file_path = public_path().'/brand/'.$request->input('oldlogo');;
+                $file_path = public_path().'/paymentMethod/'.$request->input('oldlogo');;
                 unlink($file_path);
                 $logo = $request->file('logo');
                 $filename = time().'.'.$request->file('logo')->extension();  
-                $request->file('logo')->move(public_path('brand'), $filename);
+                $request->file('logo')->move(public_path('paymentMethod'), $filename);
             }
        }else{
         $filename = $request->input('oldlogo');
        }
 
-       $brand->update(['logo' => $filename, 'name' => $name]);
+       $paymentMethod->update(['logo' => $filename, 'name' => $name]);
        return back()
-            ->with('success','Brand Update Successfully.')
+            ->with('success','Payment Method Update Successfully.')
             ->with('file', $filename);
 
     }
 
     public function destroy($id)
     {
-        Brand::find($id)->delete();
+        paymentMethod::find($id)->delete();
         return back()
-            ->with('success','Brand Delete Successfully.');
+            ->with('success','Payment Method Delete Successfully.');
     }
 }

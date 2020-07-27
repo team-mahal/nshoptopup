@@ -4,8 +4,8 @@
 
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-		<h1 class="h3 mb-0 text-gray-800">Brand List</h1>
-        <a href="{{ url('/admin/brandCreate') }}" class="btn btn-success">Create</a>
+		<h1 class="h3 mb-0 text-gray-800">Payment Method List</h1>
+        <a href="{{ url('/admin/paymentMethodCreate') }}" class="btn btn-success">Create</a>
 	</div>
 	<div class="row">
             @csrf
@@ -31,6 +31,7 @@
 	    <tr>
 	      <th scope="col">#</th>
 	      <th scope="col">Name</th>
+		  <th scope="col">Number</th>
 		  <th scope="col">Logo</th>
 	      <th scope="col">Action</th>
 	    </tr>
@@ -40,10 +41,12 @@
 	    	<tr>
 		      <td scope="row">{{ $key }}</td>
 		      <td  style="">{{$data->name}}</td>
-			  <td style=""><img src="{{ asset('brand/' . $data->logo) }}" alt="Oops" style="max-height: 100px; max-width:100px"> </td>
+			  <td  style="">{{$data->number}}</td>
+			  <td style=""><img src="{{ asset('paymentMethod/' . $data->logo) }}" alt="Oops" style="max-height: 100px; max-width:100px"> </td>
 		      <td style="display: -webkit-inline-box;">
-		      	<a href="{{ route('brandEdit',[$data->id]) }}" class="btn btn-success btn-sm">Edit</a>
-                  <form method="get" action="{{ route('brandDelete',[$data->id]) }}">
+		      	<a href="{{ route('paymentMethodEdit',[$data->id]) }}" class="btn btn-success btn-sm">Edit</a>
+		      	<!-- <a href="productDelete/{{ $data->id }}" class="btn btn-danger btn-sm">Delete</a> -->
+                  <form method="get" action="{{ route('paymentMethodDelete',[$data->id]) }}">
                     {{ csrf_field() }}
                     {{ method_field('get') }}
                     <input style="margin-left: 10px;" type="submit" id="deletebtn" class="btn btn-danger btn-sm" value="Delete">

@@ -38,7 +38,7 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-        @foreach($data as $key => $data)
+        @foreach($datas as $key => $data)
 	    	<tr>
 		      <td scope="row">{{ $key }}</td>
 		      <td  style="">{{$data->name}}</td>
@@ -58,7 +58,7 @@
 	    @endforeach
 	  </tbody>
 	</table>
-
+	{{ $datas->render() }}
 </div>
 <!-- /.container-fluid -->
 

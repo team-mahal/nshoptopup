@@ -11,8 +11,8 @@ class PackageController extends Controller
 {
     public function index()
     {
-        $data = DB::table('packages')->orderBy('id', 'DESC')->get();
-       return view('admin.setup.package.index', ['data' => $data]);
+        $datas = DB::table('packages')->orderBy('id', 'DESC')->paginate(10);
+       return view('admin.setup.package.index', ['datas' => $datas]);
     }
 
     public function create()

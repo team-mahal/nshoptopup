@@ -67,6 +67,7 @@
             <a class="collapse-item" href="{{ url('/admin/brand') }}">Brand</a>
             <a class="collapse-item" href="{{ url('/admin/package') }}">Package</a>
             <a class="collapse-item" href="{{ url('/admin/order') }}">Order</a>
+            <a class="collapse-item" href="{{ url('/admin/paymentMethod') }}">Payment Method</a>
           </div>
         </div>
       </li>

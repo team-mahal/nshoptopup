@@ -40,7 +40,7 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-        @foreach($data as $key => $data)
+        @foreach($datas as $key => $data)
 	    	<tr>
 		      <td scope="row">{{ $key }}</td>
 		      <td  style="">{{$data->name}}</td>
@@ -48,7 +48,11 @@
 			  <td style="">{{$data->sale_price}}</td>
 			  <td style="">{{$data->package_id}}</td>
 		      <td>
-			  	<select name="status" id="status" onchange="myChange({{$data->id}}, this.value)" required>
+				@if ($data->status == 'cancel')
+					<select disabled name="status" id="status{{$data->id}}" onchange="myChange({{$data->id}}, this.value)" required>
+				@else
+					<select enable name="status" id="status{{$data->id}}" onchange="myChange({{$data->id}}, this.value)" required>
+				@endif
 				  	@if ($data->status == '')
 					  <option value="">select once</option>
 					@endif
@@ -73,6 +77,8 @@
 	    @endforeach
 	  </tbody>
 	</table>
+	{{ $datas->render() }}
+
 
 </div>
 <!-- /.container-fluid -->
@@ -106,6 +112,11 @@ function myChange($id, $status) {
 				showConfirmButton: false,
 				timer: 1500
 			})
+
+			if(response == 'cancel')
+			{
+				$('#status'+id).prop( "disabled", true );
+			}
         },
         error: function() {
 			Swal.fire({

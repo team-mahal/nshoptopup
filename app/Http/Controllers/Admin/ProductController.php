@@ -11,8 +11,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $data = DB::table('products')->orderBy('id', 'DESC')->get();
-       return view('admin.setup.product.index', ['data' => $data]);
+        $datas = DB::table('products')->orderBy('id', 'DESC')->paginate(10);
+        return view('admin.setup.product.index', ['datas' => $datas]);
     }
 
     public function create()
