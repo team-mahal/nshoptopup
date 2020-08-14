@@ -99,6 +99,7 @@
 							<th scope="col">#</th>
 							<th scope="col">Name</th>
 							<th scope="col">Tag Line</th>
+							<th scope="col">Type</th>
 							<th scope="col">Logo</th>
 							<th scope="col">Action</th>
 						</tr>
@@ -109,6 +110,10 @@
 							<td scope="row">{{ $key+1 }}</td>
 							<td style="">{{$data->name}}</td>
 							<td style="">{{$data->tag_line}}</td>
+							<td style="">@if ($data->type == 0) {{"Type-1"}}
+								@else {{"Type-2"}}
+								@endif
+							</td>
 							<td style=""><img src="{{ asset('product/' . $data->logo) }}" alt="Oops"
 									style="max-height: 50px; max-width:100px"> </td>
 							<td style="display: -webkit-inline-box;">
@@ -125,7 +130,9 @@
 						@endforeach
 					</tbody>
 				</table>
-				{{ $datas->render() }}
+				<div class="justify-content-center">
+					{{ $datas->render() }}
+				</div>
 			</div>
 			<?php } ?>
 		</div>

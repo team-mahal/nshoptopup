@@ -9,6 +9,15 @@ use DB;
 
 class PackageController extends Controller
 {
+    public function getProductWiseDataFind($id)
+    {
+        $packages = Package::where(['product_id' => $id])->get();
+        if($packages)
+            return response()->json($packages, 200);
+        else
+            return response()->json('failed', 404);
+    }
+
     public function index()
     {
         $datas = DB::table('packages')->orderBy('id', 'DESC')->paginate(10);

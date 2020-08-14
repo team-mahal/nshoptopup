@@ -74,7 +74,8 @@ export default {
 	},
 
 	data: () => ({
-		appName: window.config.appName
+		appName: window.config.appName,
+		open: false
 	}),
 
 	computed: mapGetters({

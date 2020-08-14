@@ -1,3 +1,5 @@
+<!-- CkEidtor  -->
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 @include('admin.layouts.header')
 
 <div class="container-fluid min-700px">
@@ -34,6 +36,12 @@
 				</div>
 				@endif
 				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="description">Product Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                        </div>
+                    </div>
 					<div class="col-lg-3 col-md-6 col-sm-12">
 						<div class="form-group">
 							<label>Name</label>
@@ -46,13 +54,22 @@
 							<input type="text" name="tag_line" class="form-control" placeholder="Enter Tag Line" required>
 						</div>
 					</div>
-					<div class="col-lg-3 col-md-6 col-sm-12">
+					<div class="col-lg-2 col-md-6 col-sm-12">
 						<div class="form-group">
-							<label for="exampleFormControlSelect1">Logo</label>
-							<input type="file" name="logo" class="form-control" style="padding-top: 3px;">
+							<label>Type</label>
+							<select name="type" id="type" class="form-control">
+								<option value="0">Type-1</option>
+								<option value="1">Type-2</option>
+							</select>
 						</div>
 					</div>
-					<div class="col-lg-3 col-md-6 col-sm-12">
+					<div class="col-lg-2 col-md-6 col-sm-12">
+						<div class="form-group">
+							<label for="exampleFormControlSelect1">Logo</label>
+							<input type="file" name="logo" class="form-control" style="padding-top: 10px;">
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-6 col-sm-12">
 						<div class="form-group">
 							<button type="submit" class="btn btn-primary form-control"
 								style="margin-top: 30px;">Submit</button>
@@ -64,5 +81,12 @@
 	</div>
 </div>
 
+<script>
+	var editor = CKEDITOR.replace('description');
+	editor.on( 'required', function( evt ) {
+		editor.showNotification( 'This field is required.', 'warning' );
+		evt.cancel();
+	});
+</script>
 
 @include('admin.layouts.footer')

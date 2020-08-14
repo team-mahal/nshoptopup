@@ -35,4 +35,10 @@ Route::group(['middleware' => 'guest:api'], function () {
     Route::post('oauth/{driver}', 'Auth\OAuthController@redirectToProvider');
     Route::get('oauth/{driver}/callback', 'Auth\OAuthController@handleProviderCallback')->name('oauth.callback');
 
+
+    // data api ***
+    Route::get('products', "Admin\ProductController@getProduct");
+    Route::get('product/{id}', "Admin\ProductController@getSingelProduct");
+    Route::get('packages/{id}', "Admin\PackageController@getProductWiseDataFind");
+    
 });
