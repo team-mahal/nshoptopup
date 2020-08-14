@@ -27,6 +27,7 @@ class ProductController extends Controller
             ]);
         $product = new Product;
         $product->name = $request->input('name');
+        $product->tag_line = $request->input('tag_line');
             if($request->hasFile('logo')) {
             $logo = $request->file('logo');
             $fileName = time().'.'.$request->file('logo')->extension();  
@@ -61,6 +62,7 @@ class ProductController extends Controller
             ]);
         $product = Product::find($id);
         $name = $request->input('name');
+        $tag_line = $request->input('tag_line');
 
         if($request->file('logo') != ''){        
             if($request->hasFile('logo')) {
@@ -74,7 +76,7 @@ class ProductController extends Controller
         $filename = $request->input('oldlogo');
        }
 
-       $product->update(['logo' => $filename, 'name' => $name]);
+       $product->update(['logo' => $filename, 'name' => $name, 'tag_line' => $tag_line]);
        return back()
             ->with('success','Product Update Successfully.')
             ->with('file', $filename);

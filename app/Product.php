@@ -8,6 +8,7 @@ class Product extends Model
 {
     protected $fillable = [
         'name',
+        'tag_line',
         'logo'
     ];
 }
