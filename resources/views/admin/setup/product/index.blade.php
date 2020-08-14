@@ -106,7 +106,7 @@
 					<tbody>
 						@foreach($datas as $key => $data)
 						<tr>
-							<td scope="row">{{ $key }}</td>
+							<td scope="row">{{ $key+1 }}</td>
 							<td style="">{{$data->name}}</td>
 							<td style="">{{$data->tag_line}}</td>
 							<td style=""><img src="{{ asset('product/' . $data->logo) }}" alt="Oops"

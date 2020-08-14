@@ -62,7 +62,9 @@
 {
     box-sizing: border-box;
 }
-
+#item{
+    display: none;
+}
 .display-none{
     display: none;
 }

@@ -1,12 +1,8 @@
 @include('admin.layouts.header')
 
 <div class="container-fluid min-700px">
-
 	{{-- Product List  --}}
 	<div class="col-xl-12">
-
-
-
 		<div class="card mt-5">
 			<div class="card-header border-1 bg-gradient-primary">
 				<div class="row align-items-center">
