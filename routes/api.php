@@ -40,5 +40,4 @@ Route::group(['middleware' => 'guest:api'], function () {
     Route::get('products', "Admin\ProductController@getProduct");
     Route::get('product/{id}', "Admin\ProductController@getSingelProduct");
     Route::get('packages/{id}', "Admin\PackageController@getProductWiseDataFind");
-    
 });

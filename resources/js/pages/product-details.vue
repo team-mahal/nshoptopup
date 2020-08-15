@@ -60,7 +60,7 @@
       </div>
       <div class="w-7/12 px-2">
         <div
-          v-if="show === 1"
+          v-if="showElement === 1"
           class="shadow-lg p-2 bg-white p-4 mb-8"
           style="box-shadow: 0 2px 10px #0000003b;"
         >
@@ -177,15 +177,12 @@
           </div>
           <div class="grid grid-cols-4 gap-4 mt-4">
             <div
-              v-for="p in packages"
-              :key="p.id"
-              :uniqeName="'uniqe'+p.id"
-              class="bg-red-700 m-2"
+              v-for="(p, key, index) in packages"
+              :key="index"
+              class=""
             >
-              <!-- :uniqeName="p.id" -->
-
-              <input type="radio" :name="uniqeName" value="1" :id="uniqeName" v-model="checkedData"/>
-              <label class="rounded w-full border p-2 hover:bg-red-700 focus:bg-red-300 hover:text-white border-gray-300 text-center text-gray-700 font-bold" :for="uniqeName">{{ p.name }}</label>
+              <input type="radio" @change="onChangePackage(p)" :value="p.sale_price" :id="key" v-model="checkedData" style="display:none"/>
+              <label class="rounded w-full checked:bg-gray-900 float-left p-2 border hover:bg-red-700 focus:bg-red-300 hover:text-white border-gray-300 text-center text-gray-700 font-bold" :for="key">{{ p.name }}</label>
               
             </div>
           </div>
@@ -202,7 +199,7 @@
             </div>
             <div class="ml-2">
               <h3 class="text-1xl text-gray-700 font-bold">
-                Select Payment Channel
+                Select Payment Channel 
               </h3>
             </div>
           </div>
@@ -220,9 +217,11 @@ export default {
     return {
       product: [],
       packages: [],
-      show: 0,
+      showElement: 0,
       showAcountType: 1,
       checkedData: '',
+      key: '',
+      selectedPackageData: [],
     };
   },
   methods: {
@@ -230,8 +229,7 @@ export default {
       let id = this.$route.params.id;
       axios.get(`/api/product/${id}`).then(response => {
         this.product = response.data;
-        this.show = response.data.type;
-        console.log(this.show);
+        this.showElement = response.data.type;
       });
     },
     fetchPackages() {
@@ -246,6 +244,9 @@ export default {
         }else{
             this.showAcountType = 0;
         }
+    },
+    onChangePackage(p){
+       this.selectedPackageData = p;
     }
   },
   mounted() {
@@ -258,4 +259,5 @@ export default {
 input[type=radio]:checked + .radio {
     background-color: #241009;
 }
+input[type="radio"]:checked+label { background-color: #DD6B20 !important; color:#ffffff !important; }
 </style>
