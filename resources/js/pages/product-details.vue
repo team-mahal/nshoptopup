@@ -51,7 +51,7 @@
             </div>
           </div>
           <div
-            class="font-bold text-sm text-gray-600 mb-2"
+            class="font-bold text-xs text-gray-600 mb-2"
             v-html="product.description"
           >
             {{ product.description }}
@@ -188,7 +188,7 @@
           </div>
         </div>
         <div
-          class="shadow-lg p-2 bg-white p-4 mt-8"
+          class="shadow-lg p-2 bg-white p-4 mt-8 transition duration-1000"
           style="box-shadow: 0 2px 10px #0000003b;"
         >
           <div class="flex">
@@ -197,13 +197,27 @@
             >
               2
             </div>
-            <div class="ml-2">
+            <div class="ml-2 w-full">
               <h3 class="text-1xl text-gray-700 font-bold">
                 Select Payment Channel 
               </h3>
+              <h2 class="text-1xl text-gray-500 border-b-2 font-bold italic mt-4">All Payment Channel</h2>
+              <div class="flex mt-2" v-on:click="toggleCollapse">
+                  <img src="/icons/wallet.png" class="mr-2" />
+                  <div>
+                      <h2 class="text-1xl text-gray-700 font-bold">Wallet</h2>
+                      <h2 class="text-sm text-red-300 italic font-bold">BDT {{ checkedData.toLocaleString() }} </h2>
+                  </div>
+              </div>
             </div>
           </div>
-          <div class="grid grid-cols-4 gap-4 mt-4">{{ checkedData }}</div>
+          <div class="grid grid-cols-4 gap-4 mt-5">
+            <transition name="smooth">
+                  <p ref="myText" v-show="show" class="transition duration-1000 ease-in-out">
+                    Now it's smooth - getting closer to BS4 collapse, but now I need to know the exact height of each section at a particular screen size to set the max-height. Over-compensating max-width work ok, but is still a bit 'jerky'. Is there a way to calculate an elements height before starting the show/hide? If the max-height value is too small, elements overlap.
+                  </p>
+            </transition>
+          </div>
         </div>
       </div>
     </div>
@@ -222,6 +236,8 @@ export default {
       checkedData: '',
       key: '',
       selectedPackageData: [],
+      computedHeight: 'auto',
+      show: false,
     };
   },
   methods: {
@@ -247,11 +263,32 @@ export default {
     },
     onChangePackage(p){
        this.selectedPackageData = p;
+    },
+    toggle: function(todo){
+    	todo.done = !todo.done
+    },
+    toggleCollapse: function() {
+    	this.show = !this.show;
+    },
+    initHeight: function(){
+    
+      this.$refs['myText'].style.position = 'absolute';
+      this.$refs['myText'].style.visibility = 'hidden';
+      this.$refs['myText'].style.display = 'block';
+    	      
+      const height = getComputedStyle(this.$refs['myText']).height;      
+      this.computedHeight= height;  
+      
+      this.$refs['myText'].style.position = null;
+      this.$refs['myText'].style.visibility = null;
+      this.$refs['myText'].style.display = 'none';
+      
     }
   },
   mounted() {
     this.fetchProduct();
     this.fetchPackages();
+    this.initHeight();
   }
 };
 </script>
@@ -260,4 +297,11 @@ input[type=radio]:checked + .radio {
     background-color: #241009;
 }
 input[type="radio"]:checked+label { background-color: #DD6B20 !important; color:#ffffff !important; }
+.smooth-enter-active, .smooth-leave-active {
+  transition: height 5s !important;
+  overflow: hidden !important;
+}
+.smooth-enter, .smooth-leave-to {
+  height: 0 !important;
+}
 </style>
