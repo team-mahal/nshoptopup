@@ -305,25 +305,6 @@
 											</div>
 										</div>
 									</div>
-									<div class="flex bg-grey-300 border-2 justify-center">
-										<div class="w-full">
-											<div class="flex justify-center">
-												<img
-													src="/bkash.jpg"
-													style="width: 50px;"
-													class="mr-2 p-1"
-												/>
-												<h2 class="text-xs text-red-300 font-bold  p-1">
-													BDT {{ checkedData.toLocaleString() }}
-												</h2>
-											</div>
-											<div class="border-t-2 bg-gray-300">
-												<h2 class="text-sm text-gray-900 font-normal pl-2">
-													Kmf Credits (BDT)
-												</h2>
-											</div>
-										</div>
-									</div>
 								</div>
 							</div>
 						</div>
@@ -381,60 +362,38 @@
 								</div>
 							</div>
 							<div class="mt-8">
-								<form class="w-full">
+                <form v-if="check == false" @submit.prevent="login" @keydown="form.onKeydown($event)" class="w-full">
 									<div class="w-full px-3 mb-6 md:mb-3">
 										<label
 											class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-											for="name"
+											for="email"
 										>
-											Name
+											{{ $t('email') }}
 										</label>
-										<input
-											class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-											id="name"
-											type="text"
-											placeholder="Enter Name"
-										/>
+                    <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="email" name="email" placeholder="Email">
+					          <has-error class="text-red-600" :form="form" field="email" />
 									</div>
 									<div class="w-full px-3 mb-6 md:mb-3">
 										<label
 											class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
 											for="email"
 										>
-											Email
+											{{ $t('password') }}
 										</label>
-										<input
-											class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-											id="email"
-											type="email"
-											placeholder="Enter Email"
-										/>
-									</div>
-									<div class="w-full px-3 mb-6 md:mb-3">
-										<label
-											class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-											for="phone"
-										>
-											Phone
-										</label>
-										<input
-											class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-											id="phone"
-											type="text"
-											placeholder="Enter Phone"
-										/>
+                    <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="password" name="password" placeholder="Password">
+					          <has-error :form="form" field="password" />
 									</div>
 									<div class="text-right px-3">
-											<p class="text-sm text-gray-900 transform -translate-y-2">Your phone number will be use as a proof of transactions</p>
-											<label for="remember-me" class="font-bold text-xs text-red-300 mr-2"> Remember me</label><input type="checkbox" id="remember-me" name="remember-me" value="true" class="transform translate-y-1">
-									</div>
+											<p class="text-sm text-gray-900 transform -translate-y-2">Login First To Submit Order</p>
+											<div class="flex float-right"><label for="remember-me" class="font-bold text-xs text-red-300 mr-2"> {{ $t('remember_me') }} </label><checkbox v-model="remember" name="remember" class=""></checkbox></div>
+                  </div>
 									<div class="w-full px-3 mb-6 md:mb-3 mt-2">
-										<input
-											class="appearance-none block w-full bg-red-300 text-white border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-											id="phone"
-											type="submit"
-											value="CONFIRM"
-										/>
+                      <button
+                        class="appearance-none block w-full bg-red-300 text-white border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        :loading="form.busy"
+                      >
+                    {{ $t('login') }}
+                    </button>
 									</div>
 									<div class="text-center">
 										<p class="font-normal text-xs text-gray-800 mr-2">Voucher will send to the given email above once the transaction is completed</p>
@@ -451,10 +410,15 @@
 </template>
 
 <script>
+import Form from 'vform'
 import { mapGetters } from 'vuex'
 import axios from "axios";
 import Swal from "sweetalert2";
 export default {
+  middleware: 'guest',
+	metaInfo () {
+		return { title: this.$t('login') }
+	},
 	data() {
 		return {
 			product: [],
@@ -465,7 +429,12 @@ export default {
 			key: "",
 			selectedPackageData: [],
 			computedHeight: "auto",
-			modal: false
+      modal: false,
+      form: new Form({
+        email: '',
+        password: ''
+      }),
+      remember: false
 		};
 	},
 	computed: mapGetters({
@@ -519,6 +488,22 @@ export default {
 		formatPrice(value) {
 			let val = (value / 1).toFixed(2).replace(",", ".");
 			return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    async login () {
+			// Submit the form.
+			const { data } = await this.form.post('/api/login')
+
+			// Save the token.
+			this.$store.dispatch('auth/saveToken', {
+				token: data.token,
+				remember: this.remember
+			})
+
+			// Fetch the user.
+			await this.$store.dispatch('auth/fetchUser')
+
+			// Redirect home.
+			// this.$router.push({ name: 'home' })
 		}
 	},
 	mounted() {
