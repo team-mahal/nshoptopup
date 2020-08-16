@@ -11,8 +11,9 @@ class ProductController extends Controller
 {
     public function getProduct()
     {
-        $product = Product::latest()->get();
-        return response()->json($product, 200);
+        // $product = Product::latest()->get();
+        // return response()->json($product, 200);
+        return 'aaaaa';
     }
 
     public function getSingelProduct($id)
@@ -59,12 +60,6 @@ class ProductController extends Controller
             ->with('file', $fileName);
         }
     }
-
-    public function show($id)
-    {
-        //
-    }
-
     
     public function edit($id)
     {
