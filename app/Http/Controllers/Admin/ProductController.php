@@ -11,9 +11,8 @@ class ProductController extends Controller
 {
     public function getProduct()
     {
-        // $product = Product::latest()->get();
-        // return response()->json($product, 200);
-        return 'aaaaa';
+        $product = Product::latest()->get();
+        return response()->json($product, 200);
     }
 
     public function getSingelProduct($id)
