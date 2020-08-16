@@ -9,10 +9,25 @@ use DB;
 
 class ProductController extends Controller
 {
+    public function getProduct()
+    {
+        $product = Product::latest()->get();
+        return response()->json($product, 200);
+    }
+
+    public function getSingelProduct($id)
+    {
+        $product = Product::find($id);
+        if($product)
+            return response()->json($product, 200);
+        else
+            return response()->json('failed', 404);
+    }
+
     public function index()
     {
-        $data = DB::table('products')->orderBy('id', 'DESC')->get();
-       return view('admin.setup.product.index', ['data' => $data]);
+        $datas = DB::table('products')->orderBy('id', 'DESC')->paginate(10);
+        return view('admin.setup.product.index', ['datas' => $datas]);
     }
 
     public function create()
@@ -26,7 +41,10 @@ class ProductController extends Controller
             'logo' => 'required|mimes:jpeg,png,jpg,txt,xlx,xls,pdf|max:2048'
             ]);
         $product = new Product;
+        $product->description = $request->input('description');
         $product->name = $request->input('name');
+        $product->type = $request->input('type');
+        $product->tag_line = $request->input('tag_line');
             if($request->hasFile('logo')) {
             $logo = $request->file('logo');
             $fileName = time().'.'.$request->file('logo')->extension();  
@@ -60,7 +78,10 @@ class ProductController extends Controller
             'logo' => 'mimes:jpeg,png,jpg,txt,xlx,xls,pdf|max:2048'
             ]);
         $product = Product::find($id);
+        $description = $request->input('description');
         $name = $request->input('name');
+        $type = $request->input('type');
+        $tag_line = $request->input('tag_line');
 
         if($request->file('logo') != ''){        
             if($request->hasFile('logo')) {
@@ -74,7 +95,7 @@ class ProductController extends Controller
         $filename = $request->input('oldlogo');
        }
 
-       $product->update(['logo' => $filename, 'name' => $name]);
+       $product->update(['logo' => $filename, 'name' => $name, 'tag_line' => $tag_line, 'description' => $description, 'type' => $type]);
        return back()
             ->with('success','Product Update Successfully.')
             ->with('file', $filename);

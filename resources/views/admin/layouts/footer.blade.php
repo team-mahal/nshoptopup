@@ -1,60 +1,43 @@
-</div>
-<!-- Footer -->
-<footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2020</span>
+     <!-- Footer -->
+	 <footer class="footer pl-4 pr-4 bg-primary">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6">
+            <div class="copyright text-center  text-lg-left  text-muted text-white">
+              &copy; 2020 <a href="" class="font-weight-bold ml-1 text-white" target="_blank">Kmf</a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="copyright text-center  text-lg-left  text-muted text-white fr">
+                Design & Developed by <a href="https://github.com/team-mahal" class="font-weight-bold ml-1 text-white" target="_blank">Team Mahal</a>
+            </div>
           </div>
         </div>
       </footer>
-      <!-- End of Footer -->
-
-    </div>
-    <!-- End of Content Wrapper -->
-
-  </div>
-  <!-- End of Page Wrapper -->
-
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
     </div>
   </div>
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="{{ asset('admin/vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="{{ asset('admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="{{ asset('admin/js/sb-admin-2.min.js') }}"></script>
-  <!-- Page level plugins -->
-  <script src="{{ asset('admin/vendor/chart.js/Chart.min.js') }}"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="{{ asset('admin/js/demo/chart-area-demo.js') }}"></script>
-  <script src="{{ asset('admin/js/demo/chart-pie-demo.js') }}"></script>
-
+  <!-- Argon Scripts -->
+  <!-- Core -->
+  <script src="{{ asset('admin/vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('admin/vendor/js-cookie/js.cookie.js') }}"></script>
+  <script src="{{ asset('admin/vendor/jquery.scrollbar/jquery.scrollbar.min.js') }}"></script>
+  <script src="{{ asset('admin/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js') }}"></script>
+  <!-- Optional JS -->
+  <script src="{{ asset('admin/vendor/chart.js/dist/Chart.min.js') }}"></script>
+  <script src="{{ asset('admin/vendor/chart.js/dist/Chart.extension.js') }}"></script>
+  <!-- Chart JS -->
+     <script src="{{ asset('admin/js/components/charts/chart-bars.js') }}"></script>
+  <!-- Argon JS -->
+    <script src="{{ asset('admin/js/argon.js?v=1.2.0') }}"></script>
 </body>
 
 </html>
+
+
+<script>
+// Toggle Search Form
+  $(document).ready(function() {
+      $('#search_toggole').click(function() {
+        $(this).siblings("#item").toggle();
+      });
+  });
+</script>

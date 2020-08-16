@@ -1,51 +1,92 @@
+<!-- CkEidtor  -->
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 @include('admin.layouts.header')
-<!-- Begin Page Content -->
-<div class="container-fluid">
-	<!-- Page Heading -->
-	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-		<h1 class="h3 mb-0 text-gray-800">Product</h1>
+
+<div class="container-fluid min-700px">
+	{{-- Product List  --}}
+	<div class="col-xl-12">
+		<div class="card mt-5">
+			<div class="card-header border-1 bg-gradient-primary">
+				<div class="row align-items-center">
+					<div class="col">
+						<h3 class="mb-0 text-white">Product Create</h3>
+					</div>
+					<div class="col text-right">
+						<a href="{{ url('/admin/product') }}" class="btn btn-sm btn-success">Product List</a>
+					</div>
+				</div>
+			</div>
+			<form action="{{ route('productStore') }}" method="POST" enctype="multipart/form-data" class="p-4">
+				@csrf
+				@if ($message = Session::get('success'))
+				<div class="row">
+					<div class="col-lg-6 col-md-8col-sm-12 mt-2 alert alert-success">
+						{{ $message }}
+					</div>
+				</div>
+				@endif
+
+				@if (count($errors) > 0)
+				<div class="row">
+					<div class="col-lg-6 col-md-8col-sm-12 mt-2 alert alert-danger">
+						@foreach ($errors->all() as $error)
+						<li>{{ $error }}</li>
+						@endforeach
+					</div>
+				</div>
+				@endif
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="description">Product Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                        </div>
+                    </div>
+					<div class="col-lg-3 col-md-6 col-sm-12">
+						<div class="form-group">
+							<label>Name</label>
+							<input type="text" name="name" class="form-control" placeholder="Enter Name" required>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-12">
+						<div class="form-group">
+							<label>Tag Line</label>
+							<input type="text" name="tag_line" class="form-control" placeholder="Enter Tag Line" required>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-6 col-sm-12">
+						<div class="form-group">
+							<label>Type</label>
+							<select name="type" id="type" class="form-control">
+								<option value="0">Type-1</option>
+								<option value="1">Type-2</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-6 col-sm-12">
+						<div class="form-group">
+							<label for="exampleFormControlSelect1">Logo</label>
+							<input type="file" name="logo" class="form-control" style="padding-top: 10px;">
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-6 col-sm-12">
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary form-control"
+								style="margin-top: 30px;">Submit</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
-	<form action="{{ route('productStore') }}" method="POST" enctype="multipart/form-data">
-        <div class="row">
-            @csrf
-                @if ($message = Session::get('success'))
-                <div class="alert alert-success col-md-8">
-                    <strong>{{ $message }}</strong>
-                </div>
-            @endif
-
-            @if (count($errors) > 0)
-                <div class="alert alert-danger col-md-8">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-        </div>
-	 	<div class="row">
-	 		<div class="col-md-5">
-	 			<div class="form-group">
-					<label>Name</label>
-					<input type="text" name="name" class="form-control" placeholder="Enter Name">
-			  	</div>
-	 		</div>
-	 		<div class="col-md-5">
-	 			<div class="form-group">
-					    <label for="exampleFormControlSelect1">Logo</label>
-					    <input type="file" name="logo" class="form-control" style="padding-top: 3px;">
-			  	</div>
-	 		</div>
-             <div class="col-md-2">
-	 			<div class="form-group">
-                    <button type="submit" class="btn btn-primary form-control" style="margin-top: 30px;">Submit</button>
-			  	</div>
-	 		</div>
-	 	</div>
-	</form>
 </div>
-<!-- /.container-fluid -->
 
+<script>
+	var editor = CKEDITOR.replace('description');
+	editor.on( 'required', function( evt ) {
+		editor.showNotification( 'This field is required.', 'warning' );
+		evt.cancel();
+	});
+</script>
 
 @include('admin.layouts.footer')

@@ -11,8 +11,8 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $data = DB::table('orders')->orderBy('id', 'DESC')->get();
-       return view('admin.setup.order.index', ['data' => $data]);
+        $datas = DB::table('orders')->orderBy('id', 'DESC')->paginate(10);
+        return view('admin.setup.order.index', ['datas' => $datas]);
     }
 
     public function store(Request $request)
@@ -37,7 +37,6 @@ class OrderController extends Controller
         $status = $request->input('status');
         $order = Order::find($id);
         $order->update(['status' => $status]);
-        return back()
-        ->with('success','package Update Successfully.');
+        return $status;
     }
 }

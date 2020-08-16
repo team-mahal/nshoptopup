@@ -11,8 +11,8 @@ class brandController extends Controller
 {
     public function index()
     {
-        $data = DB::table('brands')->orderBy('id', 'DESC')->get();
-       return view('admin.setup.brand.index', ['data' => $data]);
+        $datas = DB::table('brands')->orderBy('id', 'DESC')->paginate(10);
+       return view('admin.setup.brand.index', ['datas' => $datas]);
     }
 
     public function create()

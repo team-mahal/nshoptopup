@@ -1,52 +1,61 @@
 @include('admin.layouts.header')
-<!-- Begin Page Content -->
-<div class="container-fluid">
-	<!-- Page Heading -->
-	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-		<h1 class="h3 mb-0 text-gray-800">Edit Brand</h1>
+
+<div class="container-fluid min-700px">
+	{{-- Product List  --}}
+	<div class="col-xl-12">
+		<div class="card mt-5">
+			<div class="card-header border-1 bg-gradient-primary">
+				<div class="row align-items-center">
+					<div class="col">
+						<h3 class="mb-0 text-white">Edit Brand</h3>
+					</div>
+					<div class="col text-right">
+						<a href="{{ url('/admin/brand') }}" class="btn btn-sm btn-success">Brand List</a>
+					</div>
+				</div>
+			</div>
+			<form action="{{ route('brandUpdate',[$brand->id]) }}" method="POST" enctype="multipart/form-data" class="p-4">
+				@csrf
+				@if ($message = Session::get('success'))
+				<div class="row">
+					<div class="col-lg-6 col-md-8col-sm-12 mt-2 alert alert-success">
+						{{ $message }}
+					</div>
+				</div>
+				@endif
+
+				@if (count($errors) > 0)
+				<div class="row">
+					<div class="col-lg-6 col-md-8col-sm-12 mt-2 alert alert-danger">
+						@foreach ($errors->all() as $error)
+						<li>{{ $error }}</li>
+						@endforeach
+					</div>
+				</div>
+				@endif
+					<div class="row">
+						<div class="col-lg-4 col-md-6 col-sm-12">
+							<div class="form-group">
+							   <label>Name</label>
+							   <input type="text" name="name" value="{{ $brand->name }}" class="form-control" placeholder="Enter Name" required>
+							 </div>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-12">
+							<div class="form-group">
+								   <label for="exampleFormControlSelect1">Logo</label>
+								   <input type="file" name="logo" class="form-control" style="padding-top: 10px;">
+								   <input type="hidden" value="{{ $brand->logo }}" name="oldlogo">
+							 </div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="form-group">
+							   <button type="submit" class="btn btn-primary form-control" style="margin-top: 30px;">Update</button>
+							 </div>
+						</div>
+					</div>
+			   </form>
+		</div>
 	</div>
-	<form action="{{ route('brandUpdate',[$brand->id]) }}" method="POST" enctype="multipart/form-data">
-        <div class="row">
-            @csrf
-                @if ($message = Session::get('success'))
-                <div class="alert alert-success col-md-8">
-                    <strong>{{ $message }}</strong>
-                </div>
-            @endif
-
-            @if (count($errors) > 0)
-                <div class="alert alert-danger col-md-8">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-        </div>
-	 	<div class="row">
-	 		<div class="col-md-5">
-	 			<div class="form-group">
-					<label>Name</label>
-					<input type="text" name="name" value="{{ $brand->name }}" class="form-control" placeholder="Enter Name">
-			  	</div>
-	 		</div>
-	 		<div class="col-md-5">
-	 			<div class="form-group">
-					    <label for="exampleFormControlSelect1">Logo</label>
-					    <input type="file" name="logo" class="form-control" style="padding-top: 3px;">
-                        <input type="hidden" value="{{ $brand->logo }}" name="oldlogo">
-			  	</div>
-	 		</div>
-             <div class="col-md-2">
-	 			<div class="form-group">
-                    <button type="submit" class="btn btn-primary form-control" style="margin-top: 30px;">Update</button>
-			  	</div>
-	 		</div>
-	 	</div>
-	</form>
 </div>
-<!-- /.container-fluid -->
-
 
 @include('admin.layouts.footer')

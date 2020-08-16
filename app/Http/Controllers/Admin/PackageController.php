@@ -9,10 +9,19 @@ use DB;
 
 class PackageController extends Controller
 {
+    public function getProductWiseDataFind($id)
+    {
+        $packages = Package::where(['product_id' => $id])->get();
+        if($packages)
+            return response()->json($packages, 200);
+        else
+            return response()->json('failed', 404);
+    }
+
     public function index()
     {
-        $data = DB::table('packages')->orderBy('id', 'DESC')->get();
-       return view('admin.setup.package.index', ['data' => $data]);
+        $datas = DB::table('packages')->orderBy('id', 'DESC')->paginate(10);
+       return view('admin.setup.package.index', ['datas' => $datas]);
     }
 
     public function create()
