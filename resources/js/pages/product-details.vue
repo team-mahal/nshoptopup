@@ -415,7 +415,6 @@ import { mapGetters } from 'vuex'
 import axios from "axios";
 import Swal from "sweetalert2";
 export default {
-  middleware: 'guest',
 	metaInfo () {
 		return { title: this.$t('login') }
 	},
