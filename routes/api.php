@@ -27,6 +27,7 @@ Route::get('products', "Admin\ProductController@getProduct");
 // data api ***
 Route::get('product/{id}', "Admin\ProductController@getSingelProduct");
 Route::get('packages/{id}', "Admin\PackageController@getProductWiseDataFind");
+Route::post('productOrder/{id}/{user_id}', "Admin\OrderController@store");
 
 
 Route::group(['middleware' => 'guest:api'], function () {
