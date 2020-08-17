@@ -26,7 +26,7 @@
                 class="bg-orange-600 w-full hover:bg-red-300 text-white sm:text-xs  px-1 text-center text-sm py-2 rounded justify-center flex"
               >
                 <div>Downlaod</div>
-                <img src="/icons/android-os.png" class="ml-1" />
+                  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="robot" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg-inline--fa fa-robot fa-w-20 fa-1x h-4 ml-1 text-white"><path fill="currentColor" d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z" class=""></path></svg>
               </div>
             </div>
             <div class="mb-2 px-1">
@@ -34,7 +34,7 @@
                 class="bg-orange-600 w-full hover:bg-red-300 text-white sm:px-2  px-1 text-center text-sm py-2 rounded justify-center flex"
               >
                 <div>Downlaod</div>
-                <img src="/icons/mac-os.png" class="ml-1" />
+                <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="apple" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="svg-inline--fa fa-apple fa-w-12 fa-1x h-5 ml-1 text-white"><path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" class=""></path></svg>
               </div>
             </div>
             <div class="mb-2 px-1">
@@ -42,7 +42,7 @@
                 class="bg-orange-600 w-full hover:bg-red-300 text-white sm:px-2  px-1 text-center text-sm py-2 rounded justify-center flex"
               >
                 <div>Website</div>
-                <img src="/icons/link.png" class="ml-1" />
+                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="link" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-link fa-1x h-4 ml-1 text-white mt-1"><path fill="currentColor" d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z" class=""></path></svg>
               </div>
             </div>
             <div class="mb-2 px-1">
@@ -50,7 +50,7 @@
                 class="bg-orange-600 w-full hover:bg-red-300 text-white sm:px-2  px-1 text-center text-sm py-2 rounded justify-center flex"
               >
                 <div>Community</div>
-                <img src="/icons/messaging.png" class="ml-1" />
+                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="comments" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="svg-inline--fa fa-comments fa-w-18 fa-1x h-4 ml-1 mt-1 text-white"><path fill="currentColor" d="M416 192c0-88.4-93.1-160-208-160S0 103.6 0 192c0 34.3 14.1 65.9 38 92-13.4 30.2-35.5 54.2-35.8 54.5-2.2 2.3-2.8 5.7-1.5 8.7S4.8 352 8 352c36.6 0 66.9-12.3 88.7-25 32.2 15.7 70.3 25 111.3 25 114.9 0 208-71.6 208-160zm122 220c23.9-26 38-57.7 38-92 0-66.9-53.5-124.2-129.3-148.1.9 6.6 1.3 13.3 1.3 20.1 0 105.9-107.7 192-240 192-10.8 0-21.3-.8-31.7-1.9C207.8 439.6 281.8 480 368 480c41 0 79.1-9.2 111.3-25 21.8 12.7 52.1 25 88.7 25 3.2 0 6.1-1.9 7.3-4.8 1.3-2.9.7-6.3-1.5-8.7-.3-.3-22.4-24.2-35.8-54.5z" class=""></path></svg>
               </div>
             </div>
           </div>
@@ -73,7 +73,7 @@
             <div
               class="rounded-full h-6 w-6 bg-red-300 flex items-center justify-center text-white text-sm"
             >
-              0
+              1
             </div>
             <div class="ml-2">
               <h3 class="text-1xl text-gray-700 font-bold">
@@ -220,7 +220,7 @@
             <div
               class="rounded-full h-6 w-6 bg-red-300 flex items-center justify-center text-white text-sm"
             >
-              1
+              2
             </div>
             <div class="ml-2">
               <h3 class="text-1xl text-gray-700 font-bold">
@@ -256,7 +256,7 @@
             <div
               class="rounded-full h-6 w-6 bg-red-300 flex items-center justify-center text-white text-sm"
             >
-              2
+              3
             </div>
             <div class="ml-2 w-full">
               <h3 class="text-1xl text-gray-700 font-bold">
