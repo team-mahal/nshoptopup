@@ -1,4 +1,3 @@
-
 @include('admin.layouts.header')
 <!-- Page content -->
 <div class="container-fluid min-700px">
@@ -43,7 +42,11 @@
 					<thead class="thead-light">
 						<tr>
 							<th scope="col">#</th>
+							<th scope="col">Type</th>
+							<th scope="col">ID Code / ID Password</th>
+							<th scope="col">PAssword</th>
 							<th scope="col">Name</th>
+							<th scope="col">User ID</th>
 							<th scope="col">Buy Price</th>
 							<th scope="col">Sale Price</th>
 							<th scope="col">Package ID</th>
@@ -54,12 +57,16 @@
 						@foreach($datas as $key => $data)
 						<tr>
 							<td scope="row">{{ $key }}</td>
+							<td style="">{{$data->type}}</td>
+							<td style="">{{$data->email}}</td>
+							<td style="">{{$data->password}}</td>
 							<td style="">{{$data->name}}</td>
+							<td style="">{{$data->user_id}}</td>
 							<td style="">{{$data->buy_price}}</td>
 							<td style="">{{$data->sale_price}}</td>
 							<td style="">{{$data->package_id}}</td>
 							<td>
-								@if ($data->status == 'cancel')
+								@if ($data->status == 'cancel' || $data->status == 'complete')
 								<select disabled name="status" id="status{{$data->id}}"
 									onchange="myChange({{$data->id}}, this.value)" required>
 									@else
@@ -111,8 +118,8 @@
 	
 	$.ajaxSetup({
 		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
+        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    	}
 	});
     $.ajax({
         type:"POST",
@@ -130,7 +137,7 @@
 				timer: 1500
 			})
 
-			if(response == 'cancel')
+			if(response == 'cancel' || response == 'complete')
 			{
 				$('#status'+id).prop( "disabled", true );
 			}

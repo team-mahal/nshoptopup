@@ -20,6 +20,10 @@ class CreateOrdersTable extends Migration
             $table->integer('sale_price');
             $table->integer('package_id');
             $table->enum('status', array('pandding', 'complete', 'cancel'));
+            $table->integer('user_id');
+            $table->string('type');
+            $table->string('email');
+            $table->string('password');
             $table->timestamps();
         });
     }
