@@ -59,12 +59,6 @@ class ProductController extends Controller
             ->with('file', $fileName);
         }
     }
-
-    public function show($id)
-    {
-        //
-    }
-
     
     public function edit($id)
     {
