@@ -1,6 +1,47 @@
 @include('admin.layouts.header')
 <!-- Page content -->
 <div class="container-fluid min-700px">
+	{{-- search panel  --}}
+	<div class="col-12">
+		<button id="search_toggole" class="btn btn-success btn-sm mt-4"><i class="fas fa-search"></i> Search</button>
+		<div class="card mt-2" id="item">
+			<div class="card-header border-0">
+				<div class="row align-items-center">
+					<div class="col">
+						<h3 class="mb-3 bb-2">Search</h3>
+					</div>
+				</div>
+				<form action="" method="POST">
+					<div class="row">
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="form-group">
+								<label for="user_id">User ID</label>
+								<input type="text" name="user_id" id="user_id" autocomplete="off" placeholder="User ID" class="form-control">
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="form-group">
+								<label for="type">Type</label>
+								<input type="text" name="type" id="type" autocomplete="off" placeholder="Type" class="form-control">
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="form-group">
+								<label for="subject">ID Code/ID Password</label>
+								<input type="text" name="id_code_id_password" id="name" class="form-control"
+									placeholder="Enter Subject Name">
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="form-group mt-l">
+								<input type="submit" value="Search" class="form-control btn btn-primary">
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 	{{-- Product List  --}}
 	<div class="col-xl-12">
 		@csrf
@@ -68,10 +109,10 @@
 							<td>
 								@if ($data->status == 'cancel' || $data->status == 'complete')
 								<select disabled name="status" id="status{{$data->id}}"
-									onchange="myChange({{$data->id}}, this.value)" required>
+									onchange="myChange({{$data->id}}, this.value)" required class="form-control" style="width: 110px;">
 									@else
 									<select enable name="status" id="status{{$data->id}}"
-										onchange="myChange({{$data->id}}, this.value)" required>
+										onchange="myChange({{$data->id}}, this.value)" required class="form-control" style="width: 110px">
 										@endif
 										@if ($data->status == '')
 										<option value="">select once</option>
