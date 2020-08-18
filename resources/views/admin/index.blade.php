@@ -1,7 +1,7 @@
 @include('admin.layouts.header')
       
         <!-- Header -->
-<div class="header bg-primary pb-6 min-700px">
+<div class="header bg-primary pb-6">
   <div class="container-fluid">
     <div class="header-body">
       <div class="row align-items-center py-4">
@@ -123,6 +123,9 @@
       </div>
     </div>
   </div>
+</div>
+<div style="height: 280px"> 
+
 </div>
 <!-- Page content -->
 {{-- <div class="container-fluid mt--6">
