@@ -17,6 +17,10 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        if ($guard == "admin" && Auth::guard($guard)->check()) {
+            return redirect('/login/admin');
+        }
+
         if (Auth::guard($guard)->check()) {
             return response()->json(['error' => 'Already authenticated.'], 400);
         }

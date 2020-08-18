@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Admin;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
@@ -21,6 +22,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        // $this->middleware('guest:admin');
     }
 
     /**

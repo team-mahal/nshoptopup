@@ -7,7 +7,7 @@
             </div>
           </div>
           <div class="col-lg-6">
-            <div class="copyright text-center  text-lg-left  text-muted text-white fr">
+            <div class="copyright text-center  text-lg-right  text-muted text-white fr">
                 Design & Developed by <a href="https://github.com/team-mahal" class="font-weight-bold ml-1 text-white" target="_blank">Team Mahal</a>
             </div>
           </div>

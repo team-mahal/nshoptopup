@@ -1,7 +1,7 @@
 @include('admin.layouts.header')
       
         <!-- Header -->
-<div class="header bg-primary pb-6">
+<div class="header bg-primary pb-6 min-700px">
   <div class="container-fluid">
     <div class="header-body">
       <div class="row align-items-center py-4">
@@ -14,6 +14,14 @@
           </nav>
         </div>
       </div>
+
+      <?php
+        // if (Auth::guard('admin')->check()) {
+        //     echo "Loged In";
+        // } else {
+        //     echo "not loged in";
+        // }
+      ?>
       <!-- Card stats -->
       <div class="row">
         <div class="col-xl-3 col-md-6">
@@ -23,18 +31,18 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col">
-                    <h5 class="card-title text-uppercase text-muted mb-0">Total Exam</h5>
-                    <span class="h2 font-weight-bold mb-0">5445</span>
+                    <h5 class="card-title text-uppercase text-muted mb-0">Total User</h5>
+                    <span class="h2 font-weight-bold mb-0">{{ $total_users }}</span>
                   </div>
                   <div class="col-auto">
                     <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                      <i class="ni ni-active-40"></i>
+                      <i class="ni ni-circle-08"></i>
                     </div>
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-sm">
-                  <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 100%</span>
-                  <span class="text-nowrap">All Exam</span>
+                  <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 100.00%</span>
+                  <span class="text-nowrap">All users</span>
                 </p>
               </div>
             </a>
@@ -47,8 +55,8 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col">
-                    <h5 class="card-title text-uppercase text-muted mb-0">Ongoing exam</h5>
-                    <span class="h2 font-weight-bold mb-0">6541</span>
+                    <h5 class="card-title text-uppercase text-muted mb-0">Total Order</h5>
+                    <span class="h2 font-weight-bold mb-0">{{ $total_orders }}</span>
                   </div>
                   <div class="col-auto">
                     <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
@@ -57,8 +65,8 @@
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-sm">
-                  <span class="text-success mr-2"><i class="fa fa-arrow-up"></i>80%</span>
-                  <span class="text-nowrap">All Active Exam</span>
+                  <span class="text-success mr-2"><i class="fa fa-arrow-up"></i>100.00%</span>
+                  <span class="text-nowrap">All Orders</span>
                 </p>
               </div>
             </a>
@@ -71,8 +79,8 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col">
-                    <h5 class="card-title text-uppercase text-muted mb-0">Lost exam</h5>
-                    <span class="h2 font-weight-bold mb-0">4165</span>
+                    <h5 class="card-title text-uppercase text-muted mb-0">Today Users</h5>
+                    <span class="h2 font-weight-bold mb-0">{{ $today_users }}</span>
                   </div>
                   <div class="col-auto">
                     <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
@@ -81,8 +89,8 @@
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-sm">
-                  <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 100%</span>
-                  <span class="text-nowrap">All Lost exam</span>
+                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ round($percentige, 2) }} %</span>
+                  <span class="text-nowrap">Today Users</span>
                 </p>
               </div>
             </a>
@@ -95,8 +103,8 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col">
-                    <h5 class="card-title text-uppercase text-muted mb-0">Upcoming Exam</h5>
-                    <span class="h2 font-weight-bold mb-0">5541</span>
+                    <h5 class="card-title text-uppercase text-muted mb-0">Today Orders</h5>
+                    <span class="h2 font-weight-bold mb-0">{{ $today_orders }}</span>
                   </div>
                   <div class="col-auto">
                     <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
@@ -105,8 +113,8 @@
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-sm">
-                  <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 100%</span>
-                  <span class="text-nowrap">All Upcoming Exam</span>
+                  <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ round($percentige_orders, 2) }} %</span>
+                  <span class="text-nowrap">Today Orders</span>
                 </p>
               </div>
             </a>
@@ -117,7 +125,7 @@
   </div>
 </div>
 <!-- Page content -->
-<div class="container-fluid mt--6">
+{{-- <div class="container-fluid mt--6">
   <div class="row">
     <div class="col-xl-8">
       <div class="card bg-default">
@@ -173,7 +181,7 @@
       </div>
     </div>
   </div> 
-</div>
+</div> --}}
 
       
 @include('admin.layouts.footer')

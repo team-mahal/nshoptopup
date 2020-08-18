@@ -3,11 +3,21 @@
 use Illuminate\Support\Facades\Route;
 
 
+Route::get('admin/logout', function () {
+    Auth::guard('admin')->logout();
+    return redirect('/login/admin');
+})->name('logiut');
+
+Route::get('/login/admin', 'Auth\LoginController@index');
+Route::post('/login/admin', 'Auth\LoginController@adminLogin');
 
 
+Route::group(['middleware' => 'auth:admin'], function () {
+    Route::view('/admin', 'admin');
+});
 
-Route::prefix('admin')->group(function () {
-    Route::get('test', "Admin\AdminController@index");
+Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
+    Route::get('deshboard', "Admin\AdminController@index");
 
     //Product
     Route::get('product', "Admin\ProductController@index")->name('product.index');

@@ -5,7 +5,7 @@
 <div class="container-fluid min-700px">
 
 	{{-- search panel  --}}
-	<div class="col-12">
+	{{-- <div class="col-12">
 		<button id="search_toggole" class="btn btn-success btn-sm mt-4"><i class="fas fa-search"></i> Search</button>
 		<div class="card mt-2" id="item">
 			<div class="card-header border-0">
@@ -52,7 +52,7 @@
 				</form>
 			</div>
 		</div>
-	</div>
+	</div> --}}
 
 	{{-- Product List  --}}
 	<div class="col-xl-12">
