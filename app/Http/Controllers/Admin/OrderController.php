@@ -11,9 +11,17 @@ use DB;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $datas = DB::table('orders')->orderBy('id', 'DESC')->paginate(10);
+        $request->flash();
+        $user_id = $request->user_id;
+        $id_code_id_password = $request->id_code_id_password;
+        $status = $request->status;
+        if (empty($user_id) && empty($id_code_id_password) && empty($status)) {
+            $datas = Order::orderBy('id', 'DESC')->paginate(10);
+        }else{
+            $datas = Order::where('user_id', $user_id)->orWhere('status', $status)->orWhere('email', $id_code_id_password)->paginate(10);
+        }
         return view('admin.setup.order.index', ['datas' => $datas]);
     }
 

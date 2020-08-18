@@ -3,33 +3,38 @@
 <div class="container-fluid min-700px">
 	{{-- search panel  --}}
 	<div class="col-12">
-		<button id="search_toggole" class="btn btn-success btn-sm mt-4"><i class="fas fa-search"></i> Search</button>
-		<div class="card mt-2" id="item">
+		<div class="card mt-4">
 			<div class="card-header border-0">
 				<div class="row align-items-center">
 					<div class="col">
 						<h3 class="mb-3 bb-2">Search</h3>
 					</div>
 				</div>
-				<form action="" method="POST">
+				<form action="{{ route('order.index') }}" method="get">
+					{{ csrf_field() }}
 					<div class="row">
 						<div class="col-lg-3 col-md-6 col-sm-12">
 							<div class="form-group">
 								<label for="user_id">User ID</label>
-								<input type="text" name="user_id" id="user_id" autocomplete="off" placeholder="User ID" class="form-control">
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-6 col-sm-12">
-							<div class="form-group">
-								<label for="type">Type</label>
-								<input type="text" name="type" id="type" autocomplete="off" placeholder="Type" class="form-control">
+								<input value="{{ old('user_id') }}" type="text" name="user_id" id="user_id" autocomplete="off" placeholder="User ID" class="form-control">
 							</div>
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-12">
 							<div class="form-group">
 								<label for="subject">ID Code/ID Password</label>
-								<input type="text" name="id_code_id_password" id="name" class="form-control"
+								<input value="{{ old('id_code_id_password') }}"  type="text" name="id_code_id_password" id="name" class="form-control"
 									placeholder="Enter Subject Name">
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="form-group">
+								<label for="subject">Status</label>
+								<select name="status" id="status" class="form-control">
+									<option value="">Select Once</option>
+									<option value="pandding">Pandding</option>
+									<option value="complete">Complete</option>
+									<option value="cencel">Cencel</option>
+								</select>
 							</div>
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-12">
@@ -62,7 +67,6 @@
 			</div>
 		</div>
 		@endif
-
 
 		<div class="card mt-5">
 			<div class="card-header border-0">
