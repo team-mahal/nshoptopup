@@ -17,9 +17,12 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->longText('description');
-            $table->string('tag_line');
+            $table->string('tag_line')->nullable();
             $table->string('logo');
-            $table->enum('type', array(0, 1));
+            $table->integer('buy_price')->nullable();
+            $table->integer('sale_price')->nullable();
+            $table->integer('is_shop');
+            $table->integer('type')->nullable();
             $table->timestamps();
         });
     }

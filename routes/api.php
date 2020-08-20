@@ -24,8 +24,10 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 
     Route::get('products', "Admin\ProductController@getProduct");
+    Route::get('shop-products', "Admin\CommonController@getProduct");
     // data api ***
     Route::get('product/{id}', "Admin\ProductController@getSingelProduct");
+    Route::get('shop-product/{id}', "Admin\CommonController@getSingelProduct");
     Route::get('packages/{id}', "Admin\PackageController@getProductWiseDataFind");
     Route::post('productOrder/{id}/{user_id}', "Admin\OrderController@store");
 

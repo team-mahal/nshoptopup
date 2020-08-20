@@ -39,37 +39,70 @@
 					<div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="form-group">
                             <label for="description">Product Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                            <textarea class="form-control" id="description" name="description" rows="4">{{ old('description') }}</textarea>
                         </div>
                     </div>
 					<div class="col-lg-3 col-md-6 col-sm-12">
 						<div class="form-group">
 							<label>Name</label>
-							<input type="text" name="name" class="form-control" placeholder="Enter Name" required>
+							<input type="text" value="{{ old('name') }}" name="name" class="form-control" placeholder="Enter Name" required>
 						</div>
 					</div>
 					<div class="col-lg-3 col-md-6 col-sm-12">
 						<div class="form-group">
-							<label>Tag Line</label>
-							<input type="text" name="tag_line" class="form-control" placeholder="Enter Tag Line" required>
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-6 col-sm-12">
-						<div class="form-group">
-							<label>Type</label>
-							<select name="type" id="type" class="form-control">
-								<option value="0">Type-1</option>
-								<option value="1">Type-2</option>
+							<label>IS Shop </label>
+							<select name="is_shop" id="is_shop" class="form-control">
+								@if(old('is_admin') == 0)
+								<option value="0" selected>Not Shop</option>
+								@else
+								<option value="0">Not Shop</option>
+								@endif
+								@if(old('is_admin') == 1)
+								<option value="1" selected>Shop</option>
+								@else
+								<option value="1">Shop</option>
+								@endif
 							</select>
 						</div>
 					</div>
-					<div class="col-lg-2 col-md-6 col-sm-12">
-						<div class="form-group">
-							<label for="exampleFormControlSelect1">Logo</label>
-							<input type="file" name="logo" class="form-control" style="padding-top: 10px;">
+					<div class="col-lg-3 col-md-6 col-sm-12">
+						<div class="form-group" id="sh_tag_line">
+							<label>Tag Line</label>
+							<input type="text" name="tag_line" class="form-control" placeholder="Enter Tag Line">
+						</div>
+						<div class="form-group" id="sh_buy_price">
+							<label>Buy Price</label>
+							<input type="text" value="{{ old('buy_price') }}" name="buy_price" class="form-control" placeholder="Enter Buy Price">
 						</div>
 					</div>
-					<div class="col-lg-2 col-md-6 col-sm-12">
+					<div class="col-lg-3 col-md-6 col-sm-12">
+						<div class="form-group" id="sh_type">
+							<label>Type</label>
+							<select name="type" id="type" class="form-control">
+								@if(old('type') == 0)
+								<option value="0" selected>Type-1</option>
+								@else
+								<option value="0">Type-1</option>
+								@endif
+								@if(old('type') == 1)
+								<option value="1" selected>Type-2</option>
+								@else
+								<option value="1">Type-2</option>
+								@endif
+							</select>
+						</div>
+						<div class="form-group" id="sh_sale_price">
+							<label>Sale Price</label>
+							<input type="text" value="{{ old('sale_price') }}" name="sale_price" class="form-control" placeholder="Enter Sale Price">
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-12">
+						<div class="form-group">
+							<label for="exampleFormControlSelect1">Logo</label>
+							<input type="file" value="{{ old('logo') }}" name="logo" class="form-control" style="padding-top: 10px;">
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-12">
 						<div class="form-group">
 							<button type="submit" class="btn btn-primary form-control"
 								style="margin-top: 30px;">Submit</button>
@@ -86,6 +119,26 @@
 	editor.on( 'required', function( evt ) {
 		editor.showNotification( 'This field is required.', 'warning' );
 		evt.cancel();
+	});
+</script>
+
+<script>
+	$('#sh_buy_price').hide();
+	$('#sh_sale_price').hide(); 
+	$(function() {
+		$('#is_shop').change(function(){
+			if($('#is_shop').val() == 1) {
+				$('#sh_buy_price').show();
+				$('#sh_sale_price').show(); 
+				$('#sh_tag_line').hide();
+				$('#sh_type').hide(); 
+			} else {
+				$('#sh_buy_price').hide();
+				$('#sh_sale_price').hide(); 
+				$('#sh_tag_line').show();
+				$('#sh_type').show(); 
+			} 
+		});
 	});
 </script>
 

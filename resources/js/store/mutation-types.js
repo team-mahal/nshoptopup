@@ -8,3 +8,8 @@ export const UPDATE_USER = 'UPDATE_USER'
 
 // lang.js
 export const SET_LOCALE = 'SET_LOCALE'
+
+// CART 
+export const ADD_TO_CART = 'ADD_TO_CART'
+export const REMOVE_CART = 'REMOVE_CART'
+export const SAVE_CART = 'SAVE_CART'

@@ -11,13 +11,13 @@ class ProductController extends Controller
 {
     public function getProduct()
     {
-        $product = Product::latest()->get();
+        $product = Product::where('is_shop', 0)->latest()->get();
         return response()->json($product, 200);
     }
 
     public function getSingelProduct($id)
     {
-        $product = Product::find($id);
+        $product = Product::where('is_shop', 0)->find($id);
         if($product)
             return response()->json($product, 200);
         else
@@ -45,6 +45,9 @@ class ProductController extends Controller
         $product->name = $request->input('name');
         $product->type = $request->input('type');
         $product->tag_line = $request->input('tag_line');
+        $product->is_shop = $request->input('is_shop');
+        $product->buy_price = $request->input('buy_price');
+        $product->sale_price = $request->input('sale_price');
             if($request->hasFile('logo')) {
             $logo = $request->file('logo');
             $fileName = time().'.'.$request->file('logo')->extension();  
@@ -76,7 +79,9 @@ class ProductController extends Controller
         $name = $request->input('name');
         $type = $request->input('type');
         $tag_line = $request->input('tag_line');
-
+        $is_shop = $request->input('is_shop');
+        $buy_price = $request->input('buy_price');
+        $sale_price = $request->input('sale_price');
         if($request->file('logo') != ''){        
             if($request->hasFile('logo')) {
                 $file_path = public_path().'/product/'.$request->input('oldlogo');;
@@ -89,7 +94,7 @@ class ProductController extends Controller
         $filename = $request->input('oldlogo');
        }
 
-       $product->update(['logo' => $filename, 'name' => $name, 'tag_line' => $tag_line, 'description' => $description, 'type' => $type]);
+       $product->update(['is_shop' => $is_shop, 'buy_price' => $buy_price, 'sale_price' => $sale_price, 'logo' => $filename, 'name' => $name, 'tag_line' => $tag_line, 'description' => $description, 'type' => $type]);
        return back()
             ->with('success','Product Update Successfully.')
             ->with('file', $filename);

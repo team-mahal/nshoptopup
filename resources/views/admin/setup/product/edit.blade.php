@@ -54,35 +54,76 @@
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-12">
 							<div class="form-group">
-							   <label>Tag Line</label>
-							   <input type="text" name="tag_line" value="{{ $product->tag_line }}" class="form-control" placeholder="Enter Tag Line" required>
-							 </div>
-						</div>
-						<div class="col-lg-2 col-md-6 col-sm-12">
-							<div class="form-group">
-								<label>Type</label>
-								<select name="type" id="type" class="form-control">
-									@if ($product->type ==0)
-										<option value="0" selected>Type-1</option>
+								<label>IS Shop </label>
+								<select name="is_shop" id="is_shop" class="form-control">
+									@if ($product->is_shop ==0)
+										<option value="0" selected>Not Shop</option>
 									@else
-										<option value="0">Type-1</option>
+										<option value="0">Not Shop</option>
 									@endif
-									@if ($product->type ==1)
-										<option value="1" selected>Type-2</option>
+									@if ($product->is_shop ==1)
+										<option value="1" selected>Shop</option>
 									@else
-										<option value="1">Type-2</option>
+										<option value="1">Shop</option>
 									@endif
 								</select>
 							</div>
 						</div>
-						<div class="col-lg-2 col-md-6 col-sm-12">
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							@if($product->is_shop ==0)
+							<div class="form-group" id="sh_tag_line">
+							@else
+							<div class="form-group" id="sh_tag_line" style="display: none">
+							@endif
+							   <label>Tag Line</label>
+							   <input type="text" name="tag_line" value="{{ $product->tag_line }}" class="form-control" placeholder="Enter Tag Line">
+							 </div>
+							@if($product->is_shop ==1)
+							 <div class="form-group" id="sh_buy_price">
+							@else
+							<div class="form-group" id="sh_buy_price" style="display: none">
+							@endif
+								<label>Buy Price</label>
+								<input type="text" value="{{ $product->buy_price }}" name="buy_price" class="form-control" placeholder="Enter Buy Price">
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							@if($product->is_shop ==0)
+								<div class="form-group" id="sh_type">
+							@else
+								<div class="form-group" id="sh_type" style="display: none">
+							@endif
+									<label>Type</label>
+									<select name="type" id="type" class="form-control">
+										@if ($product->type ==0)
+											<option value="0" selected>Type-1</option>
+										@else
+											<option value="0">Type-1</option>
+										@endif
+										@if ($product->type ==1)
+											<option value="1" selected>Type-2</option>
+										@else
+											<option value="1">Type-2</option>
+										@endif
+									</select>
+							</div>
+							@if($product->is_shop ==1)
+							<div class="form-group" id="sh_sale_price">
+							@else
+							<div class="form-group" id="sh_sale_price" style="display: none">
+							@endif
+								<label>Sale Price</label>
+								<input type="text"  value="{{ $product->sale_price }}" name="sale_price" class="form-control" placeholder="Enter Sale Price">
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-12">
 							<div class="form-group">
 								   <label for="exampleFormControlSelect1">Logo</label>
 								   <input type="file" name="logo" class="form-control" style="padding-top: 3px;">
 								   <input type="hidden" value="{{ $product->logo }}" name="oldlogo">
 							 </div>
 						</div>
-						<div class="col-lg-2 col-md-6 col-sm-12">
+						<div class="col-lg-3 col-md-6 col-sm-12">
 							<div class="form-group">
 							   <button type="submit" class="btn btn-primary form-control" style="margin-top: 30px;">Update</button>
 							 </div>
@@ -99,5 +140,21 @@
 		evt.cancel();
 	});
 </script>
-
+<script>
+	$(function() {
+		$('#is_shop').change(function(){
+			if($('#is_shop').val() == 1) {
+				$('#sh_buy_price').show();
+				$('#sh_sale_price').show(); 
+				$('#sh_tag_line').hide();
+				$('#sh_type').hide(); 
+			} else {
+				$('#sh_buy_price').hide();
+				$('#sh_sale_price').hide(); 
+				$('#sh_tag_line').show();
+				$('#sh_type').show(); 
+			} 
+		});
+	});
+</script>
 @include('admin.layouts.footer')
