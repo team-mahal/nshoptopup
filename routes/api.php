@@ -23,12 +23,16 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 
 
-Route::get('products', "Admin\ProductController@getProduct");
-// data api ***
-Route::get('product/{id}', "Admin\ProductController@getSingelProduct");
-Route::get('packages/{id}', "Admin\PackageController@getProductWiseDataFind");
-Route::post('productOrder/{id}/{user_id}', "Admin\OrderController@store");
+    Route::get('products', "Admin\ProductController@getProduct");
+    // data api ***
+    Route::get('product/{id}', "Admin\ProductController@getSingelProduct");
+    Route::get('packages/{id}', "Admin\PackageController@getProductWiseDataFind");
+    Route::post('productOrder/{id}/{user_id}', "Admin\OrderController@store");
 
+
+    Route::get('blogs', "Admin\CommonController@getBlog");
+    Route::get('blog/{id}', "Admin\CommonController@getSingelBlog");
+    Route::get('all-blog', "Admin\CommonController@getAllBlog");
 
 Route::group(['middleware' => 'guest:api'], function () {
     Route::post('login', 'Auth\LoginController@login');

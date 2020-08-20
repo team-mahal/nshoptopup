@@ -57,4 +57,6 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::get('paymentMethodEdit/{id}','Admin\PaymentMethodController@edit')->name('paymentMethodEdit');
     Route::get('paymentMethodDelete/{id}','Admin\PaymentMethodController@destroy')->name('paymentMethodDelete');
     Route::post('paymentMethodUpdate/{id}', "Admin\PaymentMethodController@update")->name('paymentMethodUpdate');
+    
+    Route::resource('blog', 'Admin\BlogController');
 });

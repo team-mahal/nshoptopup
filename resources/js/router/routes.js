@@ -23,6 +23,8 @@ export default [
 
   { path: '*', component: page('errors/404.vue') },
 
-  { path: '/details/:id/:slug', name: 'details', component: page('product-details.vue')}
-  
+  { path: '/details/:id/:slug', name: 'details', component: page('product-details.vue')},
+  { path: '/blog-details/:id/:slug', name: 'blog-details', component: page('blog-details.vue')},
+  { path: '/blogs', name: 'blogs', component: page('blogs.vue')},
+  { path: '/contact', name: 'contact', component: page('contact.vue')},
 ]

@@ -13,14 +13,14 @@
       </carousel>
     </div>
 
-    <section class="container mx-auto">
+    <section class="container mx-auto" id="favourite-game">
       <div class="text-center">
         <h2 class="text-4xl text-red-300 font-bold">FAVOURITE GAMES</h2>
-        <div class="flex flex-wrap">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 md:gap-4 p-2 lg:p-0">
           <div
             v-for="product in products"
             :key="product.id"
-            class="w-48 rounded overflow-hidden shadow-lg hover:shadow-xl border-2 mr-5 mt-5"
+            class="rounded overflow-hidden shadow-lg hover:shadow-xl border-2 mt-5"
           >
             <router-link
               :to="{
@@ -95,98 +95,55 @@
 
     <section>
       <div class="container mx-auto mt-5">
-        <div class="max-w-screen-lg mx-auto">
+        <div class="max-w-screen-lg mx-auto"> <!-- max-w-screen-lg -->
           <main class="mt-12">
             <!-- recent posts -->
             <div
               class="flex mt-16 mb-4 px-4 lg:px-0 items-center justify-between"
             >
-              <h2 class="font-bold text-3xl">NEWS & EVENTS</h2>
-              <a
-                class="bg-gray-200 hover:bg-green-200 text-gray-800 px-3 py-1 rounded cursor-pointer"
+              <h2 class="font-bold text-xl sm:text-2xl md:text-3xl">NEWS & EVENTS</h2>
+              <router-link
+                :to="{
+                  name: 'blogs',
+                }"
+                class="text-white cursor-pointer bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2"
               >
                 View all
-              </a>
+              </router-link>
             </div>
-            <div class="block space-x-0 lg:flex lg:space-x-6">
-              <div class="rounded w-full lg:w-1/2 lg:w-1/3 p-4 lg:p-0">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+            <!-- <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mt-4"> -->
+              <div
+                v-for="blog in blogs"
+                :key="blog.id"
+                class="rounded w-full p-3 sm:p-3 md:p-4 lg:p-0 xl:p-0">
                 <img
-                  src="https://images.unsplash.com/photo-1526666923127-b2970f64b422?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60"
-                  class="rounded"
-                  alt="technology"
+                  :src="'/blog/' + blog.logo"
+                  v-bind:alt="blog.title"
+                  class="rounded h-48 w-full"
                 />
                 <div class="p-4 pl-0">
-                  <h2 class="font-bold text-2xl text-gray-800">
-                    Put all speaking her delicate recurred possible.
+                  <h2 class="font-bold text-xl text-gray-800">
+                    {{ blog.title }}
                   </h2>
-                  <p class="text-gray-700 mt-2">
-                    Set indulgence inquietude discretion insensible bed why
-                    announcing. Middleton fat two satisfied additions. So
-                    continued he or commanded household smallness delivered.
-                    Door poor on do walk in half. Roof his head the what.
+                  <p v-if="blog.description.length <= 200" class="text-gray-700 text-sm mt-2 h-24 min-h-full" v-html="blog.description.substring(-6, 200)">
                   </p>
 
-                  <a
-                    href="#"
-                    class="inline-block py-2 rounded text-green-900 mt-2 ml-auto"
+                  <p v-else class="text-gray-700 text-sm mt-2 h-24 min-h-full" v-html="blog.description.substring(-6, 150)+ ' ........'">
+                  </p> 
+
+                  <router-link
+                    :to="{
+                      name: 'blog-details',
+                      params: { id: blog.id, slug: makeSlug(blog.title) }
+                    }"
+                    class="inline-block mt-4 ml-auto bg-orange-500 hover:bg-red-300 text-white font-bold py-2 px-4 rounded"
                   >
                     Read more
-                  </a>
+                  </router-link>
                 </div>
               </div>
 
-              <div class="rounded w-full lg:w-1/2 lg:w-1/3 p-4 lg:p-0">
-                <img
-                  src="https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60"
-                  class="rounded"
-                  alt="technology"
-                />
-                <div class="p-4 pl-0">
-                  <h2 class="font-bold text-2xl text-gray-800">
-                    Is at purse tried jokes china ready decay an.
-                  </h2>
-                  <p class="text-gray-700 mt-2">
-                    Small its shy way had woody downs power. To denoting
-                    admitted speaking learning my exercise so in. Procured
-                    shutters mr it feelings. To or three offer house begin taken
-                    am at.
-                  </p>
-
-                  <a
-                    href="#"
-                    class="inline-block py-2 rounded text-green-900 mt-2 ml-auto"
-                  >
-                    Read more
-                  </a>
-                </div>
-              </div>
-
-              <div class="rounded w-full lg:w-1/2 lg:w-1/3 p-4 lg:p-0">
-                <img
-                  src="https://images.unsplash.com/photo-1483058712412-4245e9b90334?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80"
-                  class="rounded"
-                  alt="technology"
-                />
-                <div class="p-4 pl-0">
-                  <h2 class="font-bold text-2xl text-gray-800">
-                    As dissuade cheerful overcame so of friendly he indulged
-                    unpacked.
-                  </h2>
-                  <p class="text-gray-700 mt-2">
-                    Alteration connection to so as collecting me. Difficult in
-                    delivered extensive at direction allowance. Alteration put
-                    use diminution can considered sentiments interested
-                    discretion.
-                  </p>
-
-                  <a
-                    href="#"
-                    class="inline-block py-2 rounded text-green-900 mt-2 ml-auto"
-                  >
-                    Read more
-                  </a>
-                </div>
-              </div>
             </div>
             <!-- end recent posts -->
           </main>
@@ -212,13 +169,19 @@ export default {
   },
   data: () => ({
     title: "Kmf Gaming Mall",
-    products: []
+    products: [],
+    blogs: []
   }),
 
   methods: {
     loadProducts() {
       axios.get("/api/products").then(response => {
         this.products = response.data;
+      });
+    },
+    loadBlogs() {
+      axios.get("/api/blogs").then(response => {
+        this.blogs = response.data;
       });
     },
     makeSlug(slug) {
@@ -236,6 +199,7 @@ export default {
   }),
   mounted() {
     this.loadProducts();
+    this.loadBlogs();
   }
 };
 </script>
