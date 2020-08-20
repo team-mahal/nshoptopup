@@ -27,4 +27,5 @@ export default [
   { path: '/blog-details/:id/:slug', name: 'blog-details', component: page('blog-details.vue')},
   { path: '/blogs', name: 'blogs', component: page('blogs.vue')},
   { path: '/contact', name: 'contact', component: page('contact.vue')},
+  { path: '/about-us', name: 'about-us', component: page('about-us.vue')},
 ]
