@@ -16,10 +16,8 @@
 	      	</button>
 
 	    </div>
-	
-	{{ cart }}
+		<p v-if="cartBtnShow" class="p-1" @click="toggleCart()"> <span class="cart-number text-white bg-red-300 rounded">{{ cartCount }}</span> <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="shopping-cart" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="svg-inline--fa fa-shopping-cart fa-w-18 h-8 w-12 mr-3 text-white"><path fill="currentColor" d="M551.991 64H144.28l-8.726-44.608C133.35 8.128 123.478 0 112 0H12C5.373 0 0 5.373 0 12v24c0 6.627 5.373 12 12 12h80.24l69.594 355.701C150.796 415.201 144 430.802 144 448c0 35.346 28.654 64 64 64s64-28.654 64-64a63.681 63.681 0 0 0-8.583-32h145.167a63.681 63.681 0 0 0-8.583 32c0 35.346 28.654 64 64 64 35.346 0 64-28.654 64-64 0-18.136-7.556-34.496-19.676-46.142l1.035-4.757c3.254-14.96-8.142-29.101-23.452-29.101H203.76l-9.39-48h312.405c11.29 0 21.054-7.869 23.452-18.902l45.216-208C578.695 78.139 567.299 64 551.991 64zM208 472c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm256 0c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm23.438-200H184.98l-31.31-160h368.548l-34.78 160z" class=""></path></svg></p>
 	    <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
-
 		    <router-link :to="'/shop'" class="px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Shop</router-link>
 		    <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Portfolio</a>
 		    <router-link :to="'/about-us'" class="px-4 py-2 mt-2 mr-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">About Us</router-link>
@@ -74,12 +72,14 @@ export default {
 
 	data: () => ({
 		appName: window.config.appName,
-		open:false
+		open:false,
+		cartBtnShow: true,
 	}),
 
 	computed: mapGetters({
 		user: 'auth/user',
 		cart: 'cart/cart',
+		cartCount: 'cart/cartCount',
 	}),
 
 	methods: {
@@ -89,6 +89,13 @@ export default {
 
 			// Redirect to login.
 			this.$router.push({ name: 'login' })
+		},
+		toggleCart() {
+			this.$emit('toggleCart');
+			this.cartBtnShow = !this.cartBtnShow;
+		},
+		toggleCartIcon(){
+			this.cartBtnShow = !this.cartBtnShow;
 		}
 	}
 }
@@ -99,5 +106,18 @@ export default {
 	width: 2rem;
 	height: 2rem;
 	margin: -.375rem 0;
+}
+span.cart-number {
+    position: absolute;
+    transform: translate(18px, -7px);
+	padding: 0px 5px;
+}
+p.p-1 {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    z-index: 9999999999999999;
+    background: #782472;
+    padding: 14px 12px 7px 15px;
 }
 </style>

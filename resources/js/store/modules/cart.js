@@ -39,6 +39,14 @@ export const mutations = {
         window.localStorage.setItem('cart', JSON.stringify(state.cart));
         window.localStorage.setItem('cartCount', state.cartCount);
     }
+
+    ,
+    [types.CHECK_OUT] (state, item) {
+        state.cart = [];
+        state.cartCount = 0;
+        window.localStorage.setItem('cart', []);
+        window.localStorage.setItem('cartCount', 0);
+    }
   }
 
   export const actions = {
@@ -47,5 +55,8 @@ export const mutations = {
     },
     removeFromCart ({ commit, dispatch }, payload) {
         commit(types.REMOVE_CART, payload)
+    },
+    checkOut ({ commit, dispatch }, payload) {
+        commit(types.CHECK_OUT, payload)
     },
 }

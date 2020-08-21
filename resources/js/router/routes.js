@@ -30,4 +30,5 @@ export default [
   { path: '/about-us', name: 'about-us', component: page('about-us.vue')},
   { path: '/shop', name: 'shop', component: page('shop.vue')},
   { path: '/shop-details/:id/:slug', name: 'shop-details', component: page('shop-details.vue')},
+  { path: '/check-out', name: 'check-out', component: page('check-out.vue')},
 ]
