@@ -3,7 +3,7 @@
         <section class="container mx-auto" id="favourite-game">
         <div class="text-center">
             <h2 class="text-4xl text-red-300 font-bold">Shop Products</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 md:gap-4 p-2 lg:p-0">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-2 md:gap-4 p-2 lg:p-0">
             <div
                 v-for="product in products"
                 :key="product.id"
@@ -22,12 +22,12 @@
                     :src="'/product/' + product.logo"
                     v-bind:alt="product.name"
                 />
-                <div class="px-2 py-4">
+                <div class="px-2 py-2">
                     <div class="font-medium text-xl">{{ product.name }}</div>
-                    <div class="font-medium text-xl mb-1" style="display: inline-flex;"><p class="text-2xl font-medium mr-1 font-black" style="margin-top: -5px;">&#2547; - </p> <div>{{ product.sale_price }}</div></div>
-                    <p class="text-white bg-orange-500 hover:bg-red-300 text-white font-bold py-2 px-2 rounded ml-2">Add To Cart</p>
+                    <div class="font-medium text-lg mb-1" style="display: inline-flex;"><p class="text-2xl font-medium mr-1 font-black" style="margin-top: -8px;">&#2547;</p> <div>{{ product.sale_price }}</div></div>
                 </div>
                 </router-link>
+                <p  @click="addToCart(product)" class="text-white cursor-pointer bg-orange-500 hover:bg-red-300 text-white font-normal py-2 px-2 rounded mx-2 mb-4">Add To Cart</p>
             </div>
             </div>
         </div>
@@ -54,6 +54,9 @@ export default {
                 words[i] = word.charAt(0).toLowerCase() + word.slice(1);
             }
             return words.join("-");
+        },
+        addToCart(product) {
+            this.$store.dispatch('cart/addToCart', product)
         }
     },
     mounted() {
@@ -65,6 +68,10 @@ export default {
 <style>
 .shadow-manual:hover{
    box-shadow: 0 1px 7px 2px rgb(0 0 0 / 10%);
+}
+.manual-img{
+    padding: 25px 25px 0px 25px;
+    transition: padding .5s;
 }
 .shadow-manual:hover .manual-img{
     padding: 15px 15px 0px 15px;

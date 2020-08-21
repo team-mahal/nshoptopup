@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->integer('buy_price')->nullable();
             $table->integer('sale_price')->nullable();
             $table->integer('is_shop');
+            $table->integer('quantity');
             $table->integer('type')->nullable();
             $table->timestamps();
         });

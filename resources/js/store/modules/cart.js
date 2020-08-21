@@ -18,11 +18,9 @@ export const getters = {
 // mutations
 export const mutations = {
     [types.ADD_TO_CART] (state, item) {
-        let found = state.cart.find(product => product.id == item.id);
-        if (found) {
-            found.quantity ++;
-            found.totalPrice = found.quantity * found.sale_price;
-            console.log(found);
+        let found = state.cart.findIndex(product => product.id == item.id);
+        if (found != -1) {
+            state.cart[found].quantity++;
         } else {
             state.cart.push(item);
         }
@@ -45,7 +43,6 @@ export const mutations = {
 
   export const actions = {
     addToCart ({ commit, dispatch }, payload) {
-      console.log(payload)
       commit(types.ADD_TO_CART, payload)
     },
     removeFromCart ({ commit, dispatch }, payload) {
