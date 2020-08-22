@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto">
     <div class="flex flex-wrap">
-      <div class="md:w-8/12 w-full pr-6 px-2">
+      <div class="md:w-8/12 w-full pr-2 md:pr-6 px-2">
         <div class="w-full shadow-lg p-2 pr-8 px-2 border-2">
           <h3
             class="text-3xl sm:text-1xl md:text-2xl lg:text-3xl text-red-300 font-bold"
@@ -12,7 +12,7 @@
             <div class="flex flex-wrap p-2">
               <div class="w-1/5 border-2 p-2">
                 <img
-                  class="w-full h-24 rounded"
+                  class="w-full h-16 md:h-24 rounded"
                   :src="'/product/' + item.logo"
                   v-bind:alt="item.name"
                 />
@@ -23,13 +23,21 @@
                   <button
                     class="bttn bttn-left px-2 hover:bg-gray-300"
                     id="minus"
+                    @click.prevent="minusQuntity(item)"
                   >
                     <span>-</span>
                   </button>
-                  <input type="number" class="input" id="input" :value="item.quantity"/>
+                  <input
+                    type="number"
+                    class="input"
+                    :id="item.id"
+                    :value="item.quantity.toLocaleString()"
+                    v-on:input="changeQuntity(item, $event.target.value)"
+                  />
                   <button
                     class="bttn bttn-right px-2 hover:bg-gray-300"
                     id="plus"
+                    @click.prevent="plusQuntity(item)"
                   >
                     <span>+</span>
                   </button>
@@ -60,7 +68,7 @@
           </div>
         </div>
       </div>
-      <div class="md:w-4/12 h-full w-full shadow-lg p-2 border-2">
+      <div class="md:w-4/12 h-full w-full mt-3 md:mt-0 mx-2 md:mx-0  shadow-lg p-2 border-2">
         <h3
           class="text-3xl sm:text-1xl md:text-2xl p-2 lg:text-3xl text-red-300 font-bold"
         >
@@ -107,24 +115,204 @@
           </div>
         </div>
         <p
-          class="text-white text-center bg-orange-500 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-4"
+          class="text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-0"
+          v-on:click="submitOrder()"
         >
           Confirm Payment
         </p>
       </div>
     </div>
+    <div v-if="modal" class="modal sm:px-3">
+      <div class="lg:w-6/12 sm:w-10/12 mx-auto bg-white">
+        <header class="card p-4 border-b-2">
+          <span
+            v-on:click="modal = false"
+            class="float-right hover:text-red-300 text-2xl transform -translate-y-3 cursor-pointer"
+            >×</span
+          >
+          <div class="grid grid-cols-1 gap-4 justify-center items-center">
+            <div>
+              <h2 class="text-1xl text-gray-900 font-bold">
+                Login First To Confirm Order
+              </h2>
+            </div>
+          </div>
+        </header>
+        <div
+          class="modal-body bg-gray-300 py-5 md:px-2 sm:px-2"
+        >
+          <div class="bg-white p-4">
+            <div class="mt-8">
+              <form
+                v-if="check == false"
+                @submit.prevent="login"
+                @keydown="form.onKeydown($event)"
+                class="w-full"
+              >
+                <div class="w-full px-3 mb-6 md:mb-3">
+                  <label
+                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    for="email"
+                  >
+                    {{ $t("email") }}
+                  </label>
+                  <input
+                    v-model="form.email"
+                    :class="{ 'is-invalid': form.errors.has('email') }"
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                  />
+                  <has-error class="text-red-600" :form="form" field="email" />
+                </div>
+                <div class="w-full px-3 mb-6 md:mb-3">
+                  <label
+                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    for="email"
+                  >
+                    {{ $t("password") }}
+                  </label>
+                  <input
+                    v-model="form.password"
+                    :class="{ 'is-invalid': form.errors.has('password') }"
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                  />
+                  <has-error :form="form" field="password" />
+                </div>
+                <div class="text-right px-3">
+                  <p class="text-sm text-gray-900 transform -translate-y-2">
+                    Login First To Submit Order
+                  </p>
+                  <div class="flex float-right">
+                    <label
+                      for="remember-me"
+                      class="font-bold text-xs text-red-300 mr-2"
+                    >
+                      {{ $t("remember_me") }} </label
+                    ><checkbox
+                      v-model="remember"
+                      name="remember"
+                      class=""
+                    ></checkbox>
+                  </div>
+                </div>
+                <div class="w-full px-3 mb-6 md:mb-3 mt-2">
+                  <button
+                    class="appearance-none block w-full bg-red-300 text-white border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:border-gray-500"
+                    :loading="form.busy"
+                  >
+                    {{ $t("login") }}
+                  </button>
+                </div>
+              </form>
+              <div v-else>
+                  <div class="appearance-none block w-full bg-green-600 text-white border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:border-gray-500">
+                    Succesfully Login
+                  </div>
+
+                  <p
+                    class="text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white font-bold py-2 px-2 mt-2 rounded mb-0"
+                    v-on:click="submitOrder()"
+                  >
+                    Confirm Payment
+                  </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
+import Form from "vform";
 import { mapGetters } from "vuex";
+import axios from "axios";
+import Swal from "sweetalert2";
 export default {
   computed: mapGetters({
     cart: "cart/cart",
-    cartCount: "cart/cartCount"
+    cartCount: "cart/cartCount",
+    user: "auth/user",
+    check: "auth/check"
   }),
+  data() {
+    return {
+      modal: false,
+      remember: false,
+      totalSop: 0,
+      form: new Form({
+        email: "",
+        password: ""
+      })
+    };
+  },
   methods: {
+    submitOrder() {
+      if(this.check == false){
+        this.modal = true;
+      }else{
+      axios.post(`/api/shopOrder/${this.totalSop}/${this.user.id}`, this.cart).then(response => {
+          if (response.data == "true") {
+            this.$store.dispatch('cart/checkOut', [])
+            Swal.fire({
+              type: "success",
+              title: "Order Completed",
+              text: "Your Order Has Been Successfully Completed",
+              reverseButtons: true,
+              confirmButtonText: "ok"
+            })
+          } else {
+            Swal.fire({
+              type: "error",
+              title: "Order Failed",
+              text: "Your Order Not Completed",
+              reverseButtons: true,
+              confirmButtonText: "ok"
+            })
+          }
+        });
+      }
+    },
     removeFromCart(item) {
       this.$store.dispatch("cart/removeFromCart", item);
+    },
+    plusQuntity(item) {
+      this.$store.dispatch("cart/plusQuntity", item);
+    },
+    minusQuntity(item) {
+      var id = document.getElementById(item.id).value;
+      if (id > 1) {
+        this.$store.dispatch("cart/minusQuntity", item);
+      }
+    },
+    changeQuntity(item, new_quntity) {
+      if (new_quntity > 0) {
+        item["new_quntity"] = new_quntity;
+        this.$store.dispatch("cart/changeQuntity", item);
+      } else {
+        document.getElementById(item.id).value = item.quantity;
+      }
+    },
+    async login() {
+      // Submit the form.
+      const { data } = await this.form.post("/api/login");
+
+      // Save the token.
+      this.$store.dispatch("auth/saveToken", {
+        token: data.token,
+        remember: this.remember
+      });
+
+      // Fetch the user.
+      await this.$store.dispatch("auth/fetchUser");
+
+      // Redirect home.
+      // this.$router.push({ name: 'home' })
     },
     totalPrice() {
       let total = 0;
@@ -132,7 +320,7 @@ export default {
       for (let item of this.cart) {
         total += item.quantity * item.sale_price;
       }
-
+      this.totalSop = total;
       return total.toFixed(2);
     },
     checkCartIconToggle() {
@@ -198,5 +386,43 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+/* Modal css */
+.modal {
+  z-index: 3;
+  padding-top: 100px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.modal-body {
+  height: 500px;
+  overflow-y: scroll;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb {
+  background: #ed6c27;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+@media only screen and (max-width: 500px) {
+  .modal {
+    padding: 0px 5px !important;
+  }
+  .modal-body {
+    padding: 0px 5px !important;
+  }
 }
 </style>

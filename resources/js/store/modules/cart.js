@@ -38,14 +38,54 @@ export const mutations = {
         }
         window.localStorage.setItem('cart', JSON.stringify(state.cart));
         window.localStorage.setItem('cartCount', state.cartCount);
-    }
-
-    ,
+    },
     [types.CHECK_OUT] (state, item) {
         state.cart = [];
         state.cartCount = 0;
         window.localStorage.setItem('cart', []);
         window.localStorage.setItem('cartCount', 0);
+    },
+    [types.CHANGE_QUNTITY] (state, item) {
+        console.log(item);
+        let found = state.cart.find(product => product.id == item.id);
+        
+        //NAN COndition
+        if(item.quantity ==''){
+            var old_quntity = 0
+        }else{
+            var old_quntity = item.quantity;
+        }
+            // Quntity Change 
+            if (found) {
+                found.quantity = item.new_quntity;
+            }
+        //NAN COndition
+        if(item.new_quntity ==''){
+            var add = 0
+        }else{
+            var add = item.new_quntity
+        }
+        state.cartCount = parseInt(state.cartCount) - parseInt(old_quntity) + parseInt(add);
+        window.localStorage.setItem('cart', JSON.stringify(state.cart));
+        window.localStorage.setItem('cartCount', state.cartCount);
+    },
+    [types.MINUS_QUNTITY] (state, item) {
+        let found = state.cart.findIndex(product => product.id == item.id);
+        if (found != -1) {
+            state.cart[found].quantity--;
+        }
+        state.cartCount--;
+        window.localStorage.setItem('cart', JSON.stringify(state.cart));
+        window.localStorage.setItem('cartCount', state.cartCount);
+    },
+    [types.PLUS_QUNTITY] (state, item) {
+        let found = state.cart.findIndex(product => product.id == item.id);
+        if (found != -1) {
+            state.cart[found].quantity++;
+        }
+        state.cartCount++;
+        window.localStorage.setItem('cart', JSON.stringify(state.cart));
+        window.localStorage.setItem('cartCount', state.cartCount);
     }
   }
 
@@ -58,5 +98,14 @@ export const mutations = {
     },
     checkOut ({ commit, dispatch }, payload) {
         commit(types.CHECK_OUT, payload)
+    },
+    changeQuntity ({ commit, dispatch }, payload) {
+        commit(types.CHANGE_QUNTITY, payload)
+    },
+    minusQuntity ({ commit, dispatch }, payload) {
+        commit(types.MINUS_QUNTITY, payload)
+    },
+    plusQuntity ({ commit, dispatch }, payload) {
+        commit(types.PLUS_QUNTITY, payload)
     },
 }
