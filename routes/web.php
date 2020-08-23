@@ -50,6 +50,11 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::get('order', "Admin\OrderController@index")->name('order.index');
     Route::post('orderUpdate','Admin\OrderController@update')->name('orderUpdate');
 
+    //Shop Order
+    Route::get('shopOrder', "Admin\ShopOrderController@index")->name('shopOrder.index');
+    Route::post('shopOrderUpdate','Admin\ShopOrderController@update')->name('shopOrderUpdate');
+    Route::get('shopOrderDetials/{id}','Admin\ShopOrderController@show')->name('shopOrderDetials');
+
     //paymentMethod
     Route::get('paymentMethod', "Admin\PaymentMethodController@index")->name('paymentMethod.index');
     Route::get('paymentMethodCreate', "Admin\PaymentMethodController@create");
