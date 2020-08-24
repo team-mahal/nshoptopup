@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Blog;
 use App\Product;
+use App\Order;
 use App\Invoice;
 use App\Shop_details;
+use DB;
+
 
 class CommonController extends Controller
 {
@@ -68,4 +71,37 @@ class CommonController extends Controller
         
         return response()->json('true', 200);
     }
+
+    public function getInvoicesData($id)
+    {
+        $invoice = Invoice::where('user_id', $id)->latest()->get();
+        if($invoice)
+            return response()->json($invoice, 200);
+        else
+            return response()->json('failed', 404);
+    }
+
+    public function getInvoiceDetails($id, $user_id)
+    {
+        $invoices = DB::table('shop_details')
+        ->select('*')
+        ->join('products', 'products.id', '=', 'shop_details.product_id')
+        ->where('invoice_id', $id)
+        ->where('user_id', $user_id)
+        ->get();
+        if($invoices)
+            return response()->json($invoices, 200);
+        else
+            return response()->json('failed', 404);
+    }
+
+    public function getOrders($id)
+    {
+        $order = Order::where('user_id', $id)->latest()->get();
+        if($order)
+            return response()->json($order, 200);
+        else
+            return response()->json('failed', 404);
+    }
+    
 }

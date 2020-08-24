@@ -31,4 +31,6 @@ export default [
   { path: '/shop', name: 'shop', component: page('shop.vue')},
   { path: '/shop-details/:id/:slug', name: 'shop-details', component: page('shop-details.vue')},
   { path: '/check-out', name: 'check-out', component: page('check-out.vue')},
+  { path: '/my-orders', name: 'my-orders', component: page('my-orders.vue')},
+  { path: '/order-details/:id', name: 'order-details', component: page('order-details.vue')},
 ]

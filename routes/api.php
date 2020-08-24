@@ -32,6 +32,12 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('packages/{id}', "Admin\PackageController@getProductWiseDataFind");
     Route::post('productOrder/{id}/{user_id}', "Admin\OrderController@store");
 
+    //invoices-data
+    Route::get('invoices-data/{id}', "Admin\CommonController@getInvoicesData");
+    Route::get('invoice-details/{id}/{user_id}', "Admin\CommonController@getInvoiceDetails");
+
+    //orders
+    Route::get('orders-data/{id}', "Admin\CommonController@getOrders");
 
     Route::get('blogs', "Admin\CommonController@getBlog");
     Route::get('blog/{id}', "Admin\CommonController@getSingelBlog");

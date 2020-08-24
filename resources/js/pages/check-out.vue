@@ -114,6 +114,14 @@
             </div>
           </div>
         </div>
+          <hr class="h-1 bg-gray-600 mb-2"/>
+        <div class="flex flex-wrap ml-4">
+          <h5 class="mr-4 font-bold mt-2">TrxId</h5>
+          <div>
+            <input id="search" v-model="txdid" placeholder="Transaction ID" class="float-right p-2 bg-gray-200 hover:bg-white hover:border-gray-300 border-lg border-pink-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
+            <p v-if="txdid === ''" class="text-pink-700">Transaction ID required</p>
+          </div>
+        </div><br>
         <p
           class="text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-0"
           v-on:click="submitOrder()"
@@ -245,6 +253,7 @@ export default {
       modal: false,
       remember: false,
       totalSop: 0,
+      txdid: '',
       form: new Form({
         email: "",
         password: ""
@@ -253,29 +262,41 @@ export default {
   },
   methods: {
     submitOrder() {
-      if(this.check == false){
+      if(this.txdid == ''){
+        Swal.fire({
+          type: "warning",
+          title: "Transaction Id filed is required",
+          text: "Transaction ID required",
+          reverseButtons: true,
+          confirmButtonText: "ok"
+        })
+      }else if(this.check == false){
         this.modal = true;
       }else{
-      axios.post(`/api/shopOrder/${this.totalSop}/${this.user.id}`, this.cart).then(response => {
-          if (response.data == "true") {
-            this.$store.dispatch('cart/checkOut', [])
-            Swal.fire({
-              type: "success",
-              title: "Order Completed",
-              text: "Your Order Has Been Successfully Completed",
-              reverseButtons: true,
-              confirmButtonText: "ok"
-            })
-          } else {
-            Swal.fire({
-              type: "error",
-              title: "Order Failed",
-              text: "Your Order Not Completed",
-              reverseButtons: true,
-              confirmButtonText: "ok"
-            })
-          }
+
+        axios.get(`https://www.bkashcluster.com:9081/dreamwave/merchant/trxcheck/sendmsg?user=KMFONLINEGASRM29524&pass=aSe@6PLOIuYGBmc&msisdn=01997980260&trxid=7HO3DDN0O5`).then(response => {
+          console.log(response.data);
         });
+        // axios.post(`/api/shopOrder/${this.totalSop}/${this.user.id}`, this.cart).then(response => {
+        //     if (response.data == "true") {
+        //       this.$store.dispatch('cart/checkOut', [])
+        //       Swal.fire({
+        //         type: "success",
+        //         title: "Order Completed",
+        //         text: "Your Order Has Been Successfully Completed",
+        //         reverseButtons: true,
+        //         confirmButtonText: "ok"
+        //       })
+        //     } else {
+        //       Swal.fire({
+        //         type: "error",
+        //         title: "Order Failed",
+        //         text: "Your Order Not Completed",
+        //         reverseButtons: true,
+        //         confirmButtonText: "ok"
+        //       })
+        //     }
+        //   });
       }
     },
     removeFromCart(item) {
