@@ -118,8 +118,8 @@
         <div class="flex flex-wrap ml-4">
           <h5 class="mr-4 font-bold mt-2">TrxId</h5>
           <div>
-            <input id="search" v-model="txdid" placeholder="Transaction ID" class="float-right p-2 bg-gray-200 hover:bg-white hover:border-gray-300 border-lg border-pink-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
-            <p v-if="txdid === ''" class="text-pink-700">Transaction ID required</p>
+            <input id="search" v-model="trxid" placeholder="Transaction ID" class="float-right p-2 bg-gray-200 hover:bg-white hover:border-gray-300 border-lg border-pink-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
+            <p v-if="trxid === ''" class="text-pink-700">Transaction ID required</p>
           </div>
         </div><br>
         <p
@@ -253,7 +253,7 @@ export default {
       modal: false,
       remember: false,
       totalSop: 0,
-      txdid: '',
+      trxid: '',
       form: new Form({
         email: "",
         password: ""
@@ -262,7 +262,7 @@ export default {
   },
   methods: {
     submitOrder() {
-      if(this.txdid == ''){
+      if(this.trxid == ''){
         Swal.fire({
           type: "warning",
           title: "Transaction Id filed is required",
@@ -273,10 +273,13 @@ export default {
       }else if(this.check == false){
         this.modal = true;
       }else{
-
-        axios.get(`https://www.bkashcluster.com:9081/dreamwave/merchant/trxcheck/sendmsg?user=KMFONLINEGASRM29524&pass=aSe@6PLOIuYGBmc&msisdn=01997980260&trxid=7HO3DDN0O5`).then(response => {
+        axios.get(`/api/trxidData/${this.trxid}`).then(response => {
           console.log(response.data);
         });
+
+        // axios.get(`https://www.bkashcluster.com:9081/dreamwave/merchant/trxcheck/sendmsg?user=KMFONLINEGASRM29524&pass=aSe@6PLOIuYGBmc&msisdn=01997980260&trxid=7HO3DDN0O5`).then(response => {
+        //   console.log(response.data);
+        // });
         // axios.post(`/api/shopOrder/${this.totalSop}/${this.user.id}`, this.cart).then(response => {
         //     if (response.data == "true") {
         //       this.$store.dispatch('cart/checkOut', [])

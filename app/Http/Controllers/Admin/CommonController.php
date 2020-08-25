@@ -9,6 +9,7 @@ use App\Product;
 use App\Order;
 use App\Invoice;
 use App\Shop_details;
+use GuzzleHttp\Client;
 use DB;
 
 
@@ -102,6 +103,16 @@ class CommonController extends Controller
             return response()->json($order, 200);
         else
             return response()->json('failed', 404);
+    }
+
+    public function getTrxidData($trxid)
+    {
+        $client = new \GuzzleHttp\Client( ['headers' => [
+            'Content-Type' => 'application/json'
+            ]
+        ]); 
+        $res = $client->get('https://www.bkashcluster.com:9081/dreamwave/merchant/trxcheck/sendmsg?user=KMFONLINEGASRM29524&pass=aSe@6PLOIuYGBmc&msisdn=01997980260&trxid='.$trxid);
+        echo $res->getBody();
     }
     
 }

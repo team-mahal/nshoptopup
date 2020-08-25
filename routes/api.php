@@ -43,6 +43,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('blog/{id}', "Admin\CommonController@getSingelBlog");
     Route::get('all-blog', "Admin\CommonController@getAllBlog");
 
+
+    //trxidData
+    Route::get('trxidData/{trxid}', "Admin\CommonController@getTrxidData");
+    
+
 Route::group(['middleware' => 'guest:api'], function () {
     Route::post('login', 'Auth\LoginController@login');
     Route::post('register', 'Auth\RegisterController@register');
