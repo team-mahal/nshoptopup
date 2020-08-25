@@ -11,6 +11,7 @@ class Product extends Model
         'tag_line',
         'description',
         'type',
-        'logo'
+        'logo',
+        'is_shop',
     ];
 }

@@ -18,3 +18,6 @@ uername= newuser
 password= password
 database=kmf
 https://kmfgamermall.com/
+
+
+ssh://root@198.251.69.22/var/repo/site.git

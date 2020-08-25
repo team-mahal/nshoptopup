@@ -21,8 +21,8 @@ class CreateProductsTable extends Migration
             $table->string('logo');
             $table->integer('buy_price')->nullable();
             $table->integer('sale_price')->nullable();
-            $table->integer('is_shop');
-            $table->integer('quantity');
+            $table->integer('is_shop')->nullable();
+            $table->integer('quantity')->nullable();
             $table->integer('type')->nullable();
             $table->timestamps();
         });
