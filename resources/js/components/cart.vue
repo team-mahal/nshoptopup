@@ -43,7 +43,7 @@
         <!-- {{ item.name }} x{{ item.quantity }} - &#2547; {{ item.quantity * item.sale_price }} -->
 
       </div>
-      <h4 class="navbar-item text-center mt-1 text-base font-semibold" href=""> Total: &#2547; {{ totalPrice() }} </h4>
+      <h4 class="navbar-item text-center mt-1 text-base font-semibold" href=""> Total : &#2547; {{ totalPrice() }} </h4>
       <div class="flex p-2 mt-2 justify-center items-center">
             <router-link  :to="'/check-out'" class="text-white text-center bg-red-300 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded w-40">Check Out</router-link>
             <!-- <button class="flex justify-center items-center text-white text-center mt-3 md:mt-0 bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded">
