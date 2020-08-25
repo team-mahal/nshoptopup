@@ -100,6 +100,12 @@
                   <span class="nav-link-text">Shop Order</span>
                 </a>
               </li>
+              <li class="nav-item ">
+                <a class="nav-link" href="{{ route('aboutprivacy.index') }}">
+                  <img  src="{{ asset('admin/img/icons/common/heck-for-payment.png') }}" class="mr-2">
+                  <span class="nav-link-text">Page</span>
+                </a>
+              </li>
           </ul>
           <!-- Divider -->
           {{-- <hr class="my-3">
