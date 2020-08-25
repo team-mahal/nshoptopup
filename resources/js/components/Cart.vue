@@ -62,9 +62,6 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  name: {
-    Cart
-  },
   computed: mapGetters({
     cart: "cart/cart",
     cartCount: "cart/cartCount"

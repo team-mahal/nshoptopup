@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container mx-auto">
-      <!-- <carousel :autoplay="true" :items="1" autoHeight="true">
+      <carousel :autoplay="true" :items="1" autoHeight="true">
         <img src="/img/banner.jpg" />
         <img src="/img/banner.jpg" />
         <img src="/img/banner.jpg" />
@@ -10,9 +10,7 @@
         <img src="/img/banner.jpg" />
         <img src="/img/banner.jpg" />
         <img src="/img/banner.jpg" />
-      </carousel> -->
-
-      <div>Hello world</div>
+      </carousel>
     </div>
 
     <section class="container mx-auto" id="favourite-game">
