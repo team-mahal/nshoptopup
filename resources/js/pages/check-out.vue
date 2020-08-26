@@ -280,7 +280,7 @@ export default {
             if(response.data.used_code == '1')
             {
               var form = document.createElement("div");
-              form.innerHTML = "<b style='color:red;'>This trxID is Already Used !!!</b>";
+              form.innerHTML = "<b style='color:red;'>This trxID is Already Used !!!</b><br><p>Sender Number : <b>"+ response.data.transaction.sender +"</b></p><p>Amount : <b>"+ response.data.transaction.amount +"</b></p>";
               Swal.fire({
                   title: "Oopss Error !!!",
                   html: form,
@@ -289,55 +289,91 @@ export default {
                   confirmButtonText: "ok"
               })
             }else{
-                axios.post(`/api/shopOrder/${this.totalSop}/${this.user.id}`, this.cart).then(response => {
-                  if (response.data == "true") {
-                    this.$store.dispatch('cart/checkOut', [])
-                    Swal.fire({
-                      type: "success",
-                      title: "Order Completed",
-                      text: "Your Order Has Been Successfully Completed",
-                      reverseButtons: true,
-                      confirmButtonText: "ok"
-                    })
-                  } else {
-                    Swal.fire({
-                      type: "error",
-                      title: "Order Failed",
-                      text: "Order Request Error !!!",
-                      reverseButtons: true,
-                      confirmButtonText: "ok"
-                    })
-                  }
-                });
+              if(response.data.order_success_code == '0')
+              {
+                var form = document.createElement("div");
+                form.innerHTML = "<b style='color:red;'>Your Order is Not Completed</b><br><p>Sender Number : <b>"+ response.data.transaction.sender +"</b></p><p>Amount : <b>"+ response.data.transaction.amount +"</b></br><b style='color:green;'>This Amount Add Your Wallet Check please</b><br><i>Your Payment Amount Less Than Shop Amount As a result Order Failed</i></p>";
+                Swal.fire({
+                    title: "Oopss Error !!!",
+                    html: form,
+                    type: "warning",
+                    reverseButtons: true,
+                    confirmButtonText: "ok"
+                })
+              }else{
+                if(response.data.extra_money == '1'){
+                  axios.post(`/api/shopOrder/${this.totalSop}/${this.user.id}`, this.cart).then(response => {
+                    if (response.data == "true") {
+                      this.$store.dispatch('cart/checkOut', [])
+                      Swal.fire({
+                        type: "success",
+                        title: "Order Completed",
+                        html: "Your Order Has Been Successfully Completed <br><p style='color: green;'>Extra Amount Add Your Wallet Check please</p>",
+                        reverseButtons: true,
+                        confirmButtonText: "ok"
+                      })
+                    } else {
+                      Swal.fire({
+                        type: "error",
+                        title: "Order Failed",
+                        text: "Order Request Error !!!",
+                        reverseButtons: true,
+                        confirmButtonText: "ok"
+                      })
+                    }
+                  });
+                }else{
+                  axios.post(`/api/shopOrder/${this.totalSop}/${this.user.id}`, this.cart).then(response => {
+                    if (response.data == "true") {
+                      this.$store.dispatch('cart/checkOut', [])
+                      Swal.fire({
+                        type: "success",
+                        title: "Order Completed",
+                        text: "Your Order Has Been Successfully Completed",
+                        reverseButtons: true,
+                        confirmButtonText: "ok"
+                      })
+                    } else {
+                      Swal.fire({
+                        type: "error",
+                        title: "Order Failed",
+                        text: "Order Request Error !!!",
+                        reverseButtons: true,
+                        confirmButtonText: "ok"
+                      })
+                    }
+                  });
+                }
+              }
             }
           }else{
             var form = document.createElement("div");
             if(response.data.transaction.trxStatus == '0010' || response.data.transaction.trxStatus == '0011'){
-              form.innerHTML = "<b style='color:red;'>trxID is valid but transaction is in pending state.</b>";
+              form.innerHTML = "<b style='color:red;'>bKash Say, trxID is valid but transaction is in pending state.</b>";
             }else if(response.data.transaction.trxStatus == '0100'){
-              form.innerHTML = "<b style='color:red;'>trxID is valid but transaction has been reversed.</b>";
+              form.innerHTML = "<b style='color:red;'>bKash Say, trxID is valid but transaction has been reversed.</b>";
             }else if(response.data.transaction.trxStatus == '0111'){
-              form.innerHTML = "<b style='color:red;'>trxID is valid but transaction has failed.</b>";
+              form.innerHTML = "<b style='color:red;'>bKash Say, trxID is valid but transaction has failed.</b>";
             }else if(response.data.transaction.trxStatus == '1001'){
-              form.innerHTML = "<b style='color:red;'>Invalid MSISDN input. Try with correct mobile no.</b>";
+              form.innerHTML = "<b style='color:red;'>bKash Say, Invalid MSISDN input. Try with correct mobile no.</b>";
             }else if(response.data.transaction.trxStatus == '1002'){
-              form.innerHTML = "<b style='color:red;'>Invalid trxID, it does not exist.</b>";
+              form.innerHTML = "<b style='color:red;'>bKash Say, Invalid trxID, it does not exist.</b>";
             }else if(response.data.transaction.trxStatus == '1003'){
-              form.innerHTML = "<b style='color:red;'>Access denied. Username or Password is incorrect.</b>";
+              form.innerHTML = "<b style='color:red;'>bKash Say, Access denied. Username or Password is incorrect.</b>";
             }else if(response.data.transaction.trxStatus == '1004'){
-              form.innerHTML = "<b style='color:red;'>Access denied. trxID is not related to this username.</b>";
+              form.innerHTML = "<b style='color:red;'>bKash Say, Access denied. trxID is not related to this username.</b>";
             }else if(response.data.transaction.trxStatus == '2000'){
-              form.innerHTML = "<b style='color:red;'>Access denied. User does not have access to this module.</b>";
+              form.innerHTML = "<b style='color:red;'>bKash Say, Access denied. User does not have access to this module.</b>";
             }else if(response.data.transaction.trxStatus == '2001'){
-              form.innerHTML = "<b style='color:red;'>Access denied. User date time request is exceeded of the defined limit.</b>";
+              form.innerHTML = "<b style='color:red;'>bKash Say, Access denied. User date time request is exceeded of the defined limit.</b>";
             }else if(response.data.transaction.trxStatus == '3000'){
-              form.innerHTML = "<b style='color:red;'>Missing required mandatory fields for this module</b>";
+              form.innerHTML = "<b style='color:red;'>bKash Say, Missing required mandatory fields for this module</b>";
             }else if(response.data.transaction.trxStatus == '9999'){
-              form.innerHTML = "<b style='color:red;'>Could not process request.</b>";
+              form.innerHTML = "<b style='color:red;'>bKash Say, Could not process request.</b>";
             }else if(response.data.transaction.trxStatus == '4001'){
-              form.innerHTML = "<b style='color:red;'>Already Submited This trxID .</b>";
+              form.innerHTML = "<b style='color:red;'>bKash Say, Already Submited This trxID .</b>";
             }else{
-              form.innerHTML = "<b style='color:red;'>This trxID is Not Valid !!!</b>";
+              form.innerHTML = "<b style='color:red;'>bKash Say, This trxID is Not Valid !!!</b>";
             }
             Swal.fire({
                 title: "Oopss Error !!!",

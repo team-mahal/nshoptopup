@@ -121,7 +121,7 @@ class CommonController extends Controller
         $result = json_decode($data, true);
         if($result['transaction']['trxStatus'] == '0000'){
             $result['error'] = '0'; 
-            $transactionInfo = TransactionInfo::where('trxId', $result['transaction']['trxStatus'])->get()->count();
+            $transactionInfo = TransactionInfo::where('trxId', $trxid)->get()->count();
             if($transactionInfo < 1){
                 $result['used_code'] = '0';
                 $transactionInfodata = new TransactionInfo;
@@ -141,7 +141,9 @@ class CommonController extends Controller
                     $update_wallet = $wallet + $over_amount;
                     $user->update(['wallet' => $update_wallet]);
                     $result['order_success_code'] = '1';
+                    $result['extra_money'] = '1';
                 }else{
+                    $result['extra_money'] = '0';
                     $result['order_success_code'] = '1';
                 }
             }else{

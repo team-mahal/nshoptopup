@@ -18,7 +18,7 @@ class CreateInvoicesTable extends Migration
             $table->integer('user_id');
             $table->integer('sub_total')->default('0');;
             $table->integer('total');
-            $table->enum('status', array('pandding', 'complete', 'cancel'));
+            $table->enum('status', array('pandding', 'complete', 'cancel'))->default('pandding');
             $table->timestamps();
         });
     }
