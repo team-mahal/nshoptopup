@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto">
+  <div class="container mx-auto" style="min-height: 480px">
     <div class="flex flex-wrap">
       <div class="md:w-8/12 w-full pr-2 md:pr-6 px-2">
         <div class="w-full shadow-lg p-2 pr-8 px-2 border-2">
@@ -273,33 +273,81 @@ export default {
       }else if(this.check == false){
         this.modal = true;
       }else{
-        axios.get(`/api/trxidData/${this.trxid}`).then(response => {
+        axios.get(`/api/trxidData/${this.trxid}/${this.user.id}/${this.totalSop}`).then(response => {
           console.log(response.data);
+          if(response.data.error == '0')
+          {
+            if(response.data.used_code == '1')
+            {
+              var form = document.createElement("div");
+              form.innerHTML = "<b style='color:red;'>This trxID is Already Used !!!</b>";
+              Swal.fire({
+                  title: "Oopss Error !!!",
+                  html: form,
+                  type: "warning",
+                  reverseButtons: true,
+                  confirmButtonText: "ok"
+              })
+            }else{
+                axios.post(`/api/shopOrder/${this.totalSop}/${this.user.id}`, this.cart).then(response => {
+                  if (response.data == "true") {
+                    this.$store.dispatch('cart/checkOut', [])
+                    Swal.fire({
+                      type: "success",
+                      title: "Order Completed",
+                      text: "Your Order Has Been Successfully Completed",
+                      reverseButtons: true,
+                      confirmButtonText: "ok"
+                    })
+                  } else {
+                    Swal.fire({
+                      type: "error",
+                      title: "Order Failed",
+                      text: "Order Request Error !!!",
+                      reverseButtons: true,
+                      confirmButtonText: "ok"
+                    })
+                  }
+                });
+            }
+          }else{
+            var form = document.createElement("div");
+            if(response.data.transaction.trxStatus == '0010' || response.data.transaction.trxStatus == '0011'){
+              form.innerHTML = "<b style='color:red;'>trxID is valid but transaction is in pending state.</b>";
+            }else if(response.data.transaction.trxStatus == '0100'){
+              form.innerHTML = "<b style='color:red;'>trxID is valid but transaction has been reversed.</b>";
+            }else if(response.data.transaction.trxStatus == '0111'){
+              form.innerHTML = "<b style='color:red;'>trxID is valid but transaction has failed.</b>";
+            }else if(response.data.transaction.trxStatus == '1001'){
+              form.innerHTML = "<b style='color:red;'>Invalid MSISDN input. Try with correct mobile no.</b>";
+            }else if(response.data.transaction.trxStatus == '1002'){
+              form.innerHTML = "<b style='color:red;'>Invalid trxID, it does not exist.</b>";
+            }else if(response.data.transaction.trxStatus == '1003'){
+              form.innerHTML = "<b style='color:red;'>Access denied. Username or Password is incorrect.</b>";
+            }else if(response.data.transaction.trxStatus == '1004'){
+              form.innerHTML = "<b style='color:red;'>Access denied. trxID is not related to this username.</b>";
+            }else if(response.data.transaction.trxStatus == '2000'){
+              form.innerHTML = "<b style='color:red;'>Access denied. User does not have access to this module.</b>";
+            }else if(response.data.transaction.trxStatus == '2001'){
+              form.innerHTML = "<b style='color:red;'>Access denied. User date time request is exceeded of the defined limit.</b>";
+            }else if(response.data.transaction.trxStatus == '3000'){
+              form.innerHTML = "<b style='color:red;'>Missing required mandatory fields for this module</b>";
+            }else if(response.data.transaction.trxStatus == '9999'){
+              form.innerHTML = "<b style='color:red;'>Could not process request.</b>";
+            }else if(response.data.transaction.trxStatus == '4001'){
+              form.innerHTML = "<b style='color:red;'>Already Submited This trxID .</b>";
+            }else{
+              form.innerHTML = "<b style='color:red;'>This trxID is Not Valid !!!</b>";
+            }
+            Swal.fire({
+                title: "Oopss Error !!!",
+                html: form,
+                type: "warning",
+                reverseButtons: true,
+                confirmButtonText: "ok"
+            })
+          }
         });
-
-        // axios.get(`https://www.bkashcluster.com:9081/dreamwave/merchant/trxcheck/sendmsg?user=KMFONLINEGASRM29524&pass=aSe@6PLOIuYGBmc&msisdn=01997980260&trxid=7HO3DDN0O5`).then(response => {
-        //   console.log(response.data);
-        // });
-        // axios.post(`/api/shopOrder/${this.totalSop}/${this.user.id}`, this.cart).then(response => {
-        //     if (response.data == "true") {
-        //       this.$store.dispatch('cart/checkOut', [])
-        //       Swal.fire({
-        //         type: "success",
-        //         title: "Order Completed",
-        //         text: "Your Order Has Been Successfully Completed",
-        //         reverseButtons: true,
-        //         confirmButtonText: "ok"
-        //       })
-        //     } else {
-        //       Swal.fire({
-        //         type: "error",
-        //         title: "Order Failed",
-        //         text: "Your Order Not Completed",
-        //         reverseButtons: true,
-        //         confirmButtonText: "ok"
-        //       })
-        //     }
-        //   });
       }
     },
     removeFromCart(item) {

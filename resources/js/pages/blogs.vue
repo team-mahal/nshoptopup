@@ -1,6 +1,6 @@
 <template>
     <div class="container mx-auto w-full px-2 lg-px-6">
-        <div class="container mx-auto">
+        <!-- <div class="container mx-auto">
         <carousel :autoplay="true" :items="1" autoHeight="true">
             <img src="/img/banner.jpg" />
             <img src="/img/banner.jpg" />
@@ -11,7 +11,7 @@
             <img src="/img/banner.jpg" />
             <img src="/img/banner.jpg" />
         </carousel>
-        </div>
+        </div> -->
         <h1 class="text-center text-2xl lg:text-4xl font-extrabold mt-2 lg:mt-8">NEWS & EVENTS</h1>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-1 lg:mt-5">
             <div

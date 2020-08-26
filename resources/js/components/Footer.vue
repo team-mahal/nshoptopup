@@ -11,12 +11,7 @@
             KMF <sub class="text-base">Gamer Mall</sub>
           </h1>
         </router-link>
-        <p class="text-gray-200 lg:block p-0 lg:pr-12">
-          Boisterous he on understood attachment as entreaties ye devonshire. In
-          mile an form snug were been sell. Extremely ham any his departure for
-          contained curiosity defective. Way now instrument had eat diminution
-          melancholy expression sentiments stimulated.
-        </p>
+        <p class="text-gray-200 lg:block p-0 lg:pr-12" v-html="footerData.content"></p>
       </div>
 
       <div class="w-full mt-6 lg:mt-0 md:w-1/2 lg:w-1/5">
@@ -62,43 +57,26 @@
           </div>
         </div>
       </div>
-      <!-- <div
-        class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 mt-10"
-      >
-        <a
-          href=""
-          class="block text-white font-bold antialiased uppercase text-left sm:text-center md:text-center lg:text-left xl:left font-serif py-2"
-          >Customer Support</a
-        >
-        <a
-          href=""
-          class="block text-white font-bold antialiased uppercase  text-left md:text-center font-serif py-2"
-          >About us</a
-        >
-        <a
-          href=""
-          class="block text-white font-bold antialiased uppercase  text-left md:text-center font-serif py-2"
-          >Team</a
-        >
-        <a
-          href=""
-          class="block text-white font-bold antialiased uppercase  text-left md:text-center font-serif py-2"
-          >Blog</a
-        >
-        <a
-          href=""
-          class="block text-white font-bold antialiased uppercase  text-left md:text-center font-serif py-2"
-          >Documentation</a
-        >
-        <a
-          href=""
-          class="block text-white font-bold antialiased uppercase  text-left md:text-center sm:text-center md:text-center lg:text-center xl:right font-serif py-2"
-          >Privacy Policy</a
-        >
-      </div> -->
     </div>
   </footer>
 </template>
 <script>
-export default {};
+import axios from "axios";
+export default {
+  data() {
+        return{
+            footerData: [],
+        }
+    },
+    methods: {
+        getFooterData() {
+            axios.get("/api/page-data/3").then(response => {
+                this.footerData = response.data;
+            });
+        },
+    },
+    mounted() {
+        this.getFooterData();
+    }
+};
 </script>

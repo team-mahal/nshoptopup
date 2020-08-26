@@ -45,7 +45,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 
     //trxidData
-    Route::get('trxidData/{trxid}', "Admin\CommonController@getTrxidData");
+    Route::get('trxidData/{trxid}/{user_id}/{cart_amount}', "Admin\CommonController@getTrxidData");
     Route::get('page-data/{id}', "Admin\SiteController@getPageData");
     
 

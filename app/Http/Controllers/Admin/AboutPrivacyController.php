@@ -11,7 +11,7 @@ class AboutPrivacyController extends Controller
 {
     public function index()
     {
-        $datas = AboutPrivacy::orderBy('id', 'DESC')->paginate(10);
+        $datas = AboutPrivacy::orderBy('id', 'asc')->paginate(10);
         return view('admin.setup.aboutprivacy.index', ['datas' => $datas]);
     }
 

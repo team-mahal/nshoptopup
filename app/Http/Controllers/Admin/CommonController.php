@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Blog;
 use App\Product;
 use App\Order;
+use App\User;
 use App\Invoice;
 use App\Shop_details;
+use App\TransactionInfo;
 use GuzzleHttp\Client;
 use DB;
 
@@ -105,14 +107,53 @@ class CommonController extends Controller
             return response()->json('failed', 404);
     }
 
-    public function getTrxidData($trxid)
+    public function getTrxidData($trxid, $user_id, $cart_amount)
     {
+        $user = User::find($user_id);
+        $wallet = $user->wallet;
+
         $client = new \GuzzleHttp\Client( ['headers' => [
-            'Content-Type' => 'application/json'
+                'Content-Type' => 'application/json'
             ]
         ]); 
         $res = $client->get('https://www.bkashcluster.com:9081/dreamwave/merchant/trxcheck/sendmsg?user=KMFONLINEGASRM29524&pass=aSe@6PLOIuYGBmc&msisdn=01997980260&trxid='.$trxid);
-        echo $res->getBody();
+        $data = $res->getBody();
+        $result = json_decode($data, true);
+        if($result['transaction']['trxStatus'] == '0000'){
+            $result['error'] = '0'; 
+            $transactionInfo = TransactionInfo::where('trxId', $result['transaction']['trxStatus'])->get()->count();
+            if($transactionInfo < 1){
+                $result['used_code'] = '0';
+                $transactionInfodata = new TransactionInfo;
+                $transactionInfodata->trxId = $result['transaction']['trxId'];
+                $transactionInfodata->sender = $result['transaction']['sender'];
+                $transactionInfodata->amount = $result['transaction']['amount'];
+                $transactionInfodata->user_id = $user_id;
+                $transactionInfodata->save();
+
+                if($cart_amount > $result['transaction']['amount'])
+                {   
+                    $update_wallet = $wallet + $result['transaction']['amount'];
+                    $user->update(['wallet' => $update_wallet]);
+                    $result['order_success_code'] = '0'; 
+                }elseif($cart_amount < $result['transaction']['amount']){
+                    $over_amount = $result['transaction']['amount'] - $cart_amount;
+                    $update_wallet = $wallet + $over_amount;
+                    $user->update(['wallet' => $update_wallet]);
+                    $result['order_success_code'] = '1';
+                }else{
+                    $result['order_success_code'] = '1';
+                }
+            }else{
+                $result['used_code'] = '1'; 
+            }
+            echo json_encode($result);
+        }else{
+            $result['error'] = '1';
+            $result['order_success_code'] = '0'; 
+            $result['used_code'] = '0';
+            echo json_encode($result);
+        }
     }
     
 }
