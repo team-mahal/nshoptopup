@@ -282,7 +282,7 @@ export default {
               var form = document.createElement("div");
               form.innerHTML = "<b style='color:red;'>This trxID is Already Used !!!</b><br><p>Sender Number : <b>"+ response.data.transaction.sender +"</b></p><p>Amount : <b>"+ response.data.transaction.amount +"</b></p>";
               Swal.fire({
-                  title: "Oopss Error !!!",
+                  title: "Order Failed !!!",
                   html: form,
                   type: "warning",
                   reverseButtons: true,
@@ -294,7 +294,7 @@ export default {
                 var form = document.createElement("div");
                 form.innerHTML = "<b style='color:red;'>Your Order is Not Completed</b><br><p>Sender Number : <b>"+ response.data.transaction.sender +"</b></p><p>Amount : <b>"+ response.data.transaction.amount +"</b></br><b style='color:green;'>This Amount Add Your Wallet Check please</b><br><i>Your Payment Amount Less Than Shop Amount As a result Order Failed</i></p>";
                 Swal.fire({
-                    title: "Oopss Error !!!",
+                    title: "Order Failed !!!",
                     html: form,
                     type: "warning",
                     reverseButtons: true,
@@ -376,7 +376,7 @@ export default {
               form.innerHTML = "<b style='color:red;'>bKash Say, This trxID is Not Valid !!!</b>";
             }
             Swal.fire({
-                title: "Oopss Error !!!",
+                title: "Order Failed !!!",
                 html: form,
                 type: "warning",
                 reverseButtons: true,
