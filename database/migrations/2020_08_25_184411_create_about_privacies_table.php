@@ -16,7 +16,7 @@ class CreateAboutPrivaciesTable extends Migration
         Schema::create('about_privacies', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
-            $table->string('content')->nullable();
+            $table->text('content')->nullable();
             $table->timestamps();
         });
     }

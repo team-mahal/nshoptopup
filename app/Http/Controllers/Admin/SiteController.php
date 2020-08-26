@@ -9,7 +9,7 @@ use App\AboutPrivacy;
 class SiteController extends Controller
 {
     public function getPageData($id){
-        $aboutPrivacy = AboutPrivacy::where('id', $id)->latest()->get();
+        $aboutPrivacy = AboutPrivacy::find($id);
         if($aboutPrivacy)
             return response()->json($aboutPrivacy, 200);
         else
