@@ -22,6 +22,20 @@
 
 <script>
 export default {
-    
+    data() {
+        return{
+            aboutData: [],
+        }
+    },
+    methods: {
+        getAboutData() {
+            axios.get("/api/page-data/1").then(response => {
+                this.aboutData = response.data;
+            });
+        },
+    },
+    mounted() {
+        this.getAboutData();
+    }
 }
 </script>
