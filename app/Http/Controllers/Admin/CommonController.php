@@ -131,17 +131,27 @@ class CommonController extends Controller
                 $transactionInfodata->user_id = $user_id;
                 $transactionInfodata->save();
 
-                if($cart_amount > $result['transaction']['amount'])
+                $total_update_wallet = $result['transaction']['amount'] + $wallet;
+
+                if($cart_amount > $total_update_wallet)
                 {   
                     $update_wallet = $wallet + $result['transaction']['amount'];
                     $user->update(['wallet' => $update_wallet]);
                     $result['order_success_code'] = '0'; 
+                    
+                }elseif($cart_amount > $result['transaction']['amount'] || $cart_amount == $total_update_wallet){
+                    $shop_extra_money = (int)$cart_amount - (int)$result['transaction']['amount'];
+                    $update_wallet = $wallet - $shop_extra_money;
+                    $user->update(['wallet' => $update_wallet]);
+                    $result['order_success_code'] = '1'; 
+
                 }elseif($cart_amount < $result['transaction']['amount']){
                     $over_amount = $result['transaction']['amount'] - $cart_amount;
                     $update_wallet = $wallet + $over_amount;
                     $user->update(['wallet' => $update_wallet]);
                     $result['order_success_code'] = '1';
                     $result['extra_money'] = '1';
+                    
                 }else{
                     $result['extra_money'] = '0';
                     $result['order_success_code'] = '1';

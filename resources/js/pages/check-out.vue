@@ -68,7 +68,9 @@
           </div>
         </div>
       </div>
-      <div class="md:w-4/12 h-full w-full mt-3 md:mt-0 mx-2 md:mx-0  shadow-lg p-2 border-2">
+      <div
+        class="md:w-4/12 h-full w-full mt-3 md:mt-0 mx-2 md:mx-0  shadow-lg p-2 border-2"
+      >
         <h3
           class="text-3xl sm:text-1xl md:text-2xl p-2 lg:text-3xl text-red-300 font-bold"
         >
@@ -114,20 +116,45 @@
             </div>
           </div>
         </div>
-          <hr class="h-1 bg-gray-600 mb-2"/>
-        <div class="flex flex-wrap ml-4">
-          <h5 class="mr-4 font-bold mt-2">TrxId</h5>
-          <div>
-            <input id="search" v-model="trxid" placeholder="Transaction ID" class="float-right p-2 bg-gray-200 hover:bg-white hover:border-gray-300 border-lg border-pink-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
-            <p v-if="trxid === ''" class="text-pink-700">Transaction ID required</p>
+        <hr class="h-1 bg-gray-600 mb-2" />
+        <div v-if="totalPrice() > 0">
+          <div v-if="check == false">
+              <p v-on:click="modal = true" class="text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-0">Login First To Confirm Order</p>
           </div>
-        </div><br>
-        <p
-          class="text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-0"
-          v-on:click="submitOrder()"
-        >
-          Confirm Payment
-        </p>
+          <div v-else>
+          <div v-if="user.wallet >= totalPrice()">
+              <p
+                class="text-white cursor-pointer text-center bg-red-400 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-0"
+                v-on:click="submitOrderWithWallet()"
+              >
+                Confirm Order With Wallet
+              </p>
+          </div>
+          <div v-else>
+            <div class="flex flex-wrap ml-4">
+              <h5 class="mr-4 font-bold mt-2">TrxId</h5>
+              <div>
+                <input
+                  id="search"
+                  v-model="trxid"
+                  placeholder="Transaction ID"
+                  class="float-right p-2 bg-gray-200 hover:bg-white hover:border-gray-300 border-lg border-pink-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300"
+                />
+                <p v-if="trxid === ''" class="text-pink-700">
+                  Transaction ID required
+                </p>
+              </div>
+            </div>
+            <br />
+            <p
+              class="text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-0"
+              v-on:click="submitOrder()"
+            >
+              Confirm Payment
+            </p>
+          </div>
+          </div>
+        </div>
       </div>
     </div>
     <div v-if="modal" class="modal sm:px-3">
@@ -146,9 +173,7 @@
             </div>
           </div>
         </header>
-        <div
-          class="modal-body bg-gray-300 py-5 md:px-2 sm:px-2"
-        >
+        <div class="modal-body bg-gray-300 py-5 md:px-2 sm:px-2">
           <div class="bg-white p-4">
             <div class="mt-8">
               <form
@@ -218,16 +243,25 @@
                 </div>
               </form>
               <div v-else>
-                  <div class="appearance-none block w-full bg-green-600 text-white border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:border-gray-500">
-                    Succesfully Login
-                  </div>
-
-                  <p
-                    class="text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white font-bold py-2 px-2 mt-2 rounded mb-0"
-                    v-on:click="submitOrder()"
-                  >
-                    Confirm Payment
-                  </p>
+                <div
+                  class="appearance-none block w-full bg-green-600 text-white border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:border-gray-500"
+                >
+                  Succesfully Login
+                </div>
+                <p
+                  class="text-white cursor-pointer text-center bg-red-400 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-0"
+                  v-on:click="submitOrderWithWallet()"
+                  v-if="user.wallet >= totalPrice()"
+                >
+                  Confirm Order With Wallet
+                </p>
+                <p
+                  v-else
+                  class="text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white font-bold py-2 px-2 mt-2 rounded mb-0"
+                  v-on:click="submitOrder()"
+                >
+                  Confirm Payment
+                </p>
               </div>
             </div>
           </div>
@@ -253,7 +287,7 @@ export default {
       modal: false,
       remember: false,
       totalSop: 0,
-      trxid: '',
+      trxid: "",
       form: new Form({
         email: "",
         password: ""
@@ -261,129 +295,189 @@ export default {
     };
   },
   methods: {
+    submitOrderWithWallet()
+    {
+      axios.post(`/api/order-with-wallet/${this.user.id}/${this.totalSop}`, this.cart).then(response => {
+        console.log(response.data);
+          if (response.data.success == '1') {
+            this.$store.dispatch("cart/checkOut", []);
+            Swal.fire({
+              type: "success",
+              title: "Order Completed",
+              html: "Your Order Has Been Successfully Completed <br><p style='color: green;'>Now Your Wallet  "+ response.data.wallet +" BDT</p>",
+              reverseButtons: true,
+              confirmButtonText: "ok"
+            });
+          } else {
+            Swal.fire({
+              type: "error",
+              title: "Order Failed",
+              text: "Order Request Error !!!",
+              reverseButtons: true,
+              confirmButtonText: "ok"
+            });
+          }
+      });
+    },
     submitOrder() {
-      if(this.trxid == ''){
+      if (this.trxid == "") {
         Swal.fire({
           type: "warning",
           title: "Transaction Id filed is required",
           text: "Transaction ID required",
           reverseButtons: true,
           confirmButtonText: "ok"
-        })
-      }else if(this.check == false){
+        });
+      } else if (this.check == false) {
         this.modal = true;
-      }else{
-        axios.get(`/api/trxidData/${this.trxid}/${this.user.id}/${this.totalSop}`).then(response => {
-          console.log(response.data);
-          if(response.data.error == '0')
-          {
-            if(response.data.used_code == '1')
-            {
-              var form = document.createElement("div");
-              form.innerHTML = "<b style='color:red;'>This trxID is Already Used !!!</b><br><p>Sender Number : <b>"+ response.data.transaction.sender +"</b></p><p>Amount : <b>"+ response.data.transaction.amount +"</b></p>";
-              Swal.fire({
+      } else {
+        axios
+          .get(`/api/trxidData/${this.trxid}/${this.user.id}/${this.totalSop}`)
+          .then(response => {
+            console.log(response.data);
+            if (response.data.error == "0") {
+              if (response.data.used_code == "1") {
+                var form = document.createElement("div");
+                form.innerHTML =
+                  "<b style='color:red;'>This trxID is Already Used !!!</b><br><p>Sender Number : <b>" +
+                  response.data.transaction.sender +
+                  "</b></p><p>Amount : <b>" +
+                  response.data.transaction.amount +
+                  "</b></p>";
+                Swal.fire({
                   title: "Order Failed !!!",
                   html: form,
                   type: "warning",
                   reverseButtons: true,
                   confirmButtonText: "ok"
-              })
-            }else{
-              if(response.data.order_success_code == '0')
-              {
-                var form = document.createElement("div");
-                form.innerHTML = "<b style='color:red;'>Your Order is Not Completed</b><br><p>Sender Number : <b>"+ response.data.transaction.sender +"</b></p><p>Amount : <b>"+ response.data.transaction.amount +"</b></br><b style='color:green;'>This Amount Add Your Wallet Check please</b><br><i>Your Payment Amount Less Than Shop Amount As a result Order Failed</i></p>";
-                Swal.fire({
+                });
+              } else {
+                if (response.data.order_success_code == "0") {
+                  var form = document.createElement("div");
+                  form.innerHTML =
+                    "<b style='color:red;'>Your Order is Not Completed</b><br><p>Sender Number : <b>" +
+                    response.data.transaction.sender +
+                    "</b></p><p>Amount : <b>" +
+                    response.data.transaction.amount +
+                    "</b></br><b style='color:green;'>This Amount Add Your Wallet Check please</b><br><i>Your Payment Amount Less Than Shop Amount As a result Order Failed</i></p>";
+                  Swal.fire({
                     title: "Order Failed !!!",
                     html: form,
                     type: "warning",
                     reverseButtons: true,
                     confirmButtonText: "ok"
-                })
-              }else{
-                if(response.data.extra_money == '1'){
-                  axios.post(`/api/shopOrder/${this.totalSop}/${this.user.id}`, this.cart).then(response => {
-                    if (response.data == "true") {
-                      this.$store.dispatch('cart/checkOut', [])
-                      Swal.fire({
-                        type: "success",
-                        title: "Order Completed",
-                        html: "Your Order Has Been Successfully Completed <br><p style='color: green;'>Extra Amount Add Your Wallet Check please</p>",
-                        reverseButtons: true,
-                        confirmButtonText: "ok"
-                      })
-                    } else {
-                      Swal.fire({
-                        type: "error",
-                        title: "Order Failed",
-                        text: "Order Request Error !!!",
-                        reverseButtons: true,
-                        confirmButtonText: "ok"
-                      })
-                    }
                   });
-                }else{
-                  axios.post(`/api/shopOrder/${this.totalSop}/${this.user.id}`, this.cart).then(response => {
-                    if (response.data == "true") {
-                      this.$store.dispatch('cart/checkOut', [])
-                      Swal.fire({
-                        type: "success",
-                        title: "Order Completed",
-                        text: "Your Order Has Been Successfully Completed",
-                        reverseButtons: true,
-                        confirmButtonText: "ok"
-                      })
-                    } else {
-                      Swal.fire({
-                        type: "error",
-                        title: "Order Failed",
-                        text: "Order Request Error !!!",
-                        reverseButtons: true,
-                        confirmButtonText: "ok"
-                      })
-                    }
-                  });
+                } else {
+                  if (response.data.extra_money == "1") {
+                    axios
+                      .post(
+                        `/api/shopOrder/${this.totalSop}/${this.user.id}`,
+                        this.cart
+                      )
+                      .then(response => {
+                        if (response.data == "true") {
+                          this.$store.dispatch("cart/checkOut", []);
+                          Swal.fire({
+                            type: "success",
+                            title: "Order Completed",
+                            html:
+                              "Your Order Has Been Successfully Completed <br><p style='color: green;'>Extra Amount Add Your Wallet Check please</p>",
+                            reverseButtons: true,
+                            confirmButtonText: "ok"
+                          });
+                        } else {
+                          Swal.fire({
+                            type: "error",
+                            title: "Order Failed",
+                            text: "Order Request Error !!!",
+                            reverseButtons: true,
+                            confirmButtonText: "ok"
+                          });
+                        }
+                      });
+                  } else {
+                    axios
+                      .post(
+                        `/api/shopOrder/${this.totalSop}/${this.user.id}`,
+                        this.cart
+                      )
+                      .then(response => {
+                        if (response.data == "true") {
+                          this.$store.dispatch("cart/checkOut", []);
+                          Swal.fire({
+                            type: "success",
+                            title: "Order Completed",
+                            text: "Your Order Has Been Successfully Completed",
+                            reverseButtons: true,
+                            confirmButtonText: "ok"
+                          });
+                        } else {
+                          Swal.fire({
+                            type: "error",
+                            title: "Order Failed",
+                            text: "Order Request Error !!!",
+                            reverseButtons: true,
+                            confirmButtonText: "ok"
+                          });
+                        }
+                      });
+                  }
                 }
               }
-            }
-          }else{
-            var form = document.createElement("div");
-            if(response.data.transaction.trxStatus == '0010' || response.data.transaction.trxStatus == '0011'){
-              form.innerHTML = "<b style='color:red;'>bKash Say, trxID is valid but transaction is in pending state.</b>";
-            }else if(response.data.transaction.trxStatus == '0100'){
-              form.innerHTML = "<b style='color:red;'>bKash Say, trxID is valid but transaction has been reversed.</b>";
-            }else if(response.data.transaction.trxStatus == '0111'){
-              form.innerHTML = "<b style='color:red;'>bKash Say, trxID is valid but transaction has failed.</b>";
-            }else if(response.data.transaction.trxStatus == '1001'){
-              form.innerHTML = "<b style='color:red;'>bKash Say, Invalid MSISDN input. Try with correct mobile no.</b>";
-            }else if(response.data.transaction.trxStatus == '1002'){
-              form.innerHTML = "<b style='color:red;'>bKash Say, Invalid trxID, it does not exist.</b>";
-            }else if(response.data.transaction.trxStatus == '1003'){
-              form.innerHTML = "<b style='color:red;'>bKash Say, Access denied. Username or Password is incorrect.</b>";
-            }else if(response.data.transaction.trxStatus == '1004'){
-              form.innerHTML = "<b style='color:red;'>bKash Say, Access denied. trxID is not related to this username.</b>";
-            }else if(response.data.transaction.trxStatus == '2000'){
-              form.innerHTML = "<b style='color:red;'>bKash Say, Access denied. User does not have access to this module.</b>";
-            }else if(response.data.transaction.trxStatus == '2001'){
-              form.innerHTML = "<b style='color:red;'>bKash Say, Access denied. User date time request is exceeded of the defined limit.</b>";
-            }else if(response.data.transaction.trxStatus == '3000'){
-              form.innerHTML = "<b style='color:red;'>bKash Say, Missing required mandatory fields for this module</b>";
-            }else if(response.data.transaction.trxStatus == '9999'){
-              form.innerHTML = "<b style='color:red;'>bKash Say, Could not process request.</b>";
-            }else if(response.data.transaction.trxStatus == '4001'){
-              form.innerHTML = "<b style='color:red;'>bKash Say, Already Submited This trxID .</b>";
-            }else{
-              form.innerHTML = "<b style='color:red;'>bKash Say, This trxID is Not Valid !!!</b>";
-            }
-            Swal.fire({
+            } else {
+              var form = document.createElement("div");
+              if (
+                response.data.transaction.trxStatus == "0010" ||
+                response.data.transaction.trxStatus == "0011"
+              ) {
+                form.innerHTML =
+                  "<b style='color:red;'>bKash Say, trxID is valid but transaction is in pending state.</b>";
+              } else if (response.data.transaction.trxStatus == "0100") {
+                form.innerHTML =
+                  "<b style='color:red;'>bKash Say, trxID is valid but transaction has been reversed.</b>";
+              } else if (response.data.transaction.trxStatus == "0111") {
+                form.innerHTML =
+                  "<b style='color:red;'>bKash Say, trxID is valid but transaction has failed.</b>";
+              } else if (response.data.transaction.trxStatus == "1001") {
+                form.innerHTML =
+                  "<b style='color:red;'>bKash Say, Invalid MSISDN input. Try with correct mobile no.</b>";
+              } else if (response.data.transaction.trxStatus == "1002") {
+                form.innerHTML =
+                  "<b style='color:red;'>bKash Say, Invalid trxID, it does not exist.</b>";
+              } else if (response.data.transaction.trxStatus == "1003") {
+                form.innerHTML =
+                  "<b style='color:red;'>bKash Say, Access denied. Username or Password is incorrect.</b>";
+              } else if (response.data.transaction.trxStatus == "1004") {
+                form.innerHTML =
+                  "<b style='color:red;'>bKash Say, Access denied. trxID is not related to this username.</b>";
+              } else if (response.data.transaction.trxStatus == "2000") {
+                form.innerHTML =
+                  "<b style='color:red;'>bKash Say, Access denied. User does not have access to this module.</b>";
+              } else if (response.data.transaction.trxStatus == "2001") {
+                form.innerHTML =
+                  "<b style='color:red;'>bKash Say, Access denied. User date time request is exceeded of the defined limit.</b>";
+              } else if (response.data.transaction.trxStatus == "3000") {
+                form.innerHTML =
+                  "<b style='color:red;'>bKash Say, Missing required mandatory fields for this module</b>";
+              } else if (response.data.transaction.trxStatus == "9999") {
+                form.innerHTML =
+                  "<b style='color:red;'>bKash Say, Could not process request.</b>";
+              } else if (response.data.transaction.trxStatus == "4001") {
+                form.innerHTML =
+                  "<b style='color:red;'>bKash Say, Already Submited This trxID .</b>";
+              } else {
+                form.innerHTML =
+                  "<b style='color:red;'>bKash Say, This trxID is Not Valid !!!</b>";
+              }
+              Swal.fire({
                 title: "Order Failed !!!",
                 html: form,
                 type: "warning",
                 reverseButtons: true,
                 confirmButtonText: "ok"
-            })
-          }
-        });
+              });
+            }
+          });
       }
     },
     removeFromCart(item) {

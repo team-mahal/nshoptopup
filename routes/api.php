@@ -25,12 +25,10 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('products', "Admin\ProductController@getProduct");
     Route::get('shop-products', "Admin\CommonController@getProduct");
-    Route::post('shopOrder/{total}/{user_id}', "Admin\CommonController@shopStore");
     // data api ***
     Route::get('product/{id}', "Admin\ProductController@getSingelProduct");
     Route::get('shop-product/{id}', "Admin\CommonController@getSingelProduct");
     Route::get('packages/{id}', "Admin\PackageController@getProductWiseDataFind");
-    Route::post('productOrder/{id}/{user_id}', "Admin\OrderController@store");
 
     //invoices-data
     Route::get('invoices-data/{id}', "Admin\CommonController@getInvoicesData");
@@ -44,8 +42,17 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('all-blog', "Admin\CommonController@getAllBlog");
 
 
+    //Product Order
+    Route::post('product-order-walllet/{id}/{user_id}', "Admin\SiteController@ProductOrderWithWallet");
+    Route::post('productOrder/{id}/{user_id}', "Admin\OrderController@store");
+
     //trxidData
     Route::get('trxidData/{trxid}/{user_id}/{cart_amount}', "Admin\CommonController@getTrxidData");
+    Route::post('order-with-wallet/{user_id}/{cart_amount}', "Admin\SiteController@orderWithWallet");
+    Route::post('shopOrder/{total}/{user_id}', "Admin\CommonController@shopStore");
+
+
+
     Route::get('page-data/{id}', "Admin\SiteController@getPageData");
     
 
