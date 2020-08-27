@@ -87,7 +87,7 @@ class CommonController extends Controller
     public function getInvoiceDetails($id, $user_id)
     {
         $invoices = DB::table('shop_details')
-        ->select('*')
+        ->select('shop_details.*', 'products.name')
         ->join('products', 'products.id', '=', 'shop_details.product_id')
         ->where('invoice_id', $id)
         ->where('user_id', $user_id)

@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto w-full md:w-6/12 xl:w-6/12 p-2 md:p-0">
+    <div class="container mx-auto w-full md:w-6/12 xl:w-6/12 p-2 md:p-0"  style="min-height: 460px">
         <h1 class="text-center text-2xl lg:text-4xl font-extrabold mt-2 lg:mt-8 mb-2 lg:mb-6">Contact Information</h1>
         <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-2 md:gap-4">
             <div class="text-center justify-center shadow-lg hover:shadow-xl border-2 p-4 lg:p-8">

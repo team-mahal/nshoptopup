@@ -10,6 +10,7 @@ use App\Invoice;
 use App\Shop_details;
 use App\Order;
 use App\Package;
+use App\TransactionInfo;
 
 class SiteController extends Controller
 {
@@ -47,7 +48,7 @@ class SiteController extends Controller
                 $shop_details->buy_price = $value['buy_price'];
                 $shop_details->sale_price = $value['sale_price'];
                 $shop_details->invoice_id = $invoice->id;
-                $shop_details->quantity = $value['quantity'];
+                $shop_details->quantity = $value['quantity'];$invoice->quantity;
                 $shop_details->save();
             }
         }else{
@@ -89,5 +90,14 @@ class SiteController extends Controller
             $data1['success'] = 0;
         }
         return response()->json($data1, 200);
+    }
+
+    public function getTransactions($id)
+    {
+        $transactionInfo = TransactionInfo::where('user_id', $id)->get();
+        if($transactionInfo)
+            return response()->json($transactionInfo, 200);
+        else
+            return response()->json('failed', 404);
     }
 }

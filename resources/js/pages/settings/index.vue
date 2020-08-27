@@ -1,6 +1,6 @@
 <template>
-	<div class="container mx-auto">
-		<div class="col-md-3">
+	<div class="container mx-auto mt-2 md:mt-8" style="min-height: 460px">
+		<!-- <div class="col-md-3">
 			<card :title="$t('settings')" class="settings-card">
 				<ul class="nav flex-column nav-pills">
 					<li v-for="tab in tabs" :key="tab.route" class="nav-item">
@@ -10,7 +10,7 @@
 					</li>
 				</ul>
 			</card>
-		</div>
+		</div> -->
 
 		<div class="col-md-9">
 			<transition name="fade" mode="out-in">

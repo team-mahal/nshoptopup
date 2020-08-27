@@ -5,9 +5,9 @@
         </div>
         <div v-if="check === true">
             <div class="text-center md:my-2">
-                <h2 class="text-xl md:text-3xl text-red-300 font-bold">SHOP ORDERS</h2>
+                <h2 class="text-xl md:text-3xl text-red-300 font-bold section-title">SHOP ORDERS</h2>
             </div>
-            <div class="div overflow-x-scroll">
+            <div class="div overflow-x-scroll" style="height: 500px;">
                 <table class="border-collapse border-2 border-gray-500 mx-auto">
                 <thead class="bg-gray-300">
                     <tr class="text-gray-800">
@@ -43,9 +43,9 @@
                 </table>
             </div>
             <div class="text-center md:my-2">
-                <h2 class="text-xl md:text-3xl text-red-300 font-bold">Offer Orders</h2>
+                <h2 class="text-xl md:text-3xl text-red-300 font-bold uppercase section-title">Offer Orders</h2>
             </div>
-            <div class="div overflow-x-scroll">
+            <div class="div overflow-x-scroll" style="height: 500px;">
                 <table class="border-collapse border-2 border-gray-500 mx-auto">
                 <thead class="bg-gray-300">
                     <tr class="text-gray-800">
@@ -124,3 +124,30 @@ export default {
     }
 }
 </script>
+
+<style>
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb {
+  background: #ed6c27;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+table{
+    width: 100% !important;
+}
+.section-title{
+    font-size: 1.875rem;
+    width: fit-content;
+    margin: auto;
+    padding: 4px 21px;
+    margin-bottom: 20px;
+    border-bottom: 4px solid #ed6c27;
+}
+</style>

@@ -1,7 +1,9 @@
 <template>
-<div>
+<div class="justify-center shadow-lg hover:shadow-xl  mx-auto border-2 w-full md:w-6/12 xl:w-6/12 p-2 md:p-4 m-2 md:m-0" id="m-auto">
+
 	<form @submit.prevent="update" @keydown="form.onKeydown($event)">
-		<alert-success :form="form" :message="$t('info_updated')" />
+		<h4 class="text-center font-bold text-xl">Edit Your Profile</h4>
+		<alert-success :form="form" :message="$t('info_updated')" class="gb-green-900 text-white text-center p-3"/>
 
 		<!-- Name -->
 		<div class="form-group row">
@@ -71,3 +73,8 @@ export default {
 	}
 }
 </script>
+<style>
+	#m-auto{
+		margin: auto !important;
+	}
+</style>

@@ -34,4 +34,6 @@ export default [
   { path: '/check-out', name: 'check-out', component: page('check-out.vue')},
   { path: '/my-orders', name: 'my-orders', component: page('my-orders.vue')},
   { path: '/order-details/:id', name: 'order-details', component: page('order-details.vue')},
+  { path: '/my-account', name: 'my-account', component: page('my-account.vue')},
+  { path: '/my-wallet', name: 'my-wallet', component: page('my-wallet.vue')},
 ]

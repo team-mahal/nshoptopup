@@ -3,7 +3,7 @@
         <div class="text-center md:my-2">
             <h2 class="text-xl md:text-3xl text-red-300 font-bold">SHOP ORDER DETAILS</h2>
         </div>
-        <div class="div overflow-x-scroll">
+        <div class="div overflow-x-scroll" >
             <table class="border-collapse border-2 border-gray-500 mx-auto">
             <thead class="bg-gray-300">
                 <tr class="text-gray-800">

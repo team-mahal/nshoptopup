@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     //invoices-data
     Route::get('invoices-data/{id}', "Admin\CommonController@getInvoicesData");
     Route::get('invoice-details/{id}/{user_id}', "Admin\CommonController@getInvoiceDetails");
-
+    Route::get('transactions/{id}', "Admin\SiteController@getTransactions");
     //orders
     Route::get('orders-data/{id}', "Admin\CommonController@getOrders");
 
