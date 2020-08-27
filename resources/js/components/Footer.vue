@@ -26,7 +26,7 @@
             <li class="font-semibold text-sm hover:text-pink-300 text-white mb-2"><router-link :to="'/about-us'">About US</router-link></li>
             <li class="font-semibold text-sm hover:text-pink-300 text-white mb-2"><router-link :to="'/contact'">Contect</router-link></li>
             <li class="font-semibold text-sm hover:text-pink-300 text-white mb-2"><router-link :to="'/privacy-policy'">Privacy & Policy</router-link></li>
-            <li class="font-semibold text-sm hover:text-pink-300 text-white mb-2"><router-link :to="'/about-us'">About US</router-link></li>
+            <li class="font-semibold text-sm hover:text-pink-300 text-white mb-2"><router-link :to="{ name: 'my-account' }">My Account</router-link></li>
           </ul>
       </div>
       <div class="w-full mt-6 lg:mt-0 md:w-1/2 lg:w-2/5">

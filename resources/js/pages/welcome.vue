@@ -95,7 +95,7 @@
 
     <section>
       <div class="container mx-auto mt-5">
-        <div class="max-w-screen-lg mx-auto"> <!-- max-w-screen-lg -->
+        <div class="mx-auto"> <!-- max-w-screen-lg -->
           <main class="mt-12">
             <!-- recent posts -->
             <div
