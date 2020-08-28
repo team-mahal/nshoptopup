@@ -49,11 +49,11 @@
 
     <section class="bg-gray-100">
       <div class="container mx-auto mt-5">
-        <h3 class="text-3xl text-center font-bold py-5">
+        <h3 class="text-2xl md:text-3xl text-center font-bold py-5">
           Top-up or Buy game's item, cheap and fast only at KMF
         </h3>
-        <div class="flex flex-wrap">
-          <div class="w-1/4 rounded overflow-hidden mt-5 mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div class="rounded overflow-hidden mt-5 mx-auto">
             <img class="w-full" src="/1.svg" alt="Sunset in the mountains" />
             <div class="px-6 py-4">
               <h2 class="font-bold text-sm mb-2 text-center">
@@ -65,7 +65,7 @@
               </p>
             </div>
           </div>
-          <div class="w-1/4 rounded overflow-hidden mr-5 mt-5  mx-auto">
+          <div class="rounded overflow-hidden mr-5 mt-5  mx-auto">
             <img class="w-full" src="/1.svg" alt="Sunset in the mountains" />
             <div class="px-6 py-4">
               <div class="font-bold text-sm mb-2 text-center">
@@ -77,7 +77,7 @@
               </p>
             </div>
           </div>
-          <div class="w-1/4 rounded overflow-hidden mr-5 mt-5 mx-auto">
+          <div class="rounded overflow-hidden mr-5 mt-5 mx-auto">
             <img class="w-full" src="/3.svg" alt="Sunset in the mountains" />
             <div class="px-6 py-4">
               <div class="font-bold text-sm mb-2 text-center">

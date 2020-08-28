@@ -15,12 +15,12 @@ class OrderController extends Controller
     {
         $request->flash();
         $user_id = $request->user_id;
-        $id_code_id_password = $request->id_code_id_password;
+        $order_id = $request->order_id;
         $status = $request->status;
-        if (empty($user_id) && empty($id_code_id_password) && empty($status)) {
+        if (empty($user_id) && empty($order_id) && empty($status)) {
             $datas = Order::orderBy('id', 'DESC')->paginate(10);
         }else{
-            $datas = Order::where('user_id', $user_id)->orWhere('status', $status)->orWhere('email', $id_code_id_password)->paginate(10);
+            $datas = Order::where('user_id', $user_id)->orWhere('status', $status)->orWhere('id', $order_id)->paginate(10);
         }
         return view('admin.setup.order.index', ['datas' => $datas]);
     }

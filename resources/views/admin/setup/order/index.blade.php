@@ -21,9 +21,8 @@
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-12">
 							<div class="form-group">
-								<label for="subject">ID Code/ID Password</label>
-								<input value="{{ old('id_code_id_password') }}"  type="text" name="id_code_id_password" id="name" class="form-control"
-									placeholder="Enter Subject Name">
+								<label for="subject">Order ID</label>
+								<input value="{{ old('order_id') }}"  type="text" name="order_id" id="name" class="form-control" placeholder="Enter Order ID">
 							</div>
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-12">
@@ -87,11 +86,12 @@
 					<thead class="thead-light">
 						<tr>
 							<th scope="col">#</th>
+							<th scope="col">Order ID</th>
+							<th scope="col">User ID</th>
 							<th scope="col">Type</th>
 							<th scope="col">ID Code / ID Password</th>
 							<th scope="col">PAssword</th>
 							<th scope="col">Name</th>
-							<th scope="col">User ID</th>
 							<th scope="col">Buy Price</th>
 							<th scope="col">Sale Price</th>
 							<th scope="col">Package ID</th>
@@ -102,11 +102,12 @@
 						@foreach($datas as $key => $data)
 						<tr>
 							<td scope="row">{{ $key }}</td>
+							<td style="">{{$data->id}}</td>
+							<td style="">{{$data->user_id}}</td>
 							<td style="">{{$data->type}}</td>
 							<td style="">{{$data->email}}</td>
 							<td style="">{{$data->password}}</td>
 							<td style="">{{$data->name}}</td>
-							<td style="">{{$data->user_id}}</td>
 							<td style="">{{$data->buy_price}}</td>
 							<td style="">{{$data->sale_price}}</td>
 							<td style="">{{$data->package_id}}</td>

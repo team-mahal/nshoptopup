@@ -10,7 +10,7 @@
 						<h3 class="mb-3 bb-2">Search</h3>
 					</div>
 				</div>
-				<form action="{{ route('shopOrder.index') }}" method="get">
+				<form action="{{ route('users.index') }}" method="get">
 					{{ csrf_field() }}
 					<div class="row">
 						<div class="col-lg-3 col-md-6 col-sm-12">
@@ -21,19 +21,14 @@
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-12">
 							<div class="form-group">
-								<label for="subject">Order ID</label>
-								<input value="{{ old('order_id') }}"  type="text" name="order_id" id="name" class="form-control" placeholder="Enter Order ID">
+								<label for="email">Email</label>
+								<input value="{{ old('email') }}"  type="text" name="email" id="email" class="form-control" placeholder="Enter E-mail">
 							</div>
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-12">
 							<div class="form-group">
-								<label for="subject">Status</label>
-								<select name="status" id="status" class="form-control">
-									<option value="">Select Once</option>
-									<option value="pandding">Pandding</option>
-									<option value="complete">Complete</option>
-									<option value="cencel">Cencel</option>
-								</select>
+								<label for="phone">Phone Number</label>
+								<input value="{{ old('phone') }}"  type="text" name="phone" id="phone" class="form-control" placeholder="Enter Phone Number">
 							</div>
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-12">
@@ -71,7 +66,7 @@
 			<div class="card-header border-0">
 				<div class="row align-items-center">
 					<div class="col">
-						<h3 class="mb-0">Shop Order List</h3>
+						<h3 class="mb-0">Users List</h3>
 					</div>
 				</div>
 			</div>
@@ -86,12 +81,11 @@
 					<thead class="thead-light">
 						<tr>
 							<th scope="col">#</th>
-							<th scope="col">Order ID</th>
 							<th scope="col">User ID</th>
-							<th scope="col">Sub Total</th>
-							<th scope="col">Total</th>
-							<th scope="col">Action</th>
-							<th scope="col">Details</th>
+							<th scope="col">Name</th>
+							<th scope="col">E-mail</th>
+							<th scope="col">Phone</th>
+							<th scope="col">Address</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -99,40 +93,10 @@
 						<tr>
 							<td scope="row">{{ $key+1 }}</td>
 							<td style="">{{$data->id}}</td>
-							<td style="">{{$data->user_id}}</td>
-							<td style="">{{$data->sub_total}}</td>
-							<td style="">{{$data->total}}</td>
-							<td>
-								@if ($data->status == 'cancel' || $data->status == 'complete')
-								<select disabled name="status" id="status{{$data->id}}"
-									onchange="myChange({{$data->id}}, this.value)" required class="form-control" style="width: 110px;">
-									@else
-									<select enable name="status" id="status{{$data->id}}"
-										onchange="myChange({{$data->id}}, this.value)" required class="form-control" style="width: 110px">
-										@endif
-										@if ($data->status == '')
-										<option value="">select once</option>
-										@endif
-										@if ($data->status == 'pandding')
-										<option Selected value="pandding">pandding</option>
-										@else
-										<option value="pandding">pandding</option>
-										@endif
-										@if ($data->status == 'complete')
-										<option Selected value="complete">complete</option>
-										@else
-										<option value="complete">complete</option>
-										@endif
-										@if ($data->status == 'cancel')
-										<option Selected value="cancel">cancel</option>
-										@else
-										<option value="cancel">cancel</option>
-										@endif
-									</select>
-							</td>
-							<td>
-								<a href="{{ route('shopOrderDetials',[$data->id]) }}" class="btn btn-success btn-sm">View</a>
-							</td>
+							<td style="">{{$data->name}}</td>
+							<td style="">{{$data->email}}</td>
+							<td style="">0{{$data->phone}}</td>
+							<td style="">{{$data->address}}</td>
 						</tr>
 						@endforeach
 					</tbody>
@@ -163,7 +127,7 @@
 	});
     $.ajax({
         type:"POST",
-        url : "{{ route('shopOrderUpdate') }}",
+        url : "{{ route('orderUpdate') }}",
         data : {
 			status: status,
 			id: id

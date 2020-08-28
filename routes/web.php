@@ -65,6 +65,8 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     
     Route::resource('blog', 'Admin\BlogController');
     Route::resource('aboutprivacy', 'Admin\AboutPrivacyController');
+
+    Route::get('users', "Auth\UserController@getUser")->name('users.index');
 });
 
 Route::post('frolaImageUpload', 'Admin\AboutPrivacyController@imagesUpload')->name('frolaImageUpload');
