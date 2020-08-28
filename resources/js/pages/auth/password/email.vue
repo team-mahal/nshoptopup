@@ -1,25 +1,26 @@
 <template>
-  <div class="row">
-    <div class="col-lg-8 m-auto">
-      <card :title="$t('reset_password')">
+  <div class="row" style="min-height: 460px">
+    <div class="col-4 m-auto  p-2 md:p-4">
+      <card class="justify-center shadow-lg hover:shadow-xl  m-auto border-2 w-full md:w-4/12 xl:w-3/12 p-2 md:p-4 m-2 md:m-0" style="margin:auto;">
+        <h4 class="text-xl font-bold text-center">Reset Password</h4>
         <form @submit.prevent="send" @keydown="form.onKeydown($event)">
-          <alert-success :form="form" :message="status" />
+          <alert-success :form="form" :message="status" style="color: red;"/>
 
           <!-- Email -->
           <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
+            <label class="col-md-3 col-form-label text-md-right font-bold">{{ $t('email') }}</label>
             <div class="col-md-7">
-              <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email">
-              <has-error :form="form" field="email" />
+              <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control w-full border-2 border-gray-900"  type="email" name="email">
+              <has-error :form="form" field="email" style="color: red;"/>
             </div>
           </div>
 
           <!-- Submit Button -->
           <div class="form-group row">
             <div class="col-md-9 ml-md-auto">
-              <v-button :loading="form.busy">
+              <button :loading="form.busy"  class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded mt-3">
                 {{ $t('send_password_reset_link') }}
-              </v-button>
+              </button>
             </div>
           </div>
         </form>

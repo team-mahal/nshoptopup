@@ -1,5 +1,6 @@
 <template>
-  <card class="justify-center shadow-lg hover:shadow-xl  mx-auto border-2 w-full md:w-6/12 xl:w-6/12 p-2 md:p-4 m-2 md:m-0">
+<div class="container mx-auto mt-2 md:mt-8" style="min-height: 460px;">
+  <div class="justify-center shadow-lg hover:shadow-xl  m-auto border-2 w-full md:w-6/12 xl:w-6/12 p-2 md:p-4 m-2 md:m-0" style="margin: auto">
     <h4 class="text-center font-bold text-gray-900">{{ $t('your_password') }}</h4>
     <form @submit.prevent="update" @keydown="form.onKeydown($event)">
       <alert-success class="bg-green-900 text-white " :form="form" :message="$t('password_updated')" />
@@ -31,7 +32,8 @@
         </div>
       </div>
     </form>
-  </card>
+  </div>
+</div>
 </template>
 
 <script>

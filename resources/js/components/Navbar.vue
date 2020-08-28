@@ -148,4 +148,15 @@ p.p-1 {
 	position: absolute;
     transform: translate(-35px, -5px);
 }
+@media screen and (max-width: 600px) {
+	p.p-1 {
+		padding: 10px 4px 2px 12px !important;
+	}
+	svg.svg-inline--fa.fa-shopping-cart.fa-w-18.h-8.w-12.mr-3.text-white{
+		width: 28px !important;
+	}
+	span.cart-number[data-v-6dde423b] {
+    transform: translate(10px, -7px);
+}
+}
 </style>

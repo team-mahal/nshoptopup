@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-lg-8 m-auto">
-      <card :title="$t('reset_password')">
+      <card :title="$t('reset_password')" class="justify-center shadow-lg hover:shadow-xl  mx-auto border-2 w-full md:w-6/12 xl:w-6/12 p-2 md:p-4 m-2 md:m-0">
         <form @submit.prevent="reset" @keydown="form.onKeydown($event)">
           <alert-success :form="form" :message="status" />
 
