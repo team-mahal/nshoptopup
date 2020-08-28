@@ -25,7 +25,13 @@
 
 		    <div v-if="user" class="relative" x-data="{ open: false }">
 		    	<button @click="open = !open" class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-		          <span>{{ user.name }}</span>
+		          <div class="profile-image">
+					<img v-if="user.file" :src="'/user/'+user.file" alt="opps" class="rounded-full h-8 w-8 m-auto flex items-center justify-center border-2 border-gray-500">
+					<div v-else class="rounded-full h-8 w-8 m-auto flex items-center justify-center bg-red-300 text-white text-2xl md:text-4xl font-bold" id="prodile">
+						{{ nameFirstChar() }}
+					</div>
+				  </div>
+				  <span>{{ user.name }}</span>
 		          <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
 		        </button>
 		        <div v-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48 z-50">
@@ -105,7 +111,11 @@ export default {
 		},
 		toggleCartIcon(){
 			this.cartBtnShow = !this.cartBtnShow;
-		}
+		},
+        nameFirstChar()
+        {
+           return this.user.name.split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
+        }
 	}
 }
 </script>
@@ -128,5 +138,14 @@ p.p-1 {
     z-index: 9999999999999999;
     background: #782472;
     padding: 14px 12px 7px 15px;
+}
+#prodile{
+    border: 2px solid #4b14ce7a;
+    box-shadow: 0px 2px 9px 2px #585353;
+    background-color: rgb(25 15 107 / 46%);
+}
+.profile-image{
+	position: absolute;
+    transform: translate(-35px, -5px);
 }
 </style>

@@ -48,7 +48,7 @@ class ProductController extends Controller
         $product->is_shop = $request->input('is_shop');
         $product->buy_price = $request->input('buy_price');
         $product->sale_price = $request->input('sale_price');
-            if($request->hasFile('logo')) {
+        if($request->hasFile('logo')) {
             $logo = $request->file('logo');
             $fileName = time().'.'.$request->file('logo')->extension();  
             $request->file('logo')->move(public_path('product'), $fileName);
