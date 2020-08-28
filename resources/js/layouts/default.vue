@@ -44,9 +44,9 @@ export default {
 <style>
   .manual-width{
     width: 450px;
-    position: absolute;
-    right: 0;
     z-index: 99999;
+    position: fixed;
+    right: 0;
   }
   @media only screen and (max-width: 600px) {
     .manual-width{

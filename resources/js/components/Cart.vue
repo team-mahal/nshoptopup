@@ -7,7 +7,7 @@
     </div>
     <!-- {{ cart }} -->
     <div v-if="cart.length > 0" class="navbar-dropdown is-boxed is-right">
-      <div class=" bg-white p-2">
+      <div class=" bg-white p-2" id="overflow-scroll">
         <div class="">
 
         </div>
@@ -101,5 +101,28 @@ export default {
 .removeBtn {
   margin-right: 1rem;
   color: red;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb {
+  background: #ed6c27;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+#overflow-scroll{
+    height: 500px;
+    overflow: scroll;
+}
+@media only screen and (max-width: 600px) {
+    #overflow-scroll{
+        height: 350px;
+        overflow: scroll;
+    }
 }
 </style>

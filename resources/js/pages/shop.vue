@@ -16,12 +16,13 @@
                 }"
                 >
                 <!-- params: { id: product.id,slug: makeSlug(product.name) }, -->
-
-                <img
-                    class="w-full h-48 pt-6 pl-6 pr-6 manual-img"
-                    :src="'/product/' + product.logo"
-                    v-bind:alt="product.name"
-                />
+                <div id="outer-div">
+                    <img
+                        class="w-full h-48 pt-6 pl-6 pr-6 manual-img"
+                        :src="'/product/' + product.logo"
+                        v-bind:alt="product.name"
+                    />
+                </div>
                 <div class="px-2 py-2">
                     <div class="font-medium text-xl">{{ product.name }}</div>
                     <div class="font-medium text-lg mb-1" style="display: inline-flex;"><p class="text-2xl font-medium mr-1 font-black" style="margin-top: -8px;">&#2547;</p> <div>{{ product.sale_price }}</div></div>
@@ -76,6 +77,10 @@ export default {
     padding: 25px 25px 0px 25px;
     transition: padding .5s;
 }
+/* #outer-div{
+    outline:dashed;
+    outline-offset: -25px;
+} */
 .shadow-manual:hover .manual-img{
     padding: 15px 15px 0px 15px;
 }
