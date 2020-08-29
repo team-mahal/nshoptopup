@@ -131,8 +131,9 @@
               </p>
           </div>
           <div v-else>
+            <h4 class="mr-4 text-sm font-bold mt-2 ml-4">Our bKash Number: <b>   <input value="01997980260" disabled class="p-1 bg-gray-200 border-lg border-pink-500 border-2"/></b></h4><br>
             <div class="flex flex-wrap ml-4">
-              <h5 class="mr-4 font-bold mt-2">TrxId</h5>
+              <h5 class="mr-4 font-bold mt-2">Your TrxId</h5>
               <div>
                 <input
                   id="search"

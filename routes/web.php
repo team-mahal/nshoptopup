@@ -65,6 +65,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     
     Route::resource('blog', 'Admin\BlogController');
     Route::resource('aboutprivacy', 'Admin\AboutPrivacyController');
+    Route::resource('slider', 'Admin\SliderCotroller');
 
     Route::get('users', "Auth\UserController@getUser")->name('users.index');
 });

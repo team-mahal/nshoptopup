@@ -1,5 +1,3 @@
-<!-- CkEidtor  -->
-<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 @include('admin.layouts.header')
 
 <div class="container-fluid min-700px">
@@ -9,14 +7,14 @@
 			<div class="card-header border-1 bg-gradient-primary">
 				<div class="row align-items-center">
 					<div class="col">
-						<h3 class="mb-0 text-white">Create Blog</h3>
+						<h3 class="mb-0 text-white">Create Slider</h3>
 					</div>
 					<div class="col text-right">
-						<a href="{{ route('blog.index') }}" class="btn btn-sm btn-success">Blog List</a>
+						<a href="{{ route('slider.index') }}" class="btn btn-sm btn-success">Slider List</a>
 					</div>
 				</div>
 			</div>
-			<form action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data" class="p-4">
+			<form action="{{ route('slider.store') }}" method="POST" enctype="multipart/form-data" class="p-4">
 				@csrf
 				@if ($message = Session::get('success'))
 				<div class="row">
@@ -36,18 +34,6 @@
 				</div>
 				@endif
 				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="form-group">
-                            <label for="description">Blog Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="4"></textarea>
-                        </div>
-                    </div>
-					<div class="col-lg-4 col-md-6 col-sm-12">
-						<div class="form-group">
-							<label>Title</label>
-							<input type="text" name="title" class="form-control" placeholder="Enter Name" required>
-						</div>
-					</div>
 					<div class="col-lg-4 col-md-6 col-sm-12">
 						<div class="form-group">
 							<label for="exampleFormControlSelect1">Logo</label>
@@ -65,13 +51,5 @@
 		</div>
 	</div>
 </div>
-
-<script>
-	var editor = CKEDITOR.replace('description');
-	editor.on( 'required', function( evt ) {
-		editor.showNotification( 'This field is required.', 'warning' );
-		evt.cancel();
-	});
-</script>
 
 @include('admin.layouts.footer')

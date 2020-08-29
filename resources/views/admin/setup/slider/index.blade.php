@@ -29,10 +29,10 @@
 			<div class="card-header border-0">
 				<div class="row align-items-center">
 					<div class="col">
-						<h3 class="mb-0">Blog List</h3>
+						<h3 class="mb-0">Slider List</h3>
 					</div>
 					<div class="col text-right">
-						<a href="{{ route('blog.create') }}" class="btn btn-sm btn-primary">Create New</a>
+						<a href="{{ route('slider.create') }}" class="btn btn-sm btn-primary">Create New</a>
 					</div>
 				</div>
 			</div>
@@ -47,9 +47,7 @@
 					<thead class="thead-light">
 						<tr>
 							<th scope="col">#</th>
-							<th scope="col">Title</th>
-							<th scope="col">Description</th>
-							<th scope="col">Logo</th>
+							<th scope="col">Slider</th>
 							<th scope="col">Action</th>
 						</tr>
 					</thead>
@@ -57,14 +55,12 @@
 						@foreach($datas as $key => $data)
 						<tr>
 							<td scope="row">{{ $key+1 }}</td>
-							<td style="">{!! \Illuminate\Support\Str::limit(strip_tags($data->title), 40, $end=' ......') !!}</td>
-							<td style="">{!! \Illuminate\Support\Str::limit(strip_tags($data->description), 70, $end=' ......') !!}</td>
-							<td style=""><img src="{{ asset('blog/' . $data->logo) }}" alt="Oops"
+							<td style=""><img src="{{ asset('slider/' . $data->logo) }}" alt="Oops"
 									style="max-height: 50px; max-width:100px"> </td>
 							<td style="display: -webkit-inline-box;">
-								<a href="{{ route('blog.edit',[$data->id]) }}" class="btn btn-success btn-sm">Edit</a>
+								<a href="{{ route('slider.edit',[$data->id]) }}" class="btn btn-success btn-sm">Edit</a>
 								<!-- <a href="productDelete/{{ $data->id }}" class="btn btn-danger btn-sm">Delete</a> -->
-								<form action="{{ route('blog.destroy',$data->id) }}" method="POST">
+								<form action="{{ route('slider.destroy',$data->id) }}" method="POST">
 									@csrf
                     				@method('DELETE')
 									<input style="margin-left: 10px;" type="submit" id="deletebtn"
