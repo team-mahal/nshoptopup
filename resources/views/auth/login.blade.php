@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
-  <title>Online Exam System</title>
+  <title>Kmf-Admin Login Panel</title>
   <!-- Favicon -->
   <link rel="icon" href="{{ asset('admin/img/icons/favicon/favicon-32x32.png') }}"  type="image/png">
   <!-- Fonts -->
