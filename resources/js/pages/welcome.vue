@@ -2,14 +2,18 @@
   <div>
     <div class="container mx-auto">
       <carousel :autoplay="true" :items="1" autoHeight="true">
+        <img v-for="slider in sliders" :key="slider.id" :src="'/slider/'+slider.logo" />
+        <!-- <img src="/img/banner.jpg" />
         <img src="/img/banner.jpg" />
         <img src="/img/banner.jpg" />
         <img src="/img/banner.jpg" />
         <img src="/img/banner.jpg" />
         <img src="/img/banner.jpg" />
+        <img src="/img/banner.jpg" /> -->
+        <!-- <img src="/img/banner.jpg" />
         <img src="/img/banner.jpg" />
         <img src="/img/banner.jpg" />
-        <img src="/img/banner.jpg" />
+        <img src="/img/banner.jpg" /> -->
       </carousel>
     </div>
 

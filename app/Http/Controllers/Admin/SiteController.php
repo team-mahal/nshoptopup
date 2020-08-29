@@ -11,6 +11,7 @@ use App\Shop_details;
 use App\Order;
 use App\Package;
 use App\TransactionInfo;
+use App\Slider;
 
 class SiteController extends Controller
 {
@@ -103,7 +104,7 @@ class SiteController extends Controller
 
     public function getSlider()
     {
-        $slider = Product::get();
+        $slider = Slider::get();
         return response()->json($slider, 200);
     }
 }
