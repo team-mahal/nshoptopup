@@ -1,7 +1,7 @@
 <template>
     <div class="container mx-auto p-2 md:p-0" style="min-height: 460px">
         <div class="w-full md:w-1/2  mx-auto mt-2 lg:mt-8">
-            <div class="text-center justify-center shadow-lg hover:shadow-xl border-2 p-4 lg:p-8" id="mainDiv">
+            <div class="text-center justify-center shadow-lg hover:shadow-xl p-4 lg:p-8" id="mainDiv">
                 <div class="rounded-full h-32 w-32 m-auto flex items-center justify-center border-2 border-red-300" id="insideDid">
                     
                     <div
