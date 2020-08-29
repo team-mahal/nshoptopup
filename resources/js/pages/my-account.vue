@@ -6,7 +6,7 @@
         </div>
         <h1 class="text-center text-2xl lg:text-4xl font-extrabold">{{ user.name }}</h1>
         <h4 class="text-center ">User ID : <b>{{ user.id }}</b></h4>
-        <h4 class="text-center mb-2">Phone : <b>0{{ user.phone }}</b></h4>
+        <h4 class="text-center mb-2">Phone : <b>{{ user.phone }}</b></h4>
         <h4 class="text-center mb-2">Email : <b>{{ user.email }}</b></h4>
         <h4 class="text-center mb-2 lg:mb-6">Address : <b>{{ user.address }}</b></h4>
         <div class="w-full md:w-1/2  mx-auto">

@@ -99,7 +99,7 @@ export default {
 				await this.$store.dispatch('auth/updateUser', { user: data })
 
 				// Redirect home.
-				this.$router.push({ name: 'home' })
+				this.$router.push({ name: 'welcome' })
 			}
 		}
 	}

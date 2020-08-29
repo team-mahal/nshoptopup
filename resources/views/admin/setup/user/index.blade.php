@@ -82,6 +82,7 @@
 						<tr>
 							<th scope="col">#</th>
 							<th scope="col">User ID</th>
+							<th scope="col">Wallet</th>
 							<th scope="col">Name</th>
 							<th scope="col">E-mail</th>
 							<th scope="col">Phone</th>
@@ -93,6 +94,7 @@
 						<tr>
 							<td scope="row">{{ $key+1 }}</td>
 							<td style="">{{$data->id}}</td>
+							<td style="">{{$data->wallet}}</td>
 							<td style="">{{$data->name}}</td>
 							<td style="">{{$data->email}}</td>
 							<td style="">0{{$data->phone}}</td>
