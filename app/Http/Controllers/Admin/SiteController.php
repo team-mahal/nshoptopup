@@ -100,4 +100,10 @@ class SiteController extends Controller
         else
             return response()->json('failed', 404);
     }
+
+    public function getSlider()
+    {
+        $slider = Product::get();
+        return response()->json($slider, 200);
+    }
 }

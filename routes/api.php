@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 
 
+    Route::get('sliders', "Admin\SiteController@getSlider");
     Route::get('products', "Admin\ProductController@getProduct");
     Route::get('shop-products', "Admin\CommonController@getProduct");
     // data api ***

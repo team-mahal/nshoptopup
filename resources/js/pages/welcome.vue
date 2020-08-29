@@ -170,10 +170,16 @@ export default {
   data: () => ({
     title: "Kmf Gaming Mall",
     products: [],
-    blogs: []
+    blogs: [],
+    sliders: [],
   }),
 
   methods: {
+    loadSliders() {
+      axios.get("/api/sliders").then(response => {
+        this.sliders = response.data;
+      });
+    },
     loadProducts() {
       axios.get("/api/products").then(response => {
         this.products = response.data;
@@ -200,6 +206,7 @@ export default {
   mounted() {
     this.loadProducts();
     this.loadBlogs();
+    this.loadSliders();
   }
 };
 </script>

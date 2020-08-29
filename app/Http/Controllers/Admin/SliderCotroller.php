@@ -70,7 +70,7 @@ class SliderCotroller extends Controller
 
     public function destroy(Slider $slider)
     {
-        $blsliderog->delete();
+        $slider->delete();
         return back()
             ->with('success','Slider Delete Successfully.');
     }
