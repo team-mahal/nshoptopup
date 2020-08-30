@@ -1,14 +1,14 @@
 <template>
 <div>
-		<Navbar @toggleCart="toggleCart()" ref="childNavbarComponent"/>
-			<Cart v-if="cartShow" @toggleCartIcon="toggleCartIcon()" class="manual-width shadow-2xl"/>
-				<div class="main-layout">
-					<div class="mt-4">
-						<child />
-					</div>
+	<Navbar @toggleCart="toggleCart()" ref="childNavbarComponent"/>
+		<Cart v-if="cartShow" @toggleCartIcon="toggleCartIcon()" class="manual-width shadow-2xl"/>
+			<div class="main-layout min-h-screen">
+				<div class="mt-4">
+					<child />
 				</div>
-		<Footer />
-	</div>
+			</div>
+	<Footer />
+</div>
 </template>
 
 <script>

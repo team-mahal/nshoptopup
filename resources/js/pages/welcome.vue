@@ -47,7 +47,7 @@
 				</h3>
 				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
 					<div class="rounded overflow-hidden mt-5 mx-auto">
-						<img class="w-full" src="/1.svg" alt="Sunset in the mountains" />
+						<img class="w-40 mx-auto" src="/1.svg" alt="Sunset in the mountains" />
 						<div class="px-6 py-4">
 							<h2 class="font-bold text-sm mb-2 text-center">
 								1. Top Up Your Favourite Game
@@ -59,7 +59,7 @@
 						</div>
 					</div>
 					<div class="rounded overflow-hidden mr-5 mt-5  mx-auto">
-						<img class="w-full" src="/1.svg" alt="Sunset in the mountains" />
+						<img class="w-40 mx-auto" src="/1.svg" alt="Sunset in the mountains" />
 						<div class="px-6 py-4">
 							<div class="font-bold text-sm mb-2 text-center">
 								2. Choose the Amount and Pay
@@ -71,7 +71,7 @@
 						</div>
 					</div>
 					<div class="rounded overflow-hidden mr-5 mt-5 mx-auto">
-						<img class="w-full" src="/3.svg" alt="Sunset in the mountains" />
+						<img class="w-40 mx-auto" src="/3.svg" alt="Sunset in the mountains" />
 						<div class="px-6 py-4">
 							<div class="font-bold text-sm mb-2 text-center">
 								3. Get the Item / Voucher
