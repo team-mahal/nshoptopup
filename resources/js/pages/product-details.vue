@@ -278,7 +278,7 @@
 										<h2
 											class="text-sm text-red-300 italic font-bold text-opacity-75"
 										>
-											BDT {{ checkedData.toLocaleString() }}
+											BDT {{ checkedData }}
 										</h2>
 									</div>
 								</div>
@@ -304,19 +304,19 @@
 													v-on:click="orderWithWallet(user.id)"
 												>
 													<div class="w-full">
-														<div class="flex justify-center">
+														<div class="flex justify-center cursor-pointer">
 															<img
 																src="/logo.png"
 																style="width: 50px;"
 																class="mr-2 p-1"
 															/>
 															<h2 class="text-xs text-red-300 font-bold  p-1">
-																BDT {{ checkedData.toLocaleString() }}
+																BDT {{ checkedData }}
 															</h2>
 														</div>
 														<div class="border-t-2 bg-gray-300">
 															<h2 class="text-sm text-gray-900 font-normal pl-2">
-																Order With KMF. Your Wallet {{ user.wallet.toLocaleString() }} BDT
+																Order With KMF. Your Wallet {{ user.wallet }} BDT
 															</h2>
 														</div>
 													</div>
@@ -326,14 +326,14 @@
 													v-on:click="modal = true"
 												>
 													<div class="w-full">
-														<div class="flex justify-center">
+														<div class="flex justify-center cursor-pointer">
 															<img
 																src="/bkash.jpg"
 																style="width: 50px;"
 																class="mr-2 p-1"
 															/>
 															<h2 class="text-xs text-red-300 font-bold  p-1">
-																BDT {{ checkedData.toLocaleString() }}
+																BDT {{ checkedData }}
 															</h2>
 														</div>
 														<div class="border-t-2 bg-gray-300">
@@ -454,7 +454,7 @@
 										v-on:click="orderWithWallet(user.id)"
 										v-if="user.wallet >= checkedData"
 									>
-										Order With KMF. Your Wallet {{ user.wallet.toLocaleString() }} BDT
+										Order With KMF. Your Wallet {{ user.wallet }} BDT
 									</button>
 									<div>
 										<div class="border-2 text-left border-greeen-500 bKash-success">
