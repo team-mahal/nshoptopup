@@ -37,6 +37,7 @@ export const mutations = {
             state.cart.splice(index, 1);
         }
         window.localStorage.setItem('cart', JSON.stringify(state.cart));
+        if(state.cartCount < 0)
         window.localStorage.setItem('cartCount', state.cartCount);
     },
     [types.CHECK_OUT] (state, item) {

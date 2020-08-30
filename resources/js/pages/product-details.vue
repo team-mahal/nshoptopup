@@ -298,11 +298,10 @@
 												Login First To Confirm Your Order
 											</p>
 									</div>
-									<div v-else class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+									<div v-else class="grid sm:grid-cols-2 md:grid-cols-2 gap-4">
 												<div
 													class="flex bg-grey-300 border-2 justify-center"
 													v-on:click="orderWithWallet(user.id)"
-													v-if="user.wallet >= checkedData"
 												>
 													<div class="w-full">
 														<div class="flex justify-center">
@@ -317,7 +316,7 @@
 														</div>
 														<div class="border-t-2 bg-gray-300">
 															<h2 class="text-sm text-gray-900 font-normal pl-2">
-																Order With KMF Wallet
+																Order With KMF. Your Wallet {{ user.wallet.toLocaleString() }} BDT
 															</h2>
 														</div>
 													</div>
@@ -325,7 +324,6 @@
 												<div
 													class="flex bg-grey-300 border-2 justify-center"
 													v-on:click="modal = true"
-													v-else
 												>
 													<div class="w-full">
 														<div class="flex justify-center">
@@ -359,13 +357,16 @@
 				<header class="card p-4 border-b-2">
 					<span
 						v-on:click="modal = false"
-						class="float-right hover:text-red-300 text-2xl transform"
+						class="float-right hover:text-red-300 text-2xl transform cursor-pointer"
 						>×</span
 					>
 					<div class="justify-center items-center">
 						<div>
-							<h2 class="text-1xl text-gray-900 font-bold">
+							<h2 class="text-1xl text-gray-900 font-bold" v-if="check == false">
 								Login First To Complete Your Order
+							</h2>
+							<h2 class="text-1xl text-gray-900 font-bold" v-else>
+								Please Complete Your Order
 							</h2>
 						</div>
 					</div>
@@ -439,30 +440,38 @@
 									</button>
 								</div>
 								<div class="text-center">
-									<p class="font-normal text-xs text-gray-800 mr-2">
-										Voucher will send to the given email above once the
-										transaction is completed
-									</p>
 									<h4 class="text-sm">
 										By clicking "Confirm", you agree to
-										<a href="" class="text-red-300"
-											>Kmf Terms and Conditions.</a
-										>
+										<router-link :to="'/privacy-policy'" class="text-red-300"
+											>Kmf Terms and Conditions.</router-link>
 									</h4>
 								</div>
 							</form>
 							<div v-else class="">
 								<div class="w-full mb-6 md:mb-3 mt-2">
 									<button
-										v-if="user.wallet >= checkedData"
 										class="appearance-none block w-full bg-orange-500 text-white border border-gray-200 rounded py-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
 										v-on:click="orderWithWallet(user.id)"
+										v-if="user.wallet >= checkedData"
 									>
-										Confirm Order With Wallet
+										Order With KMF. Your Wallet {{ user.wallet.toLocaleString() }} BDT
 									</button>
-									<div v-else>
+									<div>
+										<div class="border-2 text-left border-greeen-500 bKash-success">
+											Please send your total amount via bKash and write down your Transaction ID (TrxID). You do not need to pay bKash fees from your side. You must provide the full TrxID. We do not accept (partial) phone number for payment validation.
+										</div>
+										<br>
+										<div class="our-bkash">
+											<h4 class="mr-4 text-sm font-bold mt-2 ml-4">Our bKash Number: <b>   <input value="01997980260" disabled class="p-1 bg-gray-200 border-lg border-pink-500 border-2"/></b></h4><br>
+											<div class="bKash-error">
+												IMPORTANT: This is a MERCHANT NUMBER.
+											</div>
+											<div class="bKash-error">
+												Do NOT call this number. You will not get a response.
+											</div>
+										</div>
 										<div class="flex flex-wrap ml-4">
-												<h5 class="mr-4 font-bold mt-2">TrxId</h5>
+												<h5 class="mr-4 font-bold mt-2">Your TrxId : </h5>
 												<div>
 													<input
 														id="search"
@@ -587,58 +596,79 @@ export default {
 			await this.$store.dispatch("auth/fetchUser");
 		},
 		orderWithWallet(user_id){
-			console.log(this.showElement);
-			if(this.showElement == 0){
-				var password = "ID Code";
-				var type = "ID Code";
-			}else{
-				var password = this.idCodeIdPasswordForm.password;
-				var type = this.idCodeIdPasswordForm.type;
-			}
-			var email = this.idCodeIdPasswordForm.email;
-			console.log(type, email, password);
-			if(email == '' || password == '')
-			{
-				Swal.fire({
-					type: "error",
-					title: "First Select ID Code/ID Password",
-					text: "please First Select ID Code/ID Password All Field",
-					reverseButtons: true,
-					confirmButtonText: "ok"
-				}).then(result => {
-					this.modal = false;
-				});
-			}else{
-			let id = this.selectedPackageData.id;
-			var params = {
-				type: type,
-				password: password,
-				email: email
-			};
-			axios.post(`/api/product-order-walllet/${id}/${user_id}`, params).then(response => {
-					if (response.data.success == '1') {
-						Swal.fire({
-							type: "success",
-							title: "Order Completed",
-							html: "Your Order Has Been Successfully Completed <br><p style='color: green;'>Now Your Wallet  "+ response.data.wallet +" BDT</p>",
-							reverseButtons: true,
-							confirmButtonText: "ok"
-						}).then(result => {
-							location.reload();
-						});
-					} else {
-						Swal.fire({
-							type: "error",
-							title: "Order Failed",
-							text: "Your Order Not Completed",
-							reverseButtons: true,
-							confirmButtonText: "ok"
-						}).then(result => {
-							location.reload();
-						});
-					}
-				});
-			}
+		if(this.user.wallet >= this.checkedData){
+			Swal.fire({
+				type: "question",
+				title: "Are You Sure ?",
+				html: '<b style="color: green;">Confirm Your Order With KMF Wallet</b>',
+				reverseButtons: true,
+				confirmButtonText: "Yes Confirm Order",
+				showCancelButton: true,
+			}).then(result => {
+				if (result.value) {
+				console.log(this.showElement);
+				if(this.showElement == 0){
+					var password = "ID Code";
+					var type = "ID Code";
+				}else{
+					var password = this.idCodeIdPasswordForm.password;
+					var type = this.idCodeIdPasswordForm.type;
+				}
+				var email = this.idCodeIdPasswordForm.email;
+				console.log(type, email, password);
+				if(email == '' || password == '')
+				{
+					Swal.fire({
+						type: "error",
+						title: "First Select ID Code/ID Password",
+						text: "please First Select ID Code/ID Password All Field",
+						reverseButtons: true,
+						confirmButtonText: "ok"
+					}).then(result => {
+						this.modal = false;
+					});
+				}else{
+				let id = this.selectedPackageData.id;
+				var params = {
+					type: type,
+					password: password,
+					email: email
+				};
+				axios.post(`/api/product-order-walllet/${id}/${user_id}`, params).then(response => {
+						if (response.data.success == '1') {
+							Swal.fire({
+								type: "success",
+								title: "Order Completed",
+								html: "Your Order Has Been Successfully Completed <br><p style='color: green;'>Now Your Wallet  "+ response.data.wallet +" BDT</p>",
+								reverseButtons: true,
+								confirmButtonText: "ok"
+							}).then(result => {
+								location.reload();
+							});
+						} else {
+							Swal.fire({
+								type: "error",
+								title: "Order Failed",
+								text: "Your Order Not Completed",
+								reverseButtons: true,
+								confirmButtonText: "ok"
+							}).then(result => {
+								location.reload();
+							});
+						}
+					});
+				}
+				}
+			});
+		}else{
+			Swal.fire({
+				type: "error",
+				title: "Sorry",
+				html: "<b style='color: red;'>Your KMF wallet is less than your shop wallet</b><br><p color='green'>Please, try another way</p>",
+				reverseButtons: true,
+				confirmButtonText: "ok"
+			})
+		}
 		},
 		submitOrder(user_id) {
 			if (this.trxid == "") {
@@ -863,6 +893,44 @@ export default {
 };
 </script>
 <style>
+.bKash-success::before{
+	content: "\2713";
+    background-color: #4c8658;
+    padding: 6px;
+    height: 10px;
+    width: 10px;
+    margin-right: 7px;
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+}
+.bKash-success {
+    padding: 9px;
+    background: #348e1652;
+	border: 2px solid gray;
+}
+.bKash-error::before { 
+  content: "\26A0";
+  padding: 5px;
+  margin-right: 5px;
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 50%;
+}
+.bKash-error {
+    padding: 10px;
+    background: #e400008c;
+    color: white;
+    font-family: sans-serif;
+    margin-bottom: 5px;
+}
+.our-bkash {
+    padding: 5px;
+    border: 1px solid;
+    margin-bottom: 18px;
+    background: #b59f9f1f;
+}
 input[type="radio"]:checked + .radio {
 	background-color: #241009;
 }
