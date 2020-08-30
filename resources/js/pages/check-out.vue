@@ -21,7 +21,7 @@
                 <p class="text-base font-serif px-2">{{ item.name }}</p>
                 <div class="control px-2 mt-2">
                   <button
-                    class="bttn bttn-left px-2 hover:bg-gray-300"
+                    class="bttn bttn-left px-2 bg-pink-500 text-white hover:bg-pink-800"
                     id="minus"
                     @click.prevent="minusQuntity(item)"
                   >
@@ -35,7 +35,7 @@
                     v-on:input="changeQuntity(item, $event.target.value)"
                   />
                   <button
-                    class="bttn bttn-right px-2 hover:bg-gray-300"
+                    class="bttn bttn-right px-2 bg-green-500 text-white hover:bg-green-800"
                     id="plus"
                     @click.prevent="plusQuntity(item)"
                   >
@@ -57,7 +57,7 @@
                   <div>{{ item.quantity * item.sale_price }}</div>
                 </div>
                 <span
-                  class="removeBtn cursor-pointer"
+                  class="removeBtn1"
                   title="Remove from cart"
                   @click.prevent="removeFromCart(item)"
                   >Remove</span
@@ -122,16 +122,28 @@
               <p v-on:click="modal = true" class="text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-0">Login First To Confirm Order</p>
           </div>
           <div v-else>
-          <div v-if="user.wallet >= totalPrice()">
+          <div>
               <p
-                class="text-white cursor-pointer text-center bg-red-400 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-0"
+                class="text-white cursor-pointer text-center bg-red-400 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-4"
                 v-on:click="submitOrderWithWallet()"
               >
-                Confirm Order With Wallet
+                Confirm order With KMf.Your Wallet {{ this.user.wallet }}
               </p>
           </div>
-          <div v-else>
-            <h4 class="mr-4 text-sm font-bold mt-2 ml-4">Our bKash Number: <b>   <input value="01997980260" disabled class="p-1 bg-gray-200 border-lg border-pink-500 border-2"/></b></h4><br>
+          <div>
+            <div class="border-2 text-left border-greeen-500 bKash-success">
+              Please send your total amount via bKash and write down your Transaction ID (TrxID). You do not need to pay bKash fees from your side. You must provide the full TrxID. We do not accept (partial) phone number for payment validation.
+            </div>
+            <br>
+            <div class="our-bkash">
+              <h4 class="mr-4 text-sm font-bold mt-2 ml-4">Our bKash Number: <b>   <input value="01997980260" disabled class="p-1 bg-gray-200 border-lg border-pink-500 border-2"/></b></h4><br>
+              <div class="bKash-error">
+                IMPORTANT: This is a MERCHANT NUMBER.
+              </div>
+              <div class="bKash-error">
+                Do NOT call this number. You will not get a response.
+              </div>
+            </div>
             <div class="flex flex-wrap ml-4">
               <h5 class="mr-4 font-bold mt-2">Your TrxId</h5>
               <div>
@@ -139,7 +151,7 @@
                   id="search"
                   v-model="trxid"
                   placeholder="Transaction ID"
-                  class="float-right p-2 bg-gray-200 hover:bg-white hover:border-gray-300 border-lg border-pink-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300"
+                  class="float-right p-2 bg-gray-200 hover:bg-white hover:border-gray-300 border-lg border-red-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300"
                 />
                 <p v-if="trxid === ''" class="text-pink-700">
                   Transaction ID required
@@ -168,9 +180,12 @@
           >
           <div class="grid grid-cols-1 gap-4 justify-center items-center">
             <div>
-              <h2 class="text-1xl text-gray-900 font-bold">
-                Login First To Confirm Order
-              </h2>
+             <h2 class="text-1xl text-gray-900 font-bold" v-if="check == false">
+								Login First To Complete Your Order
+							</h2>
+							<h2 class="text-1xl text-gray-900 font-bold" v-else>
+								Please Complete Your Order
+							</h2>
             </div>
           </div>
         </header>
@@ -298,27 +313,48 @@ export default {
   methods: {
     submitOrderWithWallet()
     {
-      axios.post(`/api/order-with-wallet/${this.user.id}/${this.totalSop}`, this.cart).then(response => {
-        console.log(response.data);
-          if (response.data.success == '1') {
-            this.$store.dispatch("cart/checkOut", []);
-            Swal.fire({
-              type: "success",
-              title: "Order Completed",
-              html: "Your Order Has Been Successfully Completed <br><p style='color: green;'>Now Your Wallet  "+ response.data.wallet +" BDT</p>",
-              reverseButtons: true,
-              confirmButtonText: "ok"
-            });
-          } else {
-            Swal.fire({
-              type: "error",
-              title: "Order Failed",
-              text: "Order Request Error !!!",
-              reverseButtons: true,
-              confirmButtonText: "ok"
-            });
-          }
-      });
+     if(this.user.wallet >= this.totalPrice()){
+			Swal.fire({
+				type: "question",
+				title: "Are You Sure ?",
+				html: '<b style="color: green;">Confirm Your Order With KMF Wallet</b>',
+				reverseButtons: true,
+				confirmButtonText: "Yes Confirm Order",
+				showCancelButton: true,
+			}).then(result => {
+				if (result.value) {
+              axios.post(`/api/order-with-wallet/${this.user.id}/${this.totalSop}`, this.cart).then(response => {
+                console.log(response.data);
+                  if (response.data.success == '1') {
+                    this.$store.dispatch("cart/checkOut", []);
+                    Swal.fire({
+                      type: "success",
+                      title: "Order Completed",
+                      html: "Your Order Has Been Successfully Completed <br><p style='color: green;'>Now Your Wallet  "+ response.data.wallet +" BDT</p>",
+                      reverseButtons: true,
+                      confirmButtonText: "ok"
+                    });
+                  } else {
+                    Swal.fire({
+                      type: "error",
+                      title: "Order Failed",
+                      text: "Order Request Error !!!",
+                      reverseButtons: true,
+                      confirmButtonText: "ok"
+                    });
+                  }
+              });
+              }
+          });
+        }else{
+          Swal.fire({
+            type: "error",
+            title: "Sorry",
+            html: "<b style='color: red;'>Your KMF wallet is less than your shop wallet</b><br><p color='green'>Please, try another way</p>",
+            reverseButtons: true,
+            confirmButtonText: "ok"
+          })
+        }
     },
     submitOrder() {
       if (this.trxid == "") {
@@ -494,7 +530,7 @@ export default {
       }
     },
     changeQuntity(item, new_quntity) {
-      if (new_quntity > 0) {
+      if (new_quntity > 0 && new_quntity<99999999) {
         item["new_quntity"] = new_quntity;
         this.$store.dispatch("cart/changeQuntity", item);
       } else {
@@ -536,11 +572,60 @@ export default {
 };
 </script>
 <style>
-.removeBtn {
+.bKash-success::before{
+	content: "\2713";
+    background-color: #4c8658;
+    padding: 6px;
+    height: 10px;
+    width: 10px;
+    margin-right: 7px;
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+}
+.bKash-success {
+    padding: 9px;
+    background: #348e1652;
+	border: 2px solid gray;
+}
+.bKash-error::before { 
+  content: "\26A0";
+  padding: 5px;
+  margin-right: 5px;
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 50%;
+}
+.bKash-error {
+    padding: 10px;
+    background: #e400008c;
+    color: white;
+    font-family: sans-serif;
+    margin-bottom: 5px;
+}
+.our-bkash {
+    padding: 5px;
+    border: 1px solid;
+    margin-bottom: 18px;
+    background: #b59f9f1f;
+}
+.removeBtn1 {
   position: relative;
   bottom: 0;
   left: 0;
   right: 0;
+  left: -25px;
+  margin-right: 1rem;
+  color: #ffffff;
+  padding: 3px 5px;
+  text-align: center;
+  font-weight: 700;
+  background: #ff0000;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  top: 52px;
 }
 .control {
   display: flex;
@@ -562,7 +647,6 @@ export default {
   border-right: none;
 }
 .control a.bttn {
-  color: black;
   text-decoration: none;
 }
 .control a.bttn,
@@ -571,7 +655,6 @@ export default {
   text-align: center;
   border: 1px solid black;
   box-shadow: none;
-  background-color: white;
   font-weight: bold;
 }
 .control a.bttn span,
@@ -582,9 +665,7 @@ export default {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-.bttn:hover {
-  background: #ccc;
-}
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;

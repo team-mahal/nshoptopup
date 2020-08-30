@@ -24,7 +24,7 @@
                 class="rounded h-48 w-full"
             />
             <div class="p-4 pl-0">
-                <h2 class="font-bold text-xl text-gray-800">
+                <h2 class="font-bold text-xl text-orange-500">
                 {{ blog.title }}
                 </h2>
                 <p v-if="blog.description.length <= 200" class="text-gray-700 text-sm mt-2 h-24 min-h-full" v-html="blog.description.substring(-6, 200)">
@@ -38,7 +38,7 @@
                     name: 'blog-details',
                     params: { id: blog.id, slug: makeSlug(blog.title) }
                 }"
-                class="inline-block mt-4 ml-auto bg-orange-500 hover:bg-red-300 text-white font-bold py-2 px-4 rounded"
+                class="inline-block mt-4 ml-auto cursor-pointer bg-orange-500 hover:bg-red-300 text-white font-bold py-2 px-4 rounded"
                 >
                 Read more
                 </router-link>

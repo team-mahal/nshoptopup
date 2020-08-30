@@ -29,16 +29,23 @@ export const mutations = {
         window.localStorage.setItem('cartCount', state.cartCount);
     },
     [types.REMOVE_CART] (state, item) {
-        let index = state.cart.indexOf(item);
+        let index = state.cart.findIndex(product => product.id == item.id);
+        var nowcartCount = 0;
+        var oldcartCount = state.cartCount;
         if (index > -1) {
+            nowcartCount = state.cartCount.quantity;
             let product = state.cart[index];
             state.cartCount -= product.quantity;
     
             state.cart.splice(index, 1);
         }
         window.localStorage.setItem('cart', JSON.stringify(state.cart));
-        if(state.cartCount < 0)
-        window.localStorage.setItem('cartCount', state.cartCount);
+        var cartCount = parseInt(oldcartCount)-parseInt(nowcartCount);
+        if(state.cartCount < 0){
+            window.localStorage.setItem('cartCount', state.cartCount);
+        }else{
+            window.localStorage.setItem('cartCount', state.cartCount);
+        }
     },
     [types.CHECK_OUT] (state, item) {
         state.cart = [];
