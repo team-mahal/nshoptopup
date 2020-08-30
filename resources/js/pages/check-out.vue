@@ -57,7 +57,7 @@
                   <div>{{ item.quantity * item.sale_price }}</div>
                 </div>
                 <span
-                  class="removeBtn cursor-pointer"
+                  class="removeBtn1 cursor-pointer"
                   title="Remove from cart"
                   @click.prevent="removeFromCart(item)"
                   >Remove</span
@@ -611,7 +611,7 @@ export default {
     margin-bottom: 18px;
     background: #b59f9f1f;
 }
-.removeBtn {
+.removeBtn1 {
   position: relative;
   bottom: 0;
   left: -25px;
