@@ -45,7 +45,7 @@
               </div>
               <div class="items-center justify-center" style="width:5%">
                 <div
-                  class="font-normal text-lg mb-1"
+                  class="font-normal text-lg mb-1 mr-4"
                   style="display: inline-flex;"
                 >
                   <p
@@ -123,14 +123,19 @@
           </div>
           <div v-else>
           <div>
+            <div class="wallet mb-4 flex items-center justify-content-center">
+              <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="wallet" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-wallet fa-w-16 w-10 h-10 text-red-300"><path fill="currentColor" d="M461.2 128H80c-8.84 0-16-7.16-16-16s7.16-16 16-16h384c8.84 0 16-7.16 16-16 0-26.51-21.49-48-48-48H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h397.2c28.02 0 50.8-21.53 50.8-48V176c0-26.47-22.78-48-50.8-48zM416 336c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z" class=""></path></svg>
+              <span class="ml-2 text-base text-red-300 font-bold">Your available wallet {{ this.user.wallet }} BDT</span>
+            </div>
               <p
                 class="text-white cursor-pointer text-center bg-red-400 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-4"
                 v-on:click="submitOrderWithWallet()"
               >
-                Confirm order With KMf.Your Wallet {{ this.user.wallet }}
+                Confirm Order
               </p>
           </div>
-          <div>
+          <!-- Bkash TnxID -->
+          <!-- <div>
             <div class="border-2 text-left border-greeen-500 bKash-success">
               Please send your total amount via bKash and write down your Transaction ID (TrxID). You do not need to pay bKash fees from your side. You must provide the full TrxID. We do not accept (partial) phone number for payment validation.
             </div>
@@ -165,7 +170,7 @@
             >
               Confirm Payment
             </p>
-          </div>
+          </div> -->
           </div>
         </div>
       </div>
@@ -267,17 +272,16 @@
                 <p
                   class="text-white cursor-pointer text-center bg-red-400 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-0"
                   v-on:click="submitOrderWithWallet()"
-                  v-if="user.wallet >= totalPrice()"
                 >
-                  Confirm Order With Wallet
+                  Confirm Order 
                 </p>
-                <p
-                  v-else
+                <!--************ bKASH Order ****** -->
+                <!-- <p
                   class="text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white font-bold py-2 px-2 mt-2 rounded mb-0"
                   v-on:click="submitOrder()"
                 >
                   Confirm Payment
-                </p>
+                </p> -->
               </div>
             </div>
           </div>
@@ -317,7 +321,7 @@ export default {
 			Swal.fire({
 				type: "question",
 				title: "Are You Sure ?",
-				html: '<b style="color: green;">Confirm Your Order With KMF Wallet</b>',
+				html: '<b style="color: green;">Confirm Your Order With NSHOPTOPUP Wallet</b>',
 				reverseButtons: true,
 				confirmButtonText: "Yes Confirm Order",
 				showCancelButton: true,
@@ -350,173 +354,175 @@ export default {
           Swal.fire({
             type: "error",
             title: "Sorry",
-            html: "<b style='color: red;'>Your KMF wallet is less than your shop wallet</b><br><p color='green'>Please, try another way</p>",
+            html: "<b style='color: red;'>Your NSHOPTOPUP wallet is less than your shop wallet</b><br><p color='green'>Please, try another way</p>",
             reverseButtons: true,
             confirmButtonText: "ok"
           })
         }
     },
-    submitOrder() {
-      if (this.trxid == "") {
-        Swal.fire({
-          type: "warning",
-          title: "Transaction Id filed is required",
-          text: "Transaction ID required",
-          reverseButtons: true,
-          confirmButtonText: "ok"
-        });
-      } else if (this.check == false) {
-        this.modal = true;
-      } else {
-        axios
-          .get(`/api/trxidData/${this.trxid}/${this.user.id}/${this.totalSop}`)
-          .then(response => {
-            console.log(response.data);
-            if (response.data.error == "0") {
-              if (response.data.used_code == "1") {
-                var form = document.createElement("div");
-                form.innerHTML =
-                  "<b style='color:red;'>This trxID is Already Used !!!</b><br><p>Sender Number : <b>" +
-                  response.data.transaction.sender +
-                  "</b></p><p>Amount : <b>" +
-                  response.data.transaction.amount +
-                  "</b></p>";
-                Swal.fire({
-                  title: "Order Failed !!!",
-                  html: form,
-                  type: "warning",
-                  reverseButtons: true,
-                  confirmButtonText: "ok"
-                });
-              } else {
-                if (response.data.order_success_code == "0") {
-                  var form = document.createElement("div");
-                  form.innerHTML =
-                    "<b style='color:red;'>Your Order is Not Completed</b><br><p>Sender Number : <b>" +
-                    response.data.transaction.sender +
-                    "</b></p><p>Amount : <b>" +
-                    response.data.transaction.amount +
-                    "</b></br><b style='color:green;'>This Amount Add Your Wallet Check please</b><br><i>Your Payment Amount Less Than Shop Amount As a result Order Failed</i></p>";
-                  Swal.fire({
-                    title: "Order Failed !!!",
-                    html: form,
-                    type: "warning",
-                    reverseButtons: true,
-                    confirmButtonText: "ok"
-                  });
-                } else {
-                  if (response.data.extra_money == "1") {
-                    axios
-                      .post(
-                        `/api/shopOrder/${this.totalSop}/${this.user.id}`,
-                        this.cart
-                      )
-                      .then(response => {
-                        if (response.data == "true") {
-                          this.$store.dispatch("cart/checkOut", []);
-                          Swal.fire({
-                            type: "success",
-                            title: "Order Completed",
-                            html:
-                              "Your Order Has Been Successfully Completed <br><p style='color: green;'>Extra Amount Add Your Wallet Check please</p>",
-                            reverseButtons: true,
-                            confirmButtonText: "ok"
-                          });
-                        } else {
-                          Swal.fire({
-                            type: "error",
-                            title: "Order Failed",
-                            text: "Order Request Error !!!",
-                            reverseButtons: true,
-                            confirmButtonText: "ok"
-                          });
-                        }
-                      });
-                  } else {
-                    axios
-                      .post(
-                        `/api/shopOrder/${this.totalSop}/${this.user.id}`,
-                        this.cart
-                      )
-                      .then(response => {
-                        if (response.data == "true") {
-                          this.$store.dispatch("cart/checkOut", []);
-                          Swal.fire({
-                            type: "success",
-                            title: "Order Completed",
-                            text: "Your Order Has Been Successfully Completed",
-                            reverseButtons: true,
-                            confirmButtonText: "ok"
-                          });
-                        } else {
-                          Swal.fire({
-                            type: "error",
-                            title: "Order Failed",
-                            text: "Order Request Error !!!",
-                            reverseButtons: true,
-                            confirmButtonText: "ok"
-                          });
-                        }
-                      });
-                  }
-                }
-              }
-            } else {
-              var form = document.createElement("div");
-              if (
-                response.data.transaction.trxStatus == "0010" ||
-                response.data.transaction.trxStatus == "0011"
-              ) {
-                form.innerHTML =
-                  "<b style='color:red;'>bKash Say, trxID is valid but transaction is in pending state.</b>";
-              } else if (response.data.transaction.trxStatus == "0100") {
-                form.innerHTML =
-                  "<b style='color:red;'>bKash Say, trxID is valid but transaction has been reversed.</b>";
-              } else if (response.data.transaction.trxStatus == "0111") {
-                form.innerHTML =
-                  "<b style='color:red;'>bKash Say, trxID is valid but transaction has failed.</b>";
-              } else if (response.data.transaction.trxStatus == "1001") {
-                form.innerHTML =
-                  "<b style='color:red;'>bKash Say, Invalid MSISDN input. Try with correct mobile no.</b>";
-              } else if (response.data.transaction.trxStatus == "1002") {
-                form.innerHTML =
-                  "<b style='color:red;'>bKash Say, Invalid trxID, it does not exist.</b>";
-              } else if (response.data.transaction.trxStatus == "1003") {
-                form.innerHTML =
-                  "<b style='color:red;'>bKash Say, Access denied. Username or Password is incorrect.</b>";
-              } else if (response.data.transaction.trxStatus == "1004") {
-                form.innerHTML =
-                  "<b style='color:red;'>bKash Say, Access denied. trxID is not related to this username.</b>";
-              } else if (response.data.transaction.trxStatus == "2000") {
-                form.innerHTML =
-                  "<b style='color:red;'>bKash Say, Access denied. User does not have access to this module.</b>";
-              } else if (response.data.transaction.trxStatus == "2001") {
-                form.innerHTML =
-                  "<b style='color:red;'>bKash Say, Access denied. User date time request is exceeded of the defined limit.</b>";
-              } else if (response.data.transaction.trxStatus == "3000") {
-                form.innerHTML =
-                  "<b style='color:red;'>bKash Say, Missing required mandatory fields for this module</b>";
-              } else if (response.data.transaction.trxStatus == "9999") {
-                form.innerHTML =
-                  "<b style='color:red;'>bKash Say, Could not process request.</b>";
-              } else if (response.data.transaction.trxStatus == "4001") {
-                form.innerHTML =
-                  "<b style='color:red;'>bKash Say, Already Submited This trxID .</b>";
-              } else {
-                form.innerHTML =
-                  "<b style='color:red;'>bKash Say, This trxID is Not Valid !!!</b>";
-              }
-              Swal.fire({
-                title: "Order Failed !!!",
-                html: form,
-                type: "warning",
-                reverseButtons: true,
-                confirmButtonText: "ok"
-              });
-            }
-          });
-      }
-    },
+
+    //************ */ Order With TrxID **********
+    // submitOrder() {
+    //   if (this.trxid == "") {
+    //     Swal.fire({
+    //       type: "warning",
+    //       title: "Transaction Id filed is required",
+    //       text: "Transaction ID required",
+    //       reverseButtons: true,
+    //       confirmButtonText: "ok"
+    //     });
+    //   } else if (this.check == false) {
+    //     this.modal = true;
+    //   } else {
+    //     axios
+    //       .get(`/api/trxidData/${this.trxid}/${this.user.id}/${this.totalSop}`)
+    //       .then(response => {
+    //         console.log(response.data);
+    //         if (response.data.error == "0") {
+    //           if (response.data.used_code == "1") {
+    //             var form = document.createElement("div");
+    //             form.innerHTML =
+    //               "<b style='color:red;'>This trxID is Already Used !!!</b><br><p>Sender Number : <b>" +
+    //               response.data.transaction.sender +
+    //               "</b></p><p>Amount : <b>" +
+    //               response.data.transaction.amount +
+    //               "</b></p>";
+    //             Swal.fire({
+    //               title: "Order Failed !!!",
+    //               html: form,
+    //               type: "warning",
+    //               reverseButtons: true,
+    //               confirmButtonText: "ok"
+    //             });
+    //           } else {
+    //             if (response.data.order_success_code == "0") {
+    //               var form = document.createElement("div");
+    //               form.innerHTML =
+    //                 "<b style='color:red;'>Your Order is Not Completed</b><br><p>Sender Number : <b>" +
+    //                 response.data.transaction.sender +
+    //                 "</b></p><p>Amount : <b>" +
+    //                 response.data.transaction.amount +
+    //                 "</b></br><b style='color:green;'>This Amount Add Your Wallet Check please</b><br><i>Your Payment Amount Less Than Shop Amount As a result Order Failed</i></p>";
+    //               Swal.fire({
+    //                 title: "Order Failed !!!",
+    //                 html: form,
+    //                 type: "warning",
+    //                 reverseButtons: true,
+    //                 confirmButtonText: "ok"
+    //               });
+    //             } else {
+    //               if (response.data.extra_money == "1") {
+    //                 axios
+    //                   .post(
+    //                     `/api/shopOrder/${this.totalSop}/${this.user.id}`,
+    //                     this.cart
+    //                   )
+    //                   .then(response => {
+    //                     if (response.data == "true") {
+    //                       this.$store.dispatch("cart/checkOut", []);
+    //                       Swal.fire({
+    //                         type: "success",
+    //                         title: "Order Completed",
+    //                         html:
+    //                           "Your Order Has Been Successfully Completed <br><p style='color: green;'>Extra Amount Add Your Wallet Check please</p>",
+    //                         reverseButtons: true,
+    //                         confirmButtonText: "ok"
+    //                       });
+    //                     } else {
+    //                       Swal.fire({
+    //                         type: "error",
+    //                         title: "Order Failed",
+    //                         text: "Order Request Error !!!",
+    //                         reverseButtons: true,
+    //                         confirmButtonText: "ok"
+    //                       });
+    //                     }
+    //                   });
+    //               } else {
+    //                 axios
+    //                   .post(
+    //                     `/api/shopOrder/${this.totalSop}/${this.user.id}`,
+    //                     this.cart
+    //                   )
+    //                   .then(response => {
+    //                     if (response.data == "true") {
+    //                       this.$store.dispatch("cart/checkOut", []);
+    //                       Swal.fire({
+    //                         type: "success",
+    //                         title: "Order Completed",
+    //                         text: "Your Order Has Been Successfully Completed",
+    //                         reverseButtons: true,
+    //                         confirmButtonText: "ok"
+    //                       });
+    //                     } else {
+    //                       Swal.fire({
+    //                         type: "error",
+    //                         title: "Order Failed",
+    //                         text: "Order Request Error !!!",
+    //                         reverseButtons: true,
+    //                         confirmButtonText: "ok"
+    //                       });
+    //                     }
+    //                   });
+    //               }
+    //             }
+    //           }
+    //         } else {
+    //           var form = document.createElement("div");
+    //           if (
+    //             response.data.transaction.trxStatus == "0010" ||
+    //             response.data.transaction.trxStatus == "0011"
+    //           ) {
+    //             form.innerHTML =
+    //               "<b style='color:red;'>bKash Say, trxID is valid but transaction is in pending state.</b>";
+    //           } else if (response.data.transaction.trxStatus == "0100") {
+    //             form.innerHTML =
+    //               "<b style='color:red;'>bKash Say, trxID is valid but transaction has been reversed.</b>";
+    //           } else if (response.data.transaction.trxStatus == "0111") {
+    //             form.innerHTML =
+    //               "<b style='color:red;'>bKash Say, trxID is valid but transaction has failed.</b>";
+    //           } else if (response.data.transaction.trxStatus == "1001") {
+    //             form.innerHTML =
+    //               "<b style='color:red;'>bKash Say, Invalid MSISDN input. Try with correct mobile no.</b>";
+    //           } else if (response.data.transaction.trxStatus == "1002") {
+    //             form.innerHTML =
+    //               "<b style='color:red;'>bKash Say, Invalid trxID, it does not exist.</b>";
+    //           } else if (response.data.transaction.trxStatus == "1003") {
+    //             form.innerHTML =
+    //               "<b style='color:red;'>bKash Say, Access denied. Username or Password is incorrect.</b>";
+    //           } else if (response.data.transaction.trxStatus == "1004") {
+    //             form.innerHTML =
+    //               "<b style='color:red;'>bKash Say, Access denied. trxID is not related to this username.</b>";
+    //           } else if (response.data.transaction.trxStatus == "2000") {
+    //             form.innerHTML =
+    //               "<b style='color:red;'>bKash Say, Access denied. User does not have access to this module.</b>";
+    //           } else if (response.data.transaction.trxStatus == "2001") {
+    //             form.innerHTML =
+    //               "<b style='color:red;'>bKash Say, Access denied. User date time request is exceeded of the defined limit.</b>";
+    //           } else if (response.data.transaction.trxStatus == "3000") {
+    //             form.innerHTML =
+    //               "<b style='color:red;'>bKash Say, Missing required mandatory fields for this module</b>";
+    //           } else if (response.data.transaction.trxStatus == "9999") {
+    //             form.innerHTML =
+    //               "<b style='color:red;'>bKash Say, Could not process request.</b>";
+    //           } else if (response.data.transaction.trxStatus == "4001") {
+    //             form.innerHTML =
+    //               "<b style='color:red;'>bKash Say, Already Submited This trxID .</b>";
+    //           } else {
+    //             form.innerHTML =
+    //               "<b style='color:red;'>bKash Say, This trxID is Not Valid !!!</b>";
+    //           }
+    //           Swal.fire({
+    //             title: "Order Failed !!!",
+    //             html: form,
+    //             type: "warning",
+    //             reverseButtons: true,
+    //             confirmButtonText: "ok"
+    //           });
+    //         }
+    //       });
+    //   }
+    // },
     removeFromCart(item) {
       this.$store.dispatch("cart/removeFromCart", item);
     },
@@ -613,9 +619,8 @@ export default {
 .removeBtn1 {
   position: relative;
   bottom: 0;
-  left: 0;
+  left: -4px;
   right: 0;
-  left: -25px;
   margin-right: 1rem;
   color: #ffffff;
   padding: 3px 5px;
@@ -685,7 +690,7 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: rgba(0, 0, 0, 0.4);
 }
 .modal-body {
-  height: 500px;
+  height: 400px;
   overflow-y: scroll;
 }
 ::-webkit-scrollbar {

@@ -107,65 +107,67 @@ class CommonController extends Controller
             return response()->json('failed', 404);
     }
 
-    public function getTrxidData($trxid, $user_id, $cart_amount)
-    {
-        $user = User::find($user_id);
-        $wallet = $user->wallet;
+    // bKash trxid
 
-        $client = new \GuzzleHttp\Client( ['headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]); 
-        $res = $client->get('https://www.bkashcluster.com:9081/dreamwave/merchant/trxcheck/sendmsg?user=KMFONLINEGASRM29524&pass=aSe@6PLOIuYGBmc&msisdn=01997980260&trxid='.$trxid);
-        $data = $res->getBody();
-        $result = json_decode($data, true);
-        if($result['transaction']['trxStatus'] == '0000'){
-            $result['error'] = '0'; 
-            $transactionInfo = TransactionInfo::where('trxId', $trxid)->get()->count();
-            if($transactionInfo < 1){
-                $result['used_code'] = '0';
-                $transactionInfodata = new TransactionInfo;
-                $transactionInfodata->trxId = $result['transaction']['trxId'];
-                $transactionInfodata->sender = $result['transaction']['sender'];
-                $transactionInfodata->amount = $result['transaction']['amount'];
-                $transactionInfodata->user_id = $user_id;
-                $transactionInfodata->save();
+    // public function getTrxidData($trxid, $user_id, $cart_amount)
+    // {
+    //     $user = User::find($user_id);
+    //     $wallet = $user->wallet;
 
-                $total_update_wallet = $result['transaction']['amount'] + $wallet;
+    //     $client = new \GuzzleHttp\Client( ['headers' => [
+    //             'Content-Type' => 'application/json'
+    //         ]
+    //     ]); 
+    //     $res = $client->get('https://www.bkashcluster.com:9081/dreamwave/merchant/trxcheck/sendmsg?user=aaaaaaaaaaa&pass=aSe@6PLOIuYGBmc&msisdn=01997980260&trxid='.$trxid);
+    //     $data = $res->getBody();
+    //     $result = json_decode($data, true);
+    //     if($result['transaction']['trxStatus'] == '0000'){
+    //         $result['error'] = '0'; 
+    //         $transactionInfo = TransactionInfo::where('trxId', $trxid)->get()->count();
+    //         if($transactionInfo < 1){
+    //             $result['used_code'] = '0';
+    //             $transactionInfodata = new TransactionInfo;
+    //             $transactionInfodata->trxId = $result['transaction']['trxId'];
+    //             $transactionInfodata->sender = $result['transaction']['sender'];
+    //             $transactionInfodata->amount = $result['transaction']['amount'];
+    //             $transactionInfodata->user_id = $user_id;
+    //             $transactionInfodata->save();
 
-                if($cart_amount > $total_update_wallet)
-                {   
-                    $update_wallet = $wallet + $result['transaction']['amount'];
-                    $user->update(['wallet' => $update_wallet]);
-                    $result['order_success_code'] = '0'; 
+    //             $total_update_wallet = $result['transaction']['amount'] + $wallet;
+
+    //             if($cart_amount > $total_update_wallet)
+    //             {   
+    //                 $update_wallet = $wallet + $result['transaction']['amount'];
+    //                 $user->update(['wallet' => $update_wallet]);
+    //                 $result['order_success_code'] = '0'; 
                     
-                }elseif($cart_amount > $result['transaction']['amount'] || $cart_amount == $total_update_wallet){
-                    $shop_extra_money = (int)$cart_amount - (int)$result['transaction']['amount'];
-                    $update_wallet = $wallet - $shop_extra_money;
-                    $user->update(['wallet' => $update_wallet]);
-                    $result['order_success_code'] = '1'; 
+    //             }elseif($cart_amount > $result['transaction']['amount'] || $cart_amount == $total_update_wallet){
+    //                 $shop_extra_money = (int)$cart_amount - (int)$result['transaction']['amount'];
+    //                 $update_wallet = $wallet - $shop_extra_money;
+    //                 $user->update(['wallet' => $update_wallet]);
+    //                 $result['order_success_code'] = '1'; 
 
-                }elseif($cart_amount < $result['transaction']['amount']){
-                    $over_amount = $result['transaction']['amount'] - $cart_amount;
-                    $update_wallet = $wallet + $over_amount;
-                    $user->update(['wallet' => $update_wallet]);
-                    $result['order_success_code'] = '1';
-                    $result['extra_money'] = '1';
+    //             }elseif($cart_amount < $result['transaction']['amount']){
+    //                 $over_amount = $result['transaction']['amount'] - $cart_amount;
+    //                 $update_wallet = $wallet + $over_amount;
+    //                 $user->update(['wallet' => $update_wallet]);
+    //                 $result['order_success_code'] = '1';
+    //                 $result['extra_money'] = '1';
                     
-                }else{
-                    $result['extra_money'] = '0';
-                    $result['order_success_code'] = '1';
-                }
-            }else{
-                $result['used_code'] = '1'; 
-            }
-            echo json_encode($result);
-        }else{
-            $result['error'] = '1';
-            $result['order_success_code'] = '0'; 
-            $result['used_code'] = '0';
-            echo json_encode($result);
-        }
-    }
+    //             }else{
+    //                 $result['extra_money'] = '0';
+    //                 $result['order_success_code'] = '1';
+    //             }
+    //         }else{
+    //             $result['used_code'] = '1'; 
+    //         }
+    //         echo json_encode($result);
+    //     }else{
+    //         $result['error'] = '1';
+    //         $result['order_success_code'] = '0'; 
+    //         $result['used_code'] = '0';
+    //         echo json_encode($result);
+    //     }
+    // }
     
 }

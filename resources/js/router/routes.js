@@ -36,4 +36,5 @@ export default [
   { path: '/order-details/:id', name: 'order-details', component: page('order-details.vue')},
   { path: '/my-account', name: 'my-account', component: page('my-account.vue')},
   { path: '/my-wallet', name: 'my-wallet', component: page('my-wallet.vue')},
+  { path: '/add-wallet', name: 'add-wallet', component: page('add-wallet.vue')},
 ]

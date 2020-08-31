@@ -1,14 +1,14 @@
 <template>
   <!-- footer -->
-  <footer class="border-t mt-12 pt-12 pb-20 px-4 lg:px-0" style="background-image: linear-gradient(10deg, red, blue);">
+  <footer class="border-t mt-12 pt-12 pb-20 px-4 lg:px-0" style="background-image: linear-gradient(365deg, rgb(8 169 139), rgb(243 0 255));">
     <div class="flex flex-wrap container mx-auto">
       <div class="w-full lg:w-2/5">
         <router-link
           :to="'/'"
-          class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline"
+          class="text-lg font-semibold tracking-widest text-gray-900 uppercase"
         >
           <h1 class="font-bold text-white mb-4 text-4xl">
-            KMF <sub class="text-base">Gamer Mall</sub>
+            NSHOP <sub class="text-base">TOPUP</sub>
           </h1>
         </router-link>
         <p class="text-gray-200 lg:block p-0 lg:pr-12" v-html="footerData.content"></p>
