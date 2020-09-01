@@ -12,11 +12,11 @@
 						<h3 class="mb-0 text-white">Create Match</h3>
 					</div>
 					<div class="col text-right">
-						<a href="{{ route('matchs.index') }}" class="btn btn-sm btn-success">Matchs List</a>
+						<a href="{{ route('match.index') }}" class="btn btn-sm btn-success">Matchs List</a>
 					</div>
 				</div>
 			</div>
-			<form action="{{ route('matchs.store') }}" method="POST" enctype="multipart/form-data" class="p-4">
+			<form action="{{ route('match.store') }}" method="POST" enctype="multipart/form-data" class="p-4">
 				@csrf
 				@if ($message = Session::get('success'))
 				<div class="row">
