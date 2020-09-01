@@ -38,8 +38,9 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'logo' => 'required|mimes:jpeg,png,jpg,txt,xlx,xls,pdf|max:2048'
-            ]);
+            'logo' => 'required|mimes:jpeg,png,jpg,txt,xlx,xls,pdf|max:2048',
+            'description' => 'required',
+        ]);
         $product = new Product;
         $product->description = $request->input('description');
         $product->name = $request->input('name');

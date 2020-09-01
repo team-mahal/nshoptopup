@@ -39,53 +39,7 @@
 				</div>
 			</div>
 		</section>
-
-		<section class="bg-gray-100">
-			<div class="container mx-auto mt-5">
-				<h3 class="text-2xl md:text-3xl text-center font-bold py-5">
-					Top-up or Buy game's item, cheap and fast only at KMF
-				</h3>
-				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-					<div class="rounded overflow-hidden mt-5 mx-auto">
-						<img class="w-40 mx-auto" src="/1.svg" alt="Sunset in the mountains" />
-						<div class="px-6 py-4">
-							<h2 class="font-bold text-sm mb-2 text-center">
-								1. Top Up Your Favourite Game
-							</h2>
-							<p class="text-gray-700 text-base">
-								Millions of gamer choose UniPin! Top Up your favourite game
-								here!
-							</p>
-						</div>
-					</div>
-					<div class="rounded overflow-hidden mr-5 mt-5  mx-auto">
-						<img class="w-40 mx-auto" src="/1.svg" alt="Sunset in the mountains" />
-						<div class="px-6 py-4">
-							<div class="font-bold text-sm mb-2 text-center">
-								2. Choose the Amount and Pay
-							</div>
-							<p class="text-gray-700 text-base text-center">
-								Easy to Top Up and attracting promo. You can pay using your
-								favourite Payment Channel!
-							</p>
-						</div>
-					</div>
-					<div class="rounded overflow-hidden mr-5 mt-5 mx-auto">
-						<img class="w-40 mx-auto" src="/3.svg" alt="Sunset in the mountains" />
-						<div class="px-6 py-4">
-							<div class="font-bold text-sm mb-2 text-center">
-								3. Get the Item / Voucher
-							</div>
-							<p class="text-gray-700 text-base text-center">
-								Item / Voucher will instantly sent to you and our Customer
-								support will help you 24/7!
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
+		
 		<section>
 			<div class="container mx-auto mt-5">
 				<div class="mx-auto"> <!-- max-w-screen-lg -->

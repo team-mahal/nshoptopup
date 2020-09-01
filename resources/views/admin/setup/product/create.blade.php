@@ -52,16 +52,9 @@
 						<div class="form-group">
 							<label>IS Shop </label>
 							<select name="is_shop" id="is_shop" class="form-control">
-								@if(old('is_admin') == 0)
 								<option value="0" selected>Not Shop</option>
-								@else
-								<option value="0">Not Shop</option>
-								@endif
-								@if(old('is_admin') == 1)
 								<option value="1" selected>Shop</option>
-								@else
-								<option value="1">Shop</option>
-								@endif
+								<option value="2" selected>Playzoon</option>
 							</select>
 						</div>
 					</div>
