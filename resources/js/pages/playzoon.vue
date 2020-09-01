@@ -51,7 +51,7 @@ export default {
   	},
   	methods: {
   		loadProducts() {
-			axios.get("/api/products").then(response => {
+			axios.get("/api/productplayzoon").then(response => {
 				this.products = response.data;
 			});
 		},

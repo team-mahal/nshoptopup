@@ -1,14 +1,9 @@
 <!-- CkEidtor  -->
 <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 @include('admin.layouts.header')
-
 <div class="container-fluid min-700px">
-
 	{{-- Product List  --}}
 	<div class="col-xl-12">
-
-
-
 		<div class="card mt-5">
 			<div class="card-header border-1 bg-gradient-primary">
 				<div class="row align-items-center">
@@ -58,13 +53,10 @@
 								<select name="is_shop" id="is_shop" class="form-control">
 									@if ($product->is_shop ==0)
 										<option value="0" selected>Not Shop</option>
-									@else
-										<option value="0">Not Shop</option>
-									@endif
-									@if ($product->is_shop ==1)
+									@elseif($product->is_shop ==1)
 										<option value="1" selected>Shop</option>
 									@else
-										<option value="1">Shop</option>
+										<option value="2" selected>Playzoon</option>
 									@endif
 								</select>
 							</div>

@@ -15,6 +15,12 @@ class ProductController extends Controller
         return response()->json($product, 200);
     }
 
+    public function productplayzoon()
+    {
+        $product = Product::where('is_shop', 2)->latest()->get();
+        return response()->json($product, 200);
+    }
+
     public function getSingelProduct($id)
     {
         $product = Product::where('is_shop', 0)->find($id);
