@@ -39,4 +39,5 @@ export default [
   { path: '/add-wallet', name: 'add-wallet', component: page('add-wallet.vue')},
   { path: '/withdraw-wallet', name: 'withdraw-wallet', component: page('withdraw-wallet.vue')},
   { path: '/playzoon', name: 'playzoon', component: page('playzoon.vue')},
+  { path: '/playzoon/:id', name: 'matchas', component: page('matchas.vue')},
 ]

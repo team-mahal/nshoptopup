@@ -11,7 +11,7 @@
 				>
 					<router-link
 						:to="{
-							name: 'details',
+							name: 'matchas',
 							params: { id: product.id, slug: makeSlug(product.name) }
 						}"
 					>
