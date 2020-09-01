@@ -20,6 +20,19 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
+
+    Route::post('add-wallet/{user_id}', "Admin\SiteController@addWallet");
+
+    //Product Order
+    Route::post('product-order-walllet/{id}/{user_id}', "Admin\SiteController@ProductOrderWithWallet");
+    Route::post('productOrder/{id}/{user_id}', "Admin\OrderController@store");
+
+    //trxidData
+    Route::get('trxidData/{trxid}/{user_id}/{cart_amount}', "Admin\CommonController@getTrxidData");
+    Route::post('order-with-wallet/{user_id}/{cart_amount}', "Admin\SiteController@orderWithWallet");
+    Route::post('shopOrder/{total}/{user_id}', "Admin\CommonController@shopStore");
+    Route::get('transactions-data/{id}', "Admin\TransactionInfoController@getTransaction");
+
 });
 
 
@@ -43,14 +56,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('all-blog', "Admin\CommonController@getAllBlog");
 
 
-    //Product Order
-    Route::post('product-order-walllet/{id}/{user_id}', "Admin\SiteController@ProductOrderWithWallet");
-    Route::post('productOrder/{id}/{user_id}', "Admin\OrderController@store");
 
-    //trxidData
-    Route::get('trxidData/{trxid}/{user_id}/{cart_amount}', "Admin\CommonController@getTrxidData");
-    Route::post('order-with-wallet/{user_id}/{cart_amount}', "Admin\SiteController@orderWithWallet");
-    Route::post('shopOrder/{total}/{user_id}', "Admin\CommonController@shopStore");
 
 
 
