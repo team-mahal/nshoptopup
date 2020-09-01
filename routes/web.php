@@ -50,6 +50,10 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::get('transaction', "Admin\TransactionInfoController@index")->name('transaction.index');
     Route::post('transactionUpdate','Admin\TransactionInfoController@update')->name('transactionUpdate');
 
+    //Withdraw
+    Route::get('withdraw', "Admin\WithdrawInfoController@index")->name('withdraw.index');
+    Route::post('withdrawUpdate','Admin\WithdrawInfoController@update')->name('withdrawUpdate');
+
     //Tran
     Route::get('order', "Admin\OrderController@index")->name('order.index');
     Route::post('orderUpdate','Admin\OrderController@update')->name('orderUpdate');

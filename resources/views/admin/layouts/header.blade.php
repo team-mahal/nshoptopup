@@ -75,18 +75,23 @@
 								</a>
 							</li>
 							<li class="nav-item ">
+								<a class="nav-link" href="{{ url('/admin/order') }}">
+									<img  src="{{ asset('admin/img/icons/common/purchase-order.png') }}" class="mr-2">
+									<span class="nav-link-text">Order</span>
+								</a>
+							</li>
+							<li class="nav-item ">
 								<a class="nav-link" href="{{ route('transaction.index') }}">
 									<img  src="{{ asset('admin/img/icons/common/purchase-order.png') }}" class="mr-2">
 									<span class="nav-link-text">Add Wallet</span>
 								</a>
 							</li>
 							<li class="nav-item ">
-								<a class="nav-link" href="{{ url('/admin/order') }}">
+								<a class="nav-link" href="{{ route('withdraw.index') }}">
 									<img  src="{{ asset('admin/img/icons/common/purchase-order.png') }}" class="mr-2">
-									<span class="nav-link-text">Order</span>
+									<span class="nav-link-text">Withdraw Wallet</span>
 								</a>
 							</li>
-							
 							<li class="nav-item ">
 								<a class="nav-link" href="{{ url('/admin/paymentMethod') }}">
 									<img  src="{{ asset('admin/img/icons/common/heck-for-payment.png') }}" class="mr-2">

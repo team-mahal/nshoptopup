@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/password', 'Settings\PasswordController@update');
 
     Route::post('add-wallet/{user_id}', "Admin\SiteController@addWallet");
+    Route::post('withdraw-wallet/{user_id}', "Admin\SiteController@withdrawWallet");
 
     //Product Order
     Route::post('product-order-walllet/{id}/{user_id}', "Admin\SiteController@ProductOrderWithWallet");
@@ -32,6 +33,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('order-with-wallet/{user_id}/{cart_amount}', "Admin\SiteController@orderWithWallet");
     Route::post('shopOrder/{total}/{user_id}', "Admin\CommonController@shopStore");
     Route::get('transactions-data/{id}', "Admin\TransactionInfoController@getTransaction");
+    Route::get('withdraws-data/{id}', "Admin\WithdrawInfoController@getWithdraw");
 
 });
 

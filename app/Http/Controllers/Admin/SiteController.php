@@ -13,6 +13,7 @@ use App\Package;
 use App\TransactionInfo;
 use App\Slider;
 use App\WalletInfo;
+use App\WithdrawInfo;
 
 class SiteController extends Controller
 {
@@ -120,4 +121,23 @@ class SiteController extends Controller
         $walletInfo->save();
         return response()->json('true', 200);
     }
+
+    public function withdrawWallet(Request $request, $id)
+    {
+        $user_data = User::find($id);
+        $amount = (int)($request->amount);
+        if($user_data->earn_wallet < $amount ){
+            return response()->json('false', 404);
+        }else{
+            $withdrawInfo = new WithdrawInfo;
+            $withdrawInfo->user_id = $id;
+            $withdrawInfo->paymentMethod = $request->paymentMethod;
+            $withdrawInfo->receiverNumber = $request->paymentNumber;
+            $withdrawInfo->amount = $amount;
+            $withdrawInfo->status = 'pandding';
+            $withdrawInfo->save();
+            return response()->json('true', 200);
+        }
+    }
+
 }

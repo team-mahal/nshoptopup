@@ -9,24 +9,46 @@
         <h4 class="text-center mb-2">Phone : <b>{{ user.phone }}</b></h4>
         <h4 class="text-center mb-2">Email : <b>{{ user.email }}</b></h4>
         <h4 class="text-center mb-2 lg:mb-6">Address : <b>{{ user.address }}</b></h4>
-        <div class="w-full md:w-1/2  mx-auto">
-            <div class="text-center justify-center shadow-lg hover:shadow-xl border-2 p-4 lg:p-8" id="mainDiv">
-                <div class="rounded-full h-32 w-32 m-auto flex items-center justify-center border-2 border-red-300 bg-red-300" id="insideDid">
-                    
-                    <div
-                  class="font-normal text-lg text-white mb-1"
-                  style="display: inline-flex;"
-                >
-                  <p
-                    class="text-2xl font-normal mr-1 font-black"
-                    style="margin-top: -4px;"
-                  >
-                    &#2547;
-                  </p>
-                  <div class="font-bold text-xl">{{ formatPrice(user.wallet) }}</div>
+        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-2 md:gap-4">
+            <div class="w-full mx-auto">
+                <div class="text-center justify-center shadow-lg hover:shadow-xl border-2 p-4 lg:p-8" id="mainDiv">
+                    <div class="rounded-full h-32 w-32 m-auto flex items-center justify-center border-2 border-red-300 bg-red-300" id="insideDid">
+                        
+                        <div
+                    class="font-normal text-lg text-white mb-1"
+                    style="display: inline-flex;"
+                    >
+                    <p
+                        class="text-2xl font-normal mr-1 font-black"
+                        style="margin-top: -4px;"
+                    >
+                        &#2547;
+                    </p>
+                    <div class="font-bold text-xl">{{ formatPrice(user.wallet) }}</div>
+                    </div>
+                    </div>
+                    <h2 class="text-xl md-2xl font-serif font-bold mt-2 lg:mt-4">Available Balance</h2>
                 </div>
+            </div>
+            <div class="w-full  mx-auto">
+                <div class="text-center justify-center shadow-lg hover:shadow-xl border-2 p-4 lg:p-8" id="mainDiv">
+                    <div class="rounded-full h-32 w-32 m-auto flex items-center justify-center border-2 border-red-300 bg-red-300" id="insideDid">
+                        
+                        <div
+                    class="font-normal text-lg text-white mb-1"
+                    style="display: inline-flex;"
+                    >
+                    <p
+                        class="text-2xl font-normal mr-1 font-black"
+                        style="margin-top: -4px;"
+                    >
+                        &#2547;
+                    </p>
+                    <div class="font-bold text-xl">{{ formatPrice(user.earn_wallet) }}</div>
+                    </div>
+                    </div>
+                    <h2 class="text-xl md-2xl font-serif font-bold mt-2 lg:mt-4">Available Earn Balance</h2>
                 </div>
-                <h2 class="text-xl md-2xl font-serif font-bold mt-2 lg:mt-4">Available Balance</h2>
             </div>
         </div>
     </div>
