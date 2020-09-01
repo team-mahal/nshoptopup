@@ -44,7 +44,7 @@
                         Verify your Payment by entering amount and bKash mobile account number.<br>
                         Once NSHOPTOPUP Verify your payment details, Within 1 hours your money will be added.<br>
                     </span>
-                    <div class="mt-5">
+                    <!-- <div class="mt-5">
                         <h4 class="font-bold text-base">Amount To Add</h4>
                         <input v-model="amount" placeholder="Amount To Add" class="p-2 bg-gray-200 hover:bg-white hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
                         <p v-if="amount === ''" class="text-pink-700">Amount is required</p>  
@@ -55,7 +55,7 @@
                         <h4 class="font-bold text-base">Sender Number</h4>
                         <input v-model="paymentNumber" placeholder="Sender Number" class="p-2 bg-gray-200 hover:bg-white hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
                         <p v-if="paymentNumber === ''" class="text-pink-700">Sender Number is required</p> 
-                    </div>
+                    </div> -->
                 </div>
                 <div v-else-if="paymentMethod == 2">
                     <img src="/img/nogod.png" alt="" class="w-24 mx-auto">
@@ -75,7 +75,7 @@
                         Verify your Payment by entering amount and bKash mobile account number.<br>
                         Once NSHOPTOPUP Verify your payment details, Within 1 hours your money will be added.<br>
                     </span>
-                    <div class="mt-5">
+                    <!-- <div class="mt-5">
                         <h4 class="font-bold text-base">Amount To Add</h4>
                         <input v-model="amount" placeholder="Amount To Add" class="p-2 bg-gray-200 hover:bg-white hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
                         <p v-if="amount === ''" class="text-pink-700">Amount is required</p>  
@@ -86,7 +86,7 @@
                         <h4 class="font-bold text-base">Sender Number</h4>
                         <input v-model="paymentNumber" placeholder="Sender Number" class="p-2 bg-gray-200 hover:bg-white hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
                         <p v-if="paymentNumber === ''" class="text-pink-700">Sender Number is required</p> 
-                    </div>
+                    </div> -->
                 </div>
                 <div v-else-if="paymentMethod == 3">
                     <img src="/img/roket.png" alt="" class="w-24 mx-auto">
@@ -95,42 +95,91 @@
                     <span class="my-3 mt-3" style="font-family: auto;">
                         Follow below steps 👇 <br>
                         <b>  Step 1: </b><br>
-                        Dial <br>
-                        Select Send Money Option.<br>
+                        Dial *322#<br>
+                        Select Send Money Option (option 2).<br>
                         Enter NSHOPTOPUP Personal Account Number.<br>
                         Enter Your amount<br>
-                        Enter Reference Number "PlayZone".<br>
+                        <!-- Enter Reference Number "PlayZone".<br> -->
                         Now Enter your PIN.<br><br>
                         <b>Almost Done. Now follow Step 2:</b><br>
                         Now Enter Amount To Add place The money you sent and Sender Number Place This is the number from which you paid.<br>
-                        Verify your Payment by entering amount and bKash mobile account number.<br>
+                        Verify your Payment by entering amount and rocket mobile account number.<br>
                         Once NSHOPTOPUP Verify your payment details, Within 1 hours your money will be added.<br>
                     </span>
-                    <div class="mt-5">
-                        <h4 class="font-bold text-base">Amount To Add</h4>
-                        <input v-model="amount" placeholder="Amount To Add" class="p-2 bg-gray-200 hover:bg-white hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
-                        <p v-if="amount === ''" class="text-pink-700">Amount is required</p>  
-                        <p v-else-if="amount < 10" class="text-pink-700">Must be between 10 and 90000</p> 
-                        <p v-else-if="amount >= 90000" class="text-pink-700">Must be between 10 and 90000</p> 
-                    </div>
-                    <div class="">
-                        <h4 class="font-bold text-base">Sender Number</h4>
-                        <input v-model="paymentNumber" placeholder="Sender Number" class="p-2 bg-gray-200 hover:bg-white hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
-                        <p v-if="paymentNumber === ''" class="text-pink-700">Sender Number is required</p> 
-                    </div>
                 </div>
-                <button class="text-white text-center bg-pink-500 hover:bg-pink-800 text-white font-bold py-2 px-2 rounded w-56 mx-auto mt-3">Add Wallet</button>
+                <div class="mt-5">
+                    <h4 class="font-bold text-base">Amount To Add</h4>
+                    <input v-model="amount" required type="number" placeholder="Amount To Add" class="p-2 class-manual-width bg-white hover:bg-gray-100 hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
+                    <p v-if="amount === ''" class="text-pink-700">Amount is required</p>  
+                    <p v-else-if="amount < 10" class="text-pink-700">Must be between 10 and 90000</p> 
+                    <p v-else-if="amount >= 90000" class="text-pink-700">Must be between 10 and 90000</p> 
+                </div>
+                <div class="">
+                    <h4 class="font-bold text-base">Sender Number</h4>
+                    <input v-model="paymentNumber" required placeholder="Sender Number" class="p-2 class-manual-width bg-white hover:bg-gray-100 hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
+                    <p v-if="paymentNumber === ''" class="text-pink-700">Sender Number is required</p> 
+                </div>
+                <button @click="addAmount()" class="text-white class-manual-width text-center bg-pink-500 hover:bg-pink-800 text-white font-bold py-2 px-2 rounded w-56 mx-auto mt-3">Add Wallet</button>
             </div>
         </div>
     </div>
 </template>
 <script>
+import axios from "axios";
+import Swal from "sweetalert2";
+import { mapGetters } from "vuex";
 export default {
+    computed: mapGetters({
+    user: "auth/user",
+    check: "auth/check"
+  }),
     data(){
         return{
             paymentMethod: 1,
             paymentNumber: '',
             amount: '',
+        }
+    },
+    methods: {
+        addAmount(){
+            if(this.check == false){
+                Swal.fire({
+                    type: "warning",
+                    title: "You are not login user",
+                    html: "<p style='color: red;'>Login first to add wallet</p>",
+                    reverseButtons: true,
+                    confirmButtonText: "ok"
+                });
+            }else{
+                var params = {
+                    paymentMethod: this.paymentMethod,
+                    paymentNumber: this.paymentNumber,
+                    amount: this.amount
+                };
+                axios.post(`/api/add-wallet/${this.user.id}`, params).then(response => {
+                console.log(response.data);
+                    if (response.data == 'true') {
+                    this.paymentMethod = 1;
+                    this.paymentNumber = '';
+                    this.amount = '';
+                    Swal.fire({
+                        type: "success",
+                        title: "Order Send Successfully !",
+                        html: "<p style='color: green;'>Your order has been successfully sent</p>",
+                        reverseButtons: true,
+                        confirmButtonText: "ok"
+                    });
+                    } else {
+                    Swal.fire({
+                        type: "error",
+                        title: "Order Send Failed",
+                        text: "<p style='color: red;'>Your order has been Not Successfully sent</p>",
+                        reverseButtons: true,
+                        confirmButtonText: "ok"
+                    });
+                    }
+                });
+            }
         }
     }
 }
@@ -140,5 +189,13 @@ export default {
 input:checked + label{
   background: #9A309E;
     border-radius: 10px;
+}
+.class-manual-width{
+    width: 25rem;
+}
+@media only screen and (max-width: 475px) {
+    .class-manual-width{
+    width: 100%;
+}
 }
 </style>

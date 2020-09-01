@@ -46,7 +46,11 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::post('packageUpdate/{id}', "Admin\PackageController@update")->name('packageUpdate');
 
 
-    //Package
+    //Transaction
+    Route::get('transaction', "Admin\TransactionInfoController@index")->name('transaction.index');
+    Route::post('transactionUpdate','Admin\TransactionInfoController@update')->name('transactionUpdate');
+
+    //Tran
     Route::get('order', "Admin\OrderController@index")->name('order.index');
     Route::post('orderUpdate','Admin\OrderController@update')->name('orderUpdate');
 

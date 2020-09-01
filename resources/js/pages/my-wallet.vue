@@ -28,8 +28,9 @@
             <thead class="bg-gray-300">
                 <tr class="text-gray-800">
                     <th class="border border-gray-400 px-4 py-2">Amount</th>
-                    <th class="border border-gray-400 px-4 py-2">Number</th>
-                    <th class="border border-gray-400 px-4 py-2">Transaction Id</th>
+                    <th class="border border-gray-400 px-4 py-2">Sender Number</th>
+                    <th class="border border-gray-400 px-4 py-2">Payment Method</th>
+                    <th class="border border-gray-400 px-4 py-2">Status</th>
                     <th class="border border-gray-400 px-4 py-2">DATE</th>
                 </tr>
             </thead>
@@ -47,8 +48,13 @@
                         </p>
                     </div>
                     </td>
-                    <td class="border border-gray-400 px-4 py-2">{{ transaction.sender }}</td>
-                    <td class="border border-gray-400 px-4 py-2">{{ transaction.trxId }}</td>
+                    <td class="border border-gray-400 px-4 py-2">{{ transaction.paymentNumber }}</td>
+                    <td class="border border-gray-400 px-4 py-2" >
+                        <p v-if="transaction.paymentMethod == 1">bKash</p>
+                        <p v-else-if="transaction.paymentMethod == 2">Nagad</p>
+                        <p v-else-if="transaction.paymentMethod == 3">Rocket</p>
+                    </td>
+                    <td class="border text-left border-gray-400 px-4 py-2">{{ transaction.status }}</td>
                     <td class="border border-gray-400 px-4 py-2">{{ formatCompat(transaction.created_at) }}</td>
                 </tr>
                 <tr>
@@ -66,7 +72,7 @@
                         </p>
                     </div>
                   </td>
-                    <td class="border border-gray-400 px-4 py-2 text-left font-bold" colspan="3"></td>
+                    <td class="border border-gray-400 px-4 py-2 text-left font-bold" colspan="4"></td>
                 </tr>
             </tbody>
             </table>
@@ -89,16 +95,16 @@ export default {
     methods: {
         getTransactions(){
             var id = this.user.id;
-            axios.get(`/api/transactions/${id}`).then(response => {
+            axios.get(`/api/transactions-data/${id}`).then(response => {
                 this.transactions = response.data;
             });
         },
         totalPrice() {
             let total = 0;
             for (let item of this.transactions) {
-                total += item.amount;
+                total += parseInt(item.amount);
             }
-            return total.toFixed(2);
+            return total;
         },
         formatPrice(value) {
             let val = (value/1).toFixed(2).replace(',', '.')

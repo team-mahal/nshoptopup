@@ -12,6 +12,7 @@ use App\Order;
 use App\Package;
 use App\TransactionInfo;
 use App\Slider;
+use App\WalletInfo;
 
 class SiteController extends Controller
 {
@@ -106,5 +107,17 @@ class SiteController extends Controller
     {
         $slider = Slider::get();
         return response()->json($slider, 200);
+    }
+
+    public function addWallet(Request $request, $id)
+    {
+        $walletInfo = new WalletInfo;
+        $walletInfo->user_id = $id;
+        $walletInfo->paymentMethod = $request->paymentMethod;
+        $walletInfo->paymentNumber = $request->paymentNumber;
+        $walletInfo->amount = $request->amount;
+        $walletInfo->status = 'pandding';
+        $walletInfo->save();
+        return response()->json('true', 200);
     }
 }
