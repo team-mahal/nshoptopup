@@ -17,6 +17,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', 'Auth\LoginController@logout');
 
     Route::get('/user', 'Auth\UserController@current');
+    Route::get('/user/{id}', 'Auth\UserController@user');
 
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
@@ -37,34 +38,29 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 });
 
+Route::get('sliders', "Admin\SiteController@getSlider");
+Route::get('products', "Admin\ProductController@getProduct");
+Route::get('productplayzoon', "Admin\ProductController@productplayzoon");
+Route::get('shop-products', "Admin\CommonController@getProduct");
+// data api ***
+Route::get('product/{id}', "Admin\ProductController@getSingelProduct");
+Route::get('shop-product/{id}', "Admin\CommonController@getSingelProduct");
+Route::get('packages/{id}', "Admin\PackageController@getProductWiseDataFind");
 
-    Route::get('sliders', "Admin\SiteController@getSlider");
-    Route::get('products', "Admin\ProductController@getProduct");
-    Route::get('productplayzoon', "Admin\ProductController@productplayzoon");
-    Route::get('shop-products', "Admin\CommonController@getProduct");
-    // data api ***
-    Route::get('product/{id}', "Admin\ProductController@getSingelProduct");
-    Route::get('shop-product/{id}', "Admin\CommonController@getSingelProduct");
-    Route::get('packages/{id}', "Admin\PackageController@getProductWiseDataFind");
+//invoices-data
+Route::get('invoices-data/{id}', "Admin\CommonController@getInvoicesData");
+Route::get('invoice-details/{id}/{user_id}', "Admin\CommonController@getInvoiceDetails");
+Route::get('transactions/{id}', "Admin\SiteController@getTransactions");
+//orders
+Route::get('orders-data/{id}', "Admin\CommonController@getOrders");
 
-    //invoices-data
-    Route::get('invoices-data/{id}', "Admin\CommonController@getInvoicesData");
-    Route::get('invoice-details/{id}/{user_id}', "Admin\CommonController@getInvoiceDetails");
-    Route::get('transactions/{id}', "Admin\SiteController@getTransactions");
-    //orders
-    Route::get('orders-data/{id}', "Admin\CommonController@getOrders");
+Route::get('blogs', "Admin\CommonController@getBlog");
+Route::get('blog/{id}', "Admin\CommonController@getSingelBlog");
+Route::get('all-blog', "Admin\CommonController@getAllBlog");
 
-    Route::get('blogs', "Admin\CommonController@getBlog");
-    Route::get('blog/{id}', "Admin\CommonController@getSingelBlog");
-    Route::get('all-blog', "Admin\CommonController@getAllBlog");
-
-
-
-
-
-
-    Route::get('page-data/{id}', "Admin\SiteController@getPageData");
-    
+Route::get('page-data/{id}', "Admin\SiteController@getPageData");
+Route::get('matchs/{status}/{id}', "MatchController@index");
+Route::get('singlematch/{id}', "MatchController@singlematch");
 
 Route::group(['middleware' => 'guest:api'], function () {
     Route::post('login', 'Auth\LoginController@login');

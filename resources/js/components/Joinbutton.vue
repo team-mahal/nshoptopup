@@ -2,18 +2,18 @@
 <div> {{ check() }}
 		
 	<div v-if="!authuser">
-		<button onclick="return alert('Please Login to Join');" class="align-middle bg-green-100 hover:bg-green-300 text-center px-4 py-2 text-white text-sm font-semibold rounded-lg inline-block shadow-lg" style="margin-top: 10px;">join</button>
+		<button onclick="return alert('Please Login to Join');" class="align-middle bg-green-500 hover:bg-green-600 text-center px-4 py-2 text-white text-sm font-semibold rounded-lg inline-block shadow-lg" style="margin-top: 10px;">Join</button>
 	</div>
 
 	<div v-else-if="isjoined">
 
-		<button @click="roomactives" class="align-middle bg-green-100 hover:bg-green-300 text-center px-4 py-2 text-white text-sm font-semibold rounded-lg inline-block shadow-lg" style="margin-top: 10px;">
+		<button @click="roomactives" class="align-middle bg-green-500 hover:bg-green-300 text-center px-4 py-2 text-white text-sm font-semibold rounded-lg inline-block shadow-lg" style="margin-top: 10px;">
 			Room Details
 		</button>
 
-		<nuxt-link :to="'/playzone/join/'+match.id">
+		<router-link :to="'/playzone/join/'+match.id">
 			<button class="align-middle bg-green-500 hover:bg-green-300 text-center px-4 py-2 text-white text-sm font-semibold rounded-lg inline-block shadow-lg" style="margin-top: 10px;">Joined</button>
-		</nuxt-link>
+		</router-link>
 
 		<div v-if="roomactive">
 			<span>Room id: {{ match.room_id }}</span>
@@ -35,9 +35,9 @@
 	</div>
 
 
-	<nuxt-link :to="'/playzone/join/'+match.id" v-else-if="authuser && isjoined==0">
-		<button class="align-middle bg-green-100 hover:bg-green-300 text-center px-4 py-2 text-white text-sm font-semibold rounded-lg inline-block shadow-lg" style="margin-top: 10px;">Join</button>
-	</nuxt-link>
+	<router-link :to="'/playzone/join/'+match.id" v-else-if="authuser && isjoined==0">
+		<button class="align-middle bg-green-500 hover:bg-green-300 text-center px-4 py-2 text-white text-sm font-semibold rounded-lg inline-block shadow-lg" style="margin-top: 10px;">Join</button>
+	</router-link>
 	
 </div>
 </template>

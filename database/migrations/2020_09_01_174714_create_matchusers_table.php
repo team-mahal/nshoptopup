@@ -17,7 +17,8 @@ class CreateMatchusersTable extends Migration
             $table->id();
             $table->integer('match_id');
             $table->integer('user_id');
-            $table->integer('prize');
+            $table->integer('total_kill');
+            $table->integer('total_earn');
             $table->text('game_name');
             $table->timestamps();
         });

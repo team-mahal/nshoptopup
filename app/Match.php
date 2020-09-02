@@ -13,4 +13,9 @@ class Match extends Model
 		return $this->belongsTo("App\Product");
 	}
 
+	public function users()
+	{
+		return $this->hasMany("App\Matchuser");
+	}
+
 }

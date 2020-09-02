@@ -12,9 +12,16 @@ class MatchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($status,$id)
     {
-        //
+        $data = Match::with('product')->with('users')->where('status',$status)->where('product_id',$id)->get();
+        return $data;
+    }
+
+    public function singlematch($id='')
+    {
+        $data = Match::with('product')->with('users')->find($id);
+        return $data;
     }
 
     /**

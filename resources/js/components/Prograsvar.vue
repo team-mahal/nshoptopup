@@ -1,8 +1,8 @@
 <template>
 	<div>
-	    <progress-bar
+	    <k-progress
 	      :options="options"
-	      :value="abcd"
+	      :percent="abcd"
 	   />
 	</div>
 </template>

@@ -6,7 +6,8 @@ import App from '~/components/App'
 
 import '~/plugins'
 import '~/components'
-
+import KProgress from 'k-progress';
+Vue.component('k-progress', KProgress);
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

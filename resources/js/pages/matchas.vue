@@ -18,10 +18,10 @@
 				  > 
 				    <div class="shadow-md hover:shadow-xl rounded-lg overflow-hidden m-3 border-2 border-red-500 border-r-5">
 				    	<div class="p-5">
-				    		<nuxt-link :to="'/playzone/singlegame/'+i.id">
+				    		<router-link :to="'/playzoon/singlegame/'+i.id">
 						    	<div class="flex">
 						    		<div>
-						    			<img :src="base_url+'/uploads/product/'+i.product.logo" alt="!opps" style="object-fit: contain;width: 75px;height: 75px;">
+						    			<img :src="'/product/'+i.product.logo" alt="!opps" style="object-fit: contain;width: 75px;height: 75px;">
 						    		</div>
 						    		<div class="content">
 						    			<h2 class="text-left">{{ i.match_name.substring(0, 16) }}</h2>
@@ -29,35 +29,35 @@
 						    		</div>
 						    	</div>
 					    		<div class="flex single-box">
-									<div style="margin-right: 10px;">
+									<div class="w-1/3">
 				    					<h5 style="font-size: 10px">TOTAL PRIZE</h5>
 				    					<span>৳ {{ i.total_prize }}</span>
 				    				</div>
-									<div style="margin-right: 10px;">
+									<div class="w-1/3">
 				    					<h5 style="font-size: 10px">PER KILL</h5>
 				    					<span>৳ {{ i.perkill }}</span>
 				    				</div>
-					    			<div style="margin-right: 10px;">
+					    			<div class="w-1/3">
 				    					<h5 style="font-size: 10px">ENTRY FEE</h5>
 				    					<span>৳ {{ i.entryfee }}</span>
 				    				</div>
 					    		</div>
 					    		<div class="flex single-box">
-									<div style="margin-right: 10px;">
+									<div class="w-1/3">
 				    					<h5 style="font-size: 10px">TYPE</h5>
 				    					<span style="text-transform: capitalize">{{ i.type }}</span>
 				    				</div>
-									<div style="margin-right: 10px;">
+									<div class="w-1/3">
 				    					<h5 style="font-size: 10px">PLATFORM</h5>
 				    					<span class="text-capitalize">{{ i.platform }}</span>
 				    				</div>
-					    			<div style="margin-right: 10px;">
+					    			<div class="w-1/3">
 				    					<h5 style="font-size: 10px">MAP</h5>
-				    					<span>{{ i.map.name }}</span>
+				    					<span>{{ i.map_id }}</span>
 				    				</div>
 					    		</div>
-						    </nuxt-link>
-							<div style="display: flex;" class="text-left">
+						    </router-link>
+							<div>
 		    					<div style="width: 100%;margin-top: 12px">
 		    						<Prograsvar :abcd="(i.users.length/i.max_join)*100"/>
 									<div class="flex justify-between">
@@ -72,7 +72,6 @@
 										</div>
 									</div>
 		    					</div>
-
 		    				</div>
 		    				<div style="display: flex;">
 			    				<div style="width: 100%">
@@ -118,28 +117,25 @@
 	    },
 		computed: {
 			...mapGetters({
-			   authuser: 'user',
-			   base_url:'base_url'
+			    authuser: "auth/user",
 			})
 		},
 		methods: {
 			async users(){
 				if(this.authuser && this.cal==0){
 					this.cal=1;
-					let { data } = await axios.get(`/api/updateuser/`+this.authuser.id);
-					this.$store.commit('setUser', data)
-					console.log(data);
+					// let { data } = await axios.get(`/api/user/`+this.authuser.id);
+					// this.$store.commit('setUser', data)
+					await this.$store.dispatch('auth/fetchUser')
 				}
 			},
 			fetchdata(item){
-				this.$loading(true)
 				this.active=item
 				this.loding=true;
 				console.log(item);
 				var self = this;
 				axios.get(`/api/matchs/`+item+"/"+this.product_id)
 			      .then((res) => {
-					self.$loading(false)
 			      	self.loding=false;
 			      	self.match=res.data;
 			    })
@@ -163,12 +159,11 @@
 				}
 			}
 		},
-		async created ({ params }) {
-		    let res = await axios.get(`/api/matchs/upcoming/`+params.id)
-	       	return { 
-	        	match: res.data,
-	        	product_id:params.id	
-	        }
+		async created () {
+			let id = this.$route.params.id;
+			this.product_id=id;
+		    let res = await axios.get(`/api/matchs/upcoming/`+id)
+		    this.match=res.data
 	  	}
 	};
 </script>

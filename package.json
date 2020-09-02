@@ -17,6 +17,7 @@
     "browser-sync-webpack-plugin": "^2.2.2",
     "cssnano": "^4.1.10",
     "js-cookie": "^2.2.1",
+    "k-progress": "^1.5.0",
     "label-edit": "^0.1.0",
     "laravel-mix-postcss-config": "^1.0.4",
     "laravel-vue-datatable": "^0.5.11",
