@@ -69,7 +69,39 @@
 							<td style="">{!! $data->match_name !!}</td>
 							<td style="">{!! $data->max_join !!}</td>
 							<td style="">{!! $data->entry_fee !!}</td>
-							<td style="">{!! $data->status !!}</td>
+							<td>
+								@if ($data->status == 'cancel' || $data->status == 'result')
+								<select disabled name="status" id="status{{$data->id}}"
+									onchange="myChange({{$data->id}}, this.value)" required class="form-control" style="width: 115px;">
+									@else
+									<select enable name="status" id="status{{$data->id}}"
+										onchange="myChange({{$data->id}}, this.value)" required class="form-control" style="width: 115px">
+										@endif
+										@if ($data->status == '')
+										<option value="">select once</option>
+										@endif
+										@if ($data->status == 'upcoming')
+										<option Selected value="upcoming">upcoming</option>
+										@else
+										<option value="upcoming">upcoming</option>
+										@endif
+										@if ($data->status == 'ongoing')
+										<option Selected value="ongoing">ongoing</option>
+										@else
+										<option value="ongoing">ongoing</option>
+										@endif
+										@if ($data->status == 'result')
+										<option Selected value="result">result</option>
+										@else
+										<option value="result">result</option>
+										@endif
+										@if ($data->status == 'cancel')
+										<option Selected value="cancel">cancel</option>
+										@else
+										<option value="cancel">cancel</option>
+										@endif
+									</select>
+							</td>
 							<td style="display: -webkit-inline-box;">
 								<a href="{{ route('match.edit',[$data->id]) }}" class="btn btn-success btn-sm">Edit</a>
 								<a href="{{ url('admin/match/prize/',$data->id) }}" class="btn btn-success btn-sm">Total User Join</a>
@@ -95,5 +127,50 @@
 
 </div>
 
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 @include('admin.layouts.footer')
+
+<script>
+	function myChange($id, $status) {
+    var status = $status;
+	var id = $id;
+	console.log(status);
+	
+	$.ajaxSetup({
+		headers: {
+        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    	}
+	});
+    $.ajax({
+        type:"POST",
+        url : "{{ route('updateStatus') }}",
+        data : {
+			status: status,
+			id: id
+		},
+        success : function(response) {
+			Swal.fire({
+				position: 'top-end',
+				icon: 'success',
+				title: 'Your request has been successfully completed',
+				showConfirmButton: false,
+				timer: 1500
+			})
+
+			if(response == 'cancel' || response == 'result')
+			{
+				$('#status'+id).prop( "disabled", true);
+			}
+        },
+        error: function() {
+			Swal.fire({
+				position: 'top-end',
+				icon: 'error',
+				title: 'Error occured',
+				showConfirmButton: false,
+				timer: 1500
+			})
+        }
+    });
+};
+</script>

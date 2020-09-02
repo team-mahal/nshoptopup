@@ -164,8 +164,8 @@ export default {
                     this.amount = '';
                     Swal.fire({
                         type: "success",
-                        title: "Order Send Successfully !",
-                        html: "<p style='color: green;'>Your order has been successfully sent</p>",
+                        title: "Request sent successfully !",
+                        html: "<p style='color: green;'>Your request has been successfully sent</p>",
                         reverseButtons: true,
                         confirmButtonText: "ok"
                     });
@@ -173,7 +173,7 @@ export default {
                     Swal.fire({
                         type: "error",
                         title: "Order Send Failed",
-                        text: "<p style='color: red;'>Your order has been Not Successfully sent</p>",
+                        text: "<p style='color: red;'>Your request has been Not Successfully sent</p>",
                         reverseButtons: true,
                         confirmButtonText: "ok"
                     });

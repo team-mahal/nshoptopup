@@ -21,7 +21,7 @@ class CreateMatchesTable extends Migration
             $table->string('start_time');
             $table->string('match_name');
             $table->integer('perkill')->nullable();
-            $table->integer('entryfee')->nullable();
+            $table->integer('entry_fee')->nullable();
             $table->string('type');
             $table->enum('status',['upcoming','ongoing','result','cancel']);
             $table->integer('max_join')->nullable();

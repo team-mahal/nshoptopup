@@ -11,10 +11,10 @@
 						<tr>
 							<td class="p-3 text-gray-800 text-center border border-b font-bold">Available Balance: ৳{{ authuser.wallet }}</td>
 						</tr>
-						<tr><td class="p-3 text-gray-800 text-center border border-b font-bold">Match Entry Fee Per Person: ৳{{ i.entryfee }}</td></tr>
-						<tr v-if="row=='solo'" style="visibility: hidden;"><td class="p-3 text-gray-800 text-center border border-b font-bold">Team Entry Fee : ৳{{ totalfee=i.entryfee }}</td></tr>
-						<tr v-if="row=='duo'"><td class="p-3 text-gray-800 text-center border border-b font-bold">Team Entry Fee : ৳{{ totalfee=i.entryfee*2 }}</td></tr>
-						<tr v-if="row=='squad'"><td class="p-3 text-gray-800 text-center border border-b font-bold">Team Entry Fee : ৳{{ totalfee=i.entryfee*4 }}</td></tr>
+						<tr><td class="p-3 text-gray-800 text-center border border-b font-bold">Match Entry Fee Per Person: ৳{{ i.entry_fee }}</td></tr>
+						<tr v-if="row=='solo'" style="visibility: hidden;"><td class="p-3 text-gray-800 text-center border border-b font-bold">Team Entry Fee : ৳{{ totalfee=i.entry_fee }}</td></tr>
+						<tr v-if="row=='duo'"><td class="p-3 text-gray-800 text-center border border-b font-bold">Team Entry Fee : ৳{{ totalfee=i.entry_fee*2 }}</td></tr>
+						<tr v-if="row=='squad'"><td class="p-3 text-gray-800 text-center border border-b font-bold">Team Entry Fee : ৳{{ totalfee=i.entry_fee*4 }}</td></tr>
 						<tr><td class="p-3 text-gray-800 text-center border border-b"><button class="align-middle bg-green-500 hover:bg-green-300 text-center px-4 py-2 text-white text-sm font-semibold rounded-lg inline-block shadow-lg my-3">{{ i.max_join-i.users.length }} Spots Left</button></td></tr>
 					</tbody>
 				</table>

@@ -39,7 +39,7 @@
 				    				</div>
 					    			<div class="w-1/3">
 				    					<h5 style="font-size: 10px">ENTRY FEE</h5>
-				    					<span>৳ {{ i.entryfee }}</span>
+				    					<span>৳ {{ i.entry_fee }}</span>
 				    				</div>
 					    		</div>
 					    		<div class="flex single-box">

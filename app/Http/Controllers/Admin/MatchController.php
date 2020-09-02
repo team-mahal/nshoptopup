@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Match;
 use App\Product;
 use App\Prize;
+use App\Matchuser;
+use App\User;
 
 class MatchController extends Controller
 {
@@ -102,11 +104,11 @@ class MatchController extends Controller
         return redirect('admin/match');
     }
 
-    public function destroy(Blog $blog)
+    public function destroy(Match $match)
     {
-        $blog->delete();
+        $match->delete();
         return back()
-            ->with('success','Blog Delete Successfully.');
+            ->with('success','Match Delete Successfully.');
     }
 
     public function prize($id='')
@@ -143,5 +145,26 @@ class MatchController extends Controller
         $blog->delete();
         return back()
             ->with('success','Prize Delete Successfully.');
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $id = $request->input('id');
+        $status = $request->input('status');
+        $match = Match::find($id);
+        $amount = $match->entry_fee;
+        $match->update(['status' => $status]);
+        
+        if($status == 'cancel'){
+
+            $matchuser = Matchuser::where('match_id', $id)->get();
+            foreach ($matchuser as $key => $val) {
+                $user = User::find($val->user_id);
+                $wallet = $user->wallet;
+                $update_wallet = $wallet + $amount;
+                $user->update(['wallet' => $update_wallet]);
+            }
+        }
+        return $status;
     }
 }
