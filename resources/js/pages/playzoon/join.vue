@@ -81,6 +81,7 @@
 										:placeholder="'Player 1 '+i.product.name+' Name'"
 										required
 									/>
+                        			<div class="error" v-if="!$v.player1.required">Name is required</div>
 								</div>
 								<div v-if="row=='duo'" style="padding: 10px">
 										<input
@@ -89,12 +90,14 @@
 											 :placeholder="'Player 1 '+i.product.name+' Name'"
 											required
 										/>
+                        				<div class="error" v-if="!$v.player1.required">Name is required</div>
 										<input
 											v-model="player2"
 											class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
 											:placeholder="'Player 2 '+i.product.name+' Name'"
 											required
 										/>
+										<div class="error" v-if="!$v.player2.required">Name is required</div>
 								</div>
 								<div v-if="row=='squad'" style="padding: 10px">
 										<input
@@ -103,40 +106,41 @@
 											 :placeholder="'Player 1 '+i.product.name+' Name'"
 											required
 										/>
+										<div class="error" v-if="!$v.player1.required">Name is required</div>
 										<input
 											v-model="player2"
 											class="px-3 py-3 my-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
 											 :placeholder="'Player 2 '+i.product.name+' Name'"
 											required
 										/>
+										<div class="error" v-if="!$v.player2.required">Name is required</div>
 										<input
 											v-model="player3"
 											class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
 											 :placeholder="'Player 3 '+i.product.name+' Name'"
 											required
 										/>
+										<div class="error" v-if="!$v.player3.required">Name is required</div>
 										<input
 											v-model="player4"
 											class="px-3 py-3 my-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
 											:placeholder="'Player 4 '+i.product.name+' Name'"
 											required
 										/>
+										<div class="error" v-if="!$v.player4.required">Name is required</div>
 								</div>
 								<div>
 									<button v-if="(authuser.wallet+authuser.earn_wallet)>=totalfee && isjoined==0"  @click="join" :class="loading ? 'opacity-50 cursor-not-allowed': ''" class="align-middle bg-green-500 hover:bg-green-300 text-center px-4 py-2 text-white text-sm font-semibold rounded-lg inline-block shadow-lg">Join</button>
-
 									<button v-else-if="isjoined==1" class="align-middle bg-green-500 hover:bg-green-300 text-center px-4 py-2 text-white text-sm font-semibold rounded-lg inline-block shadow-lg opacity-50">Joined</button>
-
 									<router-link to='/add-wallet' v-else>
 										<button class="align-middle bg-green-500 hover:bg-green-300 text-center px-4 py-2 text-white text-sm font-semibold rounded-lg inline-block shadow-lg">Add Money</button>
 									</router-link>
-
 								</div>
 								<p class="text-red-500" v-if="submitStatus === 'OK'">{{  error }}</p>
 								<p class="text-red-500" v-if="submitStatus === 'ERROR'">Please fill the form correctly.</p>
 								<p class="text-red-500" v-if="submitStatus === 'PENDING'">Sending...</p>
-								</td>
-							</tr>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 				<br>
@@ -160,13 +164,13 @@ export default {
 			dialog: false,
 			totalfee:0,
 			i:[],
+			row:'solo',
+			tab: null,
+			isjoined:0,
 			player1:'',
 			player2:'',
 			player3:'',
 			player4:'',
-			row:'solo',
-			tab: null,
-			isjoined:0,
 			knowledge: 0,
 			items: [
 				'upcoming','ongoing','result',
@@ -223,9 +227,7 @@ export default {
 					player4: this.player4,
 					type: this.row,
 					fee:this.totalfee
-				},{
-		        	headers: { 'Authorization': 'Bearer '+this.token.accessToken }
-		      	})
+				})
 				.then((res) => {
 					self.submitStatus = 'OK'
 					self.alert=true
@@ -234,7 +236,6 @@ export default {
 			}
 		},
 		formatDate(date) {
-			console.log(date);
 			var d = new Date(date);
 			var day = d.getDate();
 			var monthIndex = d.getMonth();

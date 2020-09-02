@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->integer('wallet')->nullable();
             $table->integer('earn_wallet')->nullable();
+            $table->integer('matchesplayed')->default(0);
             $table->string('file')->nullable();
             $table->integer('phone')->nullable();
             $table->text('address')->nullable();
