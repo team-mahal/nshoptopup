@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Match;
 use App\Product;
 use App\Prize;
+use App\Matchuser;
 
 class MatchController extends Controller
 {
@@ -56,6 +57,12 @@ class MatchController extends Controller
         $blog->save();
         return back()
             ->with('success','Match Create Successfully.');
+    }
+
+    public function totalplayer($id)
+    {
+        $player=Matchuser::where('match_id',$id)->get();
+        return view('admin.setup.matchs.totalplayer', ['player' => $player,'id'=>$id]);
     }
     
     public function edit(Match $match)
