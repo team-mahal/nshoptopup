@@ -245,7 +245,7 @@ export default {
 		check(){
 			let exists=0;
 			for (var i = this.i.users.length - 1; i >= 0; i--) {
-				if(this.i.users[i].id==this.authuser.id){
+				if(this.i.users[i].user_id==this.authuser.id){
 					this.isjoined=1;
 					break;
 				}

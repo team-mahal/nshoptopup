@@ -1,6 +1,5 @@
 <template>
 <div> {{ check() }}
-		
 	<div v-if="!authuser">
 		<button onclick="return alert('Please Login to Join');" class="align-middle bg-green-500 hover:bg-green-600 text-center px-4 py-2 text-white text-sm font-semibold rounded-lg inline-block shadow-lg" style="margin-top: 10px;">Join</button>
 	</div>
@@ -59,7 +58,7 @@ export default {
 		check(){
 			if(this.authuser){
 				for (var i = this.match.users.length - 1; i >= 0; i--) {
-					if(this.match.users[i].id==this.authuser.id){
+					if(this.match.users[i].user_id==this.authuser.id){
 						this.isjoined=1;
 						break;
 					}
