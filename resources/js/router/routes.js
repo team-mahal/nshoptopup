@@ -41,4 +41,5 @@ export default [
   { path: '/playzoon', name: 'playzoon', component: page('playzoon.vue')},
   { path: '/playzoon/:id', name: 'matchas', component: page('matchas.vue')},
   { path: '/playzoon/singlegame/:id', name: 'singlegame', component: page('playzoon/singlegame.vue')},
+  { path: '/playzone/join/:id', name: 'join', component: page('playzoon/join.vue')},
 ]

@@ -106,9 +106,9 @@ export default {
 	},
 	created(){
 		var self = this
-	    return axios.get(`/api/singlematch/1`)
+		let id = this.$route.params.id;
+	    return axios.get(`/api/singlematch/`+id)
 	      	.then((res) => {
-	      		console.log(res.data);
 	      		self.match=res.data
 	    })
   	}
