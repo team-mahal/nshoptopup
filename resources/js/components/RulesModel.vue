@@ -1,7 +1,7 @@
 <template>
 <div>
 	<h2 class="text-center font-bold text-3xl">Rules</h2>
-	<div v-html="match.product.rules">
+	<div v-html="match.product.description">
 	 	
 	</div>
 </div>

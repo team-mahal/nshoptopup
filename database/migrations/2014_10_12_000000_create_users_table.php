@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->integer('wallet')->default(0);
-            $table->integer('earn_wallet')->nullable();
+            $table->integer('earn_wallet')->default(0);
             $table->integer('matchesplayed')->default(0);
             $table->string('file')->nullable();
             $table->integer('phone')->nullable();

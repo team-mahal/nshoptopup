@@ -9,7 +9,6 @@ use App\Product;
 use App\Prize;
 use App\Matchuser;
 use App\User;
-
 class MatchController extends Controller
 {
      public function index()
@@ -58,6 +57,13 @@ class MatchController extends Controller
         $blog->save();
         return back()
             ->with('success','Match Create Successfully.');
+    }
+
+    public function totalplayer($id)
+    {
+        $player=Matchuser::where('match_id',$id)->get();
+        $prize=Prize::where('match_id',$id)->get();
+        return view('admin.setup.matchs.totalplayer', ['player' => $player,'prize'=>$prize ,'id'=>$id]);
     }
     
     public function edit(Match $match)
@@ -166,5 +172,30 @@ class MatchController extends Controller
             }
         }
         return $status;
+    }
+
+    public function playerPrizeUpdate(Request $request)
+    {
+        $user_id = $request->input('user_id');
+        $match_id = $request->input('match_id');
+        $total_kill = $request->input('total_kill');
+        $lavel = $request->input('lavel');
+
+        $match = Match::find($match_id);
+        $matchuser = Matchuser::where('match_id',$match_id)->where('user_id', $user_id)->first();
+        $user = User::find($user_id);
+
+        $kill_earn = $total_kill*$match->perkill;
+        $old_kill_earn = $matchuser->total_kill*$match->perkill;
+        $update_kill_earn = $kill_earn - $old_kill_earn;
+        $update_lavel_earn = $lavel - $matchuser->lavel_earn;
+        $total_earn = $update_kill_earn + $update_lavel_earn;
+        $user_update_wallet = $user->earn_wallet + $total_earn;
+        $total_earn_value = $total_earn+$matchuser->total_earn;
+        
+        $matchuser->update(['lavel_earn' => $lavel, 'total_kill' => $total_kill, 'total_earn' => $total_earn_value]);
+        $user->update(['earn_wallet' => $user_update_wallet]);
+
+        echo json_encode('true');
     }
 }

@@ -104,7 +104,7 @@
 							</td>
 							<td style="display: -webkit-inline-box;">
 								<a href="{{ route('match.edit',[$data->id]) }}" class="btn btn-success btn-sm">Edit</a>
-								<a href="{{ url('admin/match/prize/',$data->id) }}" class="btn btn-success btn-sm">Total User Join</a>
+								<a href="{{ url('admin/match/totalplayer/',$data->id) }}" class="btn btn-success btn-sm">Total User Join</a>
 								<a href="{{ url('admin/match/prize',$data->id) }}" class="btn btn-success btn-sm">Prize</a>
 								<form action="{{ route('match.destroy',$data->id) }}" method="POST">
 									@csrf
@@ -132,45 +132,54 @@
 
 <script>
 	function myChange($id, $status) {
-    var status = $status;
-	var id = $id;
-	console.log(status);
-	
-	$.ajaxSetup({
-		headers: {
-        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    	}
-	});
-    $.ajax({
-        type:"POST",
-        url : "{{ route('updateStatus') }}",
-        data : {
-			status: status,
-			id: id
-		},
-        success : function(response) {
-			Swal.fire({
-				position: 'top-end',
-				icon: 'success',
-				title: 'Your request has been successfully completed',
-				showConfirmButton: false,
-				timer: 1500
-			})
+		var status = $status;
+		var id = $id;
+		Swal.fire({
+			icon: 'question',
+			title: 'Are you sure?',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, Change it!'
+		}).then((result) => {
+  			if (result.value) {
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				}
+			});
+			$.ajax({
+				type:"POST",
+				url : "{{ route('updateStatus') }}",
+				data : {
+					status: status,
+					id: id
+				},
+				success : function(response) {
+					Swal.fire({
+						position: 'top-end',
+						icon: 'success',
+						title: 'Your request has been successfully completed',
+						showConfirmButton: false,
+						timer: 1500
+					})
 
-			if(response == 'cancel' || response == 'result')
-			{
-				$('#status'+id).prop( "disabled", true);
-			}
-        },
-        error: function() {
-			Swal.fire({
-				position: 'top-end',
-				icon: 'error',
-				title: 'Error occured',
-				showConfirmButton: false,
-				timer: 1500
-			})
-        }
-    });
+					if(response == 'cancel' || response == 'result')
+					{
+						$('#status'+id).prop( "disabled", true);
+					}
+				},
+				error: function() {
+					Swal.fire({
+						position: 'top-end',
+						icon: 'error',
+						title: 'Error occured',
+						showConfirmButton: false,
+						timer: 1500
+					})
+				}
+			});
+		}
+	})
 };
 </script>

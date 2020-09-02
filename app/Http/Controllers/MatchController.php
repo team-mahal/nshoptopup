@@ -16,13 +16,13 @@ class MatchController extends Controller
      */
     public function index($status,$id)
     {
-        $data = Match::with('product')->with('users')->where('status',$status)->where('product_id',$id)->get();
+        $data = Match::with('product')->with('prizes')->with('users')->where('status',$status)->where('product_id',$id)->get();
         return $data;
     }
 
     public function singlematch($id='')
     {
-        $data = Match::with('product')->with('users')->find($id);
+        $data = Match::with('product')->with('prizes')->with('users')->find($id);
         return $data;
     }
 

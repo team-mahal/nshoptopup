@@ -12,7 +12,7 @@
 		      <tbody>
 		        <tr v-for="(item,index) in match.users" :key="item.name">
 		          <td class="p-3 text-gray-800 text-center border border-b">{{ index+1 }}</td>
-		          <td class="p-3 text-gray-800 text-center border border-b">{{ item.pivot.gamename }}</td>
+		          <td class="p-3 text-gray-800 text-center border border-b">{{ item.gamename }}</td>
 		        </tr>
 		      </tbody>
 		</table>
