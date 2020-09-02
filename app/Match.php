@@ -8,6 +8,11 @@ class Match extends Model
 {
     
 
+	public function prizes()
+	{
+		return $this->hasMany("App\Prize");
+	}
+
 	public function product()
 	{
 		return $this->belongsTo("App\Product");

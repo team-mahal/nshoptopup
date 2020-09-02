@@ -15,9 +15,9 @@
 		      <tbody>
 		        <tr v-for="(item,index) in match.users" :key="item.name">
 		          	<td class="p-3 text-gray-800 text-center border border-b">{{ index+1 }}</td>
-		          	<td class="p-3 text-gray-800 text-center border border-b">{{ item.pivot.gamename }}</td>
-		          	<td class="p-3 text-gray-800 text-center border border-b">{{ item.pivot.total_kill }}</td>
-		          	<td class="p-3 text-gray-800 text-center border border-b">{{ item.pivot.total_earn }}</td>
+		          	<td class="p-3 text-gray-800 text-center border border-b">{{ item.gamename }}</td>
+		          	<td class="p-3 text-gray-800 text-center border border-b">{{ item.total_kill }}</td>
+		          	<td class="p-3 text-gray-800 text-center border border-b">{{ item.total_earn }}</td>
 		        </tr>
 		      </tbody>
 		</table>
