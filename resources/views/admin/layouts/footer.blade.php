@@ -37,9 +37,15 @@
 <script>
 // Toggle Search Form
 	$(document).ready(function() {
-			$('#search_toggole').click(function() {
-				$(this).siblings("#item").toggle();
-			});
+		$('#search_toggole').click(function() {
+			$(this).siblings("#item").toggle();
+		});
+
+		var currnet  =  "{{ url()->current()  }}";
+		var matching = $('.nav-link').filter(function(){
+           return $(this).attr('href') == currnet
+        });
+        matching.addClass('active')
+
 	});
 </script>
-
