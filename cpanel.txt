@@ -4,7 +4,7 @@ Jual Ahmed
 
 
 3100 - zip code
-
+ 
 
 jual - First
 Ahmed - Last
@@ -15,7 +15,7 @@ pass=o9eHeuN@2?
 
 database:
 uername= newuser
-password= password
+password= passwordAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA12222222222222222222222222DSFSDFDF*&^%$$*^*^
 database=kmf 
 https://kmfgamermall.com/
 
