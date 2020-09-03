@@ -98,7 +98,7 @@
 						@foreach($datas as $key => $data)
 						<tr>
 							<td scope="row">{{ $key }}</td>
-							<td style="">{{$data->id}}</td>
+							<td style="">{{$data->transactionid}}</td>
 							<td style="">{{$data->user_id}}</td>
 							<td style="">
 								@if($data->paymentMethod == 1){{ 'bKash' }}
