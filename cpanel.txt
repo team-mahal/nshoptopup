@@ -10,7 +10,7 @@ jual - First
 Ahmed - Last 
 
 ip = 198.251.65.33
-user=root
+user=root 
 pass=o9eHeuN@2?
 
 database:
