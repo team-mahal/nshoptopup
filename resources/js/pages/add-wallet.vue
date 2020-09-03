@@ -115,6 +115,11 @@
                     <p v-else-if="amount >= 90000" class="text-pink-700">Must be between 10 and 90000</p> 
                 </div>
                 <div class="">
+                    <h4 class="font-bold text-base">Transaction id</h4>
+                    <input v-model="transactionid" required placeholder="Transaction id" class="p-2 class-manual-width bg-white hover:bg-gray-100 hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
+                    <p v-if="paymentNumber === ''" class="text-pink-700">Transaction id is required</p> 
+                </div>
+                <div class="">
                     <h4 class="font-bold text-base">Sender Number</h4>
                     <input v-model="paymentNumber" required placeholder="Sender Number" class="p-2 class-manual-width bg-white hover:bg-gray-100 hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
                     <p v-if="paymentNumber === ''" class="text-pink-700">Sender Number is required</p> 
@@ -138,6 +143,7 @@ export default {
             paymentMethod: 1,
             paymentNumber: '',
             amount: '',
+            transactionid:''
         }
     },
     methods: {
@@ -153,6 +159,7 @@ export default {
             }else{
                 var params = {
                     paymentMethod: this.paymentMethod,
+                    transactionid: this.transactionid,
                     paymentNumber: this.paymentNumber,
                     amount: this.amount
                 };

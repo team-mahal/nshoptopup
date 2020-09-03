@@ -104,7 +104,7 @@
 							</td>
 							<td style="display: -webkit-inline-box;">
 								<a href="{{ route('match.edit',[$data->id]) }}" class="btn btn-success btn-sm">Edit</a>
-								<a href="{{ url('admin/match/totalplayer/',$data->id) }}" class="btn btn-success btn-sm">Total User Join</a>
+								<a href="{{ url('admin/match/totalplayer',$data->id) }}" class="btn btn-success btn-sm">Total User Join</a>
 								<a href="{{ url('admin/match/prize',$data->id) }}" class="btn btn-success btn-sm">Prize</a>
 								<form action="{{ route('match.destroy',$data->id) }}" method="POST">
 									@csrf

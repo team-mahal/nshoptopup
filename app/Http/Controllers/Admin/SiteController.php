@@ -115,6 +115,7 @@ class SiteController extends Controller
         $walletInfo = new WalletInfo;
         $walletInfo->user_id = $id;
         $walletInfo->paymentMethod = $request->paymentMethod;
+        $walletInfo->transactionid = $request->transactionid;
         $walletInfo->paymentNumber = $request->paymentNumber;
         $walletInfo->amount = $request->amount;
         $walletInfo->status = 'pandding';

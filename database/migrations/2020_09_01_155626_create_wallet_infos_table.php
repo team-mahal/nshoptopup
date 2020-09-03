@@ -18,6 +18,7 @@ class CreateWalletInfosTable extends Migration
             $table->integer('user_id');
             $table->string('paymentMethod');
             $table->string('paymentNumber');
+            $table->string('transactionid');
             $table->string('amount');
             $table->enum('status', array('pandding', 'complete', 'cancel'));
             $table->timestamps();
