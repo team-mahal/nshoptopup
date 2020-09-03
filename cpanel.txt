@@ -1,23 +1,22 @@
-Customer ID: 677197985  
-Pass -    Riyad@12345#
-Kazi Md Faisal
+Customer ID:   
+Pass -    Ad009257
+Jual Ahmed
 
 
-55100 - zip code
+3100 - zip code
 
 
-Kazi Md - First
-Faisal - Last
+jual - First
+Ahmed - Last
 
-ip = 198.251.69.22
+ip = 198.251.65.33
 user=root
-pass=1S?3Q542bj
+pass=o9eHeuN@2?
 
 database:
 uername= newuser
 password= password
 database=kmf
 https://kmfgamermall.com/
-
 
 ssh://root@198.251.69.22/var/repo/site.git
