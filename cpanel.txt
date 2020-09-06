@@ -16,7 +16,6 @@ pass=o9eHeuN@2?
 database:
 uername= newuser
 password= passwordAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA12222222222222222222222222DSFSDFDF*&^%$$*^*^
-database=kmf 
-https://kmfgamermall.com/
+database=nshop
 
 ssh://root@198.251.69.22/var/repo/site.git

@@ -229,9 +229,9 @@
 						</div>
 					</div>
 					<div
-						class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4"
+						class="flex flex-wrap mt-4 justify-center"
 					>
-						<div v-for="(p, key, index) in packages" :key="index" class="">
+						<div v-for="(p, key, index) in packages" :key="index" class="w-40 m-2">
 							<input
 								type="radio"
 								@change="onChangePackage(p)"
@@ -243,7 +243,7 @@
 							<label
 								class="rounded w-full checked:bg-gray-900 float-left p-2 border hover:bg-red-700 focus:bg-red-300 hover:text-white border-gray-300 text-center text-gray-700 font-bold"
 								:for="key"
-								>{{ p.name }}</label
+								>{{ p.name }} <sup class="text-green-700">BDT{{ p.buy_price }}</sup></label
 							>
 						</div>
 					</div>
@@ -454,7 +454,7 @@
 									<h4 class="text-sm">
 										By clicking "Confirm", you agree to
 										<router-link :to="'/privacy-policy'" class="text-red-300"
-											>Kmf Terms and Conditions.</router-link>
+											>Nshop Terms and Conditions.</router-link>
 									</h4>
 								</div>
 							</form>

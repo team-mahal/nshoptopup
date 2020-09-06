@@ -10,6 +10,11 @@
 	<title>Nshop-Admin</title>
 	<!-- Favicon -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+
+	<link rel="shortcut icon" href="https://nshoptopup.com/febicon/favicon.ico" type="image/x-icon">
+  	<link rel="shortcut icon" href="https://nshoptopup.com/febicon/favicon-32x32.png" type="image/x-icon">
+  	<link rel="shortcut icon" href="https://nshoptopup.com/febicon/favicon-16x16.png" type="image/x-icon">
+  	<link rel="shortcut icon" href="https://nshoptopup.com/febicon/apple-touch-icon.png" type="image/x-icon">
 	<!-- Icons -->
 	<link href="{{ asset('admin/vendor/nucleo/css/nucleo.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('admin/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">

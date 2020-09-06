@@ -1,7 +1,7 @@
 {
-    "name": "cretueusebiu/kmf-gamermall",
-    "description": "kmf-gamermall",
-    "keywords": ["kmf", "kmf-gamermall", "gamermall"],
+    "name": "cretueusebiu/nshop-gamermall",
+    "description": "nshop-gamermall",
+    "keywords": ["nshop", "nshop-gamermall", "gamermall"],
     "license": "MIT",
     "type": "project",
     "require": {

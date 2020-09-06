@@ -41,13 +41,13 @@
                 <h5 class="font-bold mt-3">Your earn wallet : {{ user.earn_wallet }}</h5>
                 <div class="mt-5">
                     <h4 class="font-bold text-base">Withdraw Amount</h4>
-                    <input v-model="amount" required type="number" placeholder="Amount To Add" class="p-2 class-manual-width bg-white hover:bg-gray-100 hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
+                    <input v-model="amount" required type="number" placeholder="Amount To Withdraw" class="p-2 class-manual-width bg-white hover:bg-gray-100 hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
                     <p v-if="amount === ''" class="text-pink-700">Amount is required</p>  
                     <p v-else-if="user.earn_wallet < amount" class="text-pink-700">Withdraw amount must less than earn wallet</p> 
                 </div>
                 <div class="">
                     <h4 class="font-bold text-base">Receiver Number</h4>
-                    <input v-model="paymentNumber" required placeholder="Sender Number" class="p-2 class-manual-width bg-white hover:bg-gray-100 hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
+                    <input v-model="paymentNumber" required placeholder="Receiver Number" class="p-2 class-manual-width bg-white hover:bg-gray-100 hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
                     <p v-if="paymentNumber === ''" class="text-pink-700">Receiver Number is required</p> 
                 </div>
                 <button @click="addAmount()" class="text-white class-manual-width text-center bg-pink-500 hover:bg-pink-800 text-white font-bold py-2 px-2 rounded w-56 mx-auto mt-3">Withdraw</button>

@@ -89,7 +89,7 @@
 							<th scope="col">Order ID</th>
 							<th scope="col">User ID</th>
 							<th scope="col">Type</th>
-							<th scope="col">ID Code / ID Password</th>
+							<th scope="col">ID Code / ID Email</th>
 							<th scope="col">PAssword</th>
 							<th scope="col">Name</th>
 							<th scope="col">Buy Price</th>
@@ -105,8 +105,16 @@
 							<td style="">{{$data->id}}</td>
 							<td style="">{{$data->user_id}}</td>
 							<td style="">{{$data->type}}</td>
-							<td style="">{{$data->email}}</td>
-							<td style="">{{$data->password}}</td>
+							<td style="">
+								<span>
+									<button class="btn btn-sm btn-secondary" onclick="myFunction( {{ $data->id }} )">Copy</button>
+									<input value="{{$data->email}}" id="{{ $data->id }}">
+								</span>
+							</td>
+							<td style="">
+								<button class="btn btn-sm btn-secondary" onclick="myFunction1( {{ $data->id }}+'a' )">Copy</button>
+								<input  value="{{$data->password}}" id="{{ $data->id.'a' }}"></span>
+							</td>
 							<td style="">{{$data->name}}</td>
 							<td style="">{{$data->buy_price}}</td>
 							<td style="">{{$data->sale_price}}</td>
@@ -117,27 +125,27 @@
 									onchange="myChange({{$data->id}}, this.value)" required class="form-control" style="width: 110px;">
 									@else
 									<select enable name="status" id="status{{$data->id}}"
-										onchange="myChange({{$data->id}}, this.value)" required class="form-control" style="width: 110px">
-										@endif
-										@if ($data->status == '')
-										<option value="">select once</option>
-										@endif
-										@if ($data->status == 'pandding')
-										<option Selected value="pandding">pandding</option>
-										@else
-										<option value="pandding">pandding</option>
-										@endif
-										@if ($data->status == 'complete')
-										<option Selected value="complete">complete</option>
-										@else
-										<option value="complete">complete</option>
-										@endif
-										@if ($data->status == 'cancel')
-										<option Selected value="cancel">cancel</option>
-										@else
-										<option value="cancel">cancel</option>
-										@endif
-									</select>
+									onchange="myChange({{$data->id}}, this.value)" required class="form-control" style="width: 110px">
+									@endif
+									@if ($data->status == '')
+									<option value="">select once</option>
+									@endif
+									@if ($data->status == 'pandding')
+									<option Selected value="pandding">pandding</option>
+									@else
+									<option value="pandding">pandding</option>
+									@endif
+									@if ($data->status == 'complete')
+									<option Selected value="complete">complete</option>
+									@else
+									<option value="complete">complete</option>
+									@endif
+									@if ($data->status == 'cancel')
+									<option Selected value="cancel">cancel</option>
+									@else
+									<option value="cancel">cancel</option>
+									@endif
+								</select>
 							</td>
 						</tr>
 						@endforeach
@@ -157,46 +165,68 @@
 @include('admin.layouts.footer')
 
 <script>
-	function myChange($id, $status) {
-    var status = $status;
-	var id = $id;
-	console.log(status);
-	
-	$.ajaxSetup({
-		headers: {
-        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    	}
-	});
-    $.ajax({
-        type:"POST",
-        url : "{{ route('orderUpdate') }}",
-        data : {
-			status: status,
-			id: id
-		},
-        success : function(response) {
-			Swal.fire({
-				position: 'top-end',
-				icon: 'success',
-				title: 'Your work has been saved',
-				showConfirmButton: false,
-				timer: 1500
-			})
 
-			if(response == 'cancel' || response == 'complete')
-			{
-				$('#status'+id).prop( "disabled", true );
-			}
-        },
-        error: function() {
-			Swal.fire({
-				position: 'top-end',
-				icon: 'error',
-				title: 'Error occured',
-				showConfirmButton: false,
-				timer: 1500
-			})
-        }
-    });
-};
+	function myFunction($id) {
+	  /* Get the text field */
+	  var copyText = document.getElementById($id);
+
+	  /* Select the text field */
+	  copyText.select();
+	  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+	  /* Copy the text inside the text field */
+	  document.execCommand("copy");
+
+	}
+
+	function myFunction1($id) {
+	  var copyText1 = document.getElementById($id);
+	  /* Select the text field */
+	  copyText1.select();
+	  copyText1.setSelectionRange(0, 99999); /*For mobile devices*/
+	}
+
+
+
+	function myChange($id, $status) {
+	    var status = $status;
+		var id = $id;
+		console.log(status);
+		
+		$.ajaxSetup({
+			headers: {
+	        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    	}
+		});
+	    $.ajax({
+	        type:"POST",
+	        url : "{{ route('orderUpdate') }}",
+	        data : {
+				status: status,
+				id: id
+			},
+	        success : function(response) {
+				Swal.fire({
+					position: 'top-end',
+					icon: 'success',
+					title: 'Your work has been saved',
+					showConfirmButton: false,
+					timer: 1500
+				})
+
+				if(response == 'cancel' || response == 'complete')
+				{
+					$('#status'+id).prop( "disabled", true );
+				}
+	        },
+	        error: function() {
+				Swal.fire({
+					position: 'top-end',
+					icon: 'error',
+					title: 'Error occured',
+					showConfirmButton: false,
+					timer: 1500
+				})
+	        }
+	    });
+	};
 </script>
