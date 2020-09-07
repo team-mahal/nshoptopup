@@ -86,15 +86,20 @@
 					<thead class="thead-light">
 						<tr>
 							<th scope="col">#</th>
+							<th scope="col">Action</th>
 							<th scope="col">Order ID</th>
 							<th scope="col">User ID</th>
 							<th scope="col">Type</th>
 							<th scope="col">ID Code / ID Email</th>
 							<th scope="col">PAssword</th>
+							<th scope="col">Transaction ID</th>
+							<th scope="col">Payment Number</th>
+							<th scope="col">Payment Method</th>
 							<th scope="col">Name</th>
 							<th scope="col">Buy Price</th>
 							<th scope="col">Sale Price</th>
 							<th scope="col">Package ID</th>
+							<th scope="col">Amount</th>
 							<th scope="col">Action</th>
 						</tr>
 					</thead>
@@ -102,23 +107,6 @@
 						@foreach($datas as $key => $data)
 						<tr>
 							<td scope="row">{{ $key }}</td>
-							<td style="">{{$data->id}}</td>
-							<td style="">{{$data->user_id}}</td>
-							<td style="">{{$data->type}}</td>
-							<td style="">
-								<span>
-									<button class="btn btn-sm btn-secondary" onclick="myFunction( {{ $data->id }} )">Copy</button>
-									<input value="{{$data->email}}" id="{{ $data->id }}">
-								</span>
-							</td>
-							<td style="">
-								<button class="btn btn-sm btn-secondary" onclick="myFunction1( {{ $data->id }}+'a' )">Copy</button>
-								<input  value="{{$data->password}}" id="{{ $data->id.'a' }}"></span>
-							</td>
-							<td style="">{{$data->name}}</td>
-							<td style="">{{$data->buy_price}}</td>
-							<td style="">{{$data->sale_price}}</td>
-							<td style="">{{$data->package_id}}</td>
 							<td>
 								@if ($data->status == 'cancel' || $data->status == 'complete')
 								<select disabled name="status" id="status{{$data->id}}"
@@ -147,6 +135,33 @@
 									@endif
 								</select>
 							</td>
+							<td style="">{{$data->id}}</td>
+							<td style="">{{$data->user_id}}</td>
+							<td style="">{{$data->type}}</td>
+							<td style="">
+								<span>
+									<button class="btn btn-sm btn-secondary" onclick="myFunction( {{ $data->id }} )">Copy</button>
+									<input value="{{$data->email}}" id="{{ $data->id }}">
+								</span>
+							</td>
+							<td style="">
+								<button class="btn btn-sm btn-secondary" onclick="myFunction1( {{ $data->id }}+'a' )">Copy</button>
+								<input  value="{{$data->password}}" id="{{ $data->id.'a' }}"></span>
+							</td>
+							<td style="">{{$data->transaction_id}}</td>
+							<td style="">{{$data->payment_number}}</td>
+							<td style="">
+								@if($data->payment_method== 1) {{ 'bKash' }}
+								@elseif($data->payment_method == 2) {{ 'Nogod' }}
+								@elseif($data->payment_method == 2) {{ 'Rocket' }}
+								@endif
+							</td>
+							<td style="">{{$data->name}}</td>
+							<td style="">{{$data->buy_price}}</td>
+							<td style="">{{$data->sale_price}}</td>
+							<td style="">{{$data->package_id}}</td>
+							<td style=""><input type="number" id="{{ $data->id.'input' }}" placeholder="Enter Amount"></td>
+							<td style=""><button class="btn btn-sm btn-success"  onclick="walletUpdate({{ $data->id }},{{ $data->id }}+'input' )">Update</button></td>
 						</tr>
 						@endforeach
 					</tbody>
@@ -226,6 +241,48 @@
 					showConfirmButton: false,
 					timer: 1500
 				})
+	        }
+	    });
+	};
+
+
+	function walletUpdate($id, $el_id) {
+	    var amount = document.getElementById($el_id).value;
+		var id = $id;
+		console.log(amount);
+		
+		$.ajaxSetup({
+			headers: {
+	        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    	}
+		});
+	    $.ajax({
+	        type:"POST",
+	        url : "{{ route('walletOrderUpdate') }}",
+	        data : {
+				amount: amount,
+				id: id
+			},
+	        success : function(response) {
+				if(response == 'success')
+				{
+					Swal.fire({
+					position: 'top-end',
+					icon: 'success',
+					title: 'User wallet updated',
+					showConfirmButton: false,
+					timer: 1500
+					})
+					document.getElementById($el_id).value = '';
+				}else{
+					Swal.fire({
+						position: 'top-end',
+						icon: 'error',
+						title: 'User wallet not updated',
+						showConfirmButton: false,
+						timer: 1500
+					})
+				}
 	        }
 	    });
 	};

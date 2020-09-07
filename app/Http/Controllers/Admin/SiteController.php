@@ -14,6 +14,7 @@ use App\TransactionInfo;
 use App\Slider;
 use App\WalletInfo;
 use App\WithdrawInfo;
+use App\PaymentMethod;
 
 class SiteController extends Controller
 {
@@ -95,6 +96,38 @@ class SiteController extends Controller
         return response()->json($data1, 200);
     }
 
+
+    public function ProductOrderWithTransactionId(Request $request, $id, $user_id)
+    {
+        $packages = Package::where(['id' => $id])->get();
+        $user = User::find($user_id);
+        $wallet = $user->wallet;
+        $data1 = [];
+
+        $data1['success'] = 1;
+        $type = $request->input('type');
+        $email = $request->input('email');
+        $password = $request->input('password');
+
+        $order = new Order;
+        $order->name = $packages[0]->name;
+        $order->buy_price = $packages[0]->buy_price;
+        $order->sale_price = $packages[0]->sale_price;
+        $order->package_id = $id;
+        $order->user_id = $user_id;
+        $order->type = $type;
+        $order->email = $email;
+        $order->password = $password;
+        $order->status = 'pandding';
+        $order->payment_number = $request->input('number');
+        $order->payment_method = $request->input('method');
+        $order->transaction_id = $request->input('transaction_id');
+            
+        $order->save();
+
+        return response()->json($data1, 200);
+    }
+
     public function getTransactions($id)
     {
         $transactionInfo = TransactionInfo::where('user_id', $id)->get();
@@ -139,6 +172,12 @@ class SiteController extends Controller
             $withdrawInfo->save();
             return response()->json('true', 200);
         }
+    }
+
+    public function getPaymentMethod()
+    {
+        $paymentMethod = PaymentMethod::get();
+        return response()->json($paymentMethod, 200);
     }
 
 }

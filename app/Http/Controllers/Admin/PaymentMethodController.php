@@ -62,7 +62,7 @@ class PaymentMethodController extends Controller
             ]);
         $paymentMethod = paymentMethod::find($id);
         $name = $request->input('name');
-
+        $number = $request->input('number');
         if($request->file('logo') != ''){        
             if($request->hasFile('logo')) {
                 $file_path = public_path().'/paymentMethod/'.$request->input('oldlogo');;
@@ -75,7 +75,7 @@ class PaymentMethodController extends Controller
         $filename = $request->input('oldlogo');
        }
 
-       $paymentMethod->update(['logo' => $filename, 'name' => $name]);
+       $paymentMethod->update(['logo' => $filename, 'name' => $name, 'number' => $number]);
        return back()
             ->with('success','Payment Method Update Successfully.')
             ->with('file', $filename);

@@ -27,6 +27,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     //Product Order
     Route::post('product-order-walllet/{id}/{user_id}', "Admin\SiteController@ProductOrderWithWallet");
+    Route::post('product-order-transaction_id/{id}/{user_id}', "Admin\SiteController@ProductOrderWithTransactionId");
+    Route::get('check-pandding-order/{user_id}', "Admin\OrderController@checkPanddingOrder");
     Route::post('productOrder/{id}/{user_id}', "Admin\OrderController@store");
 
     //trxidData
@@ -61,6 +63,9 @@ Route::get('all-blog', "Admin\CommonController@getAllBlog");
 Route::get('page-data/{id}', "Admin\SiteController@getPageData");
 Route::get('matchs/{status}/{id}', "MatchController@index");
 Route::get('singlematch/{id}', "MatchController@singlematch");
+
+Route::get('paymentMethods', "Admin\SiteController@getPaymentMethod");
+
 
 Route::group(['middleware' => 'guest:api'], function () {
     Route::post('login', 'Auth\LoginController@login');

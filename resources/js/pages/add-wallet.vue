@@ -6,29 +6,29 @@
                  <input  id="ckb_10" type="radio" checked name="foo" style="display: none"/>
                 <label for="ckb_10">
                     <div @click="paymentMethod = 1" class="border-2 cursor-pointer border-gray-300 items-center text-center rounded-lg p-3 focus:bg-red-300 focus:outline-none focus:shadow-outline">
-                        <img src="/img/bkash.png" alt="" class="w-24 mx-auto">
-                        <h4 class="text-base font-bold text-red-300">bkash</h4>
+                        <img :src="'/paymentMethod/'+paymentMethods[0].logo" alt="" class="w-24 mx-auto">
+                        <h4 class="text-base font-bold text-red-300">{{ paymentMethods[0].name }}</h4>
                     </div>
                 </label>
                 <input  id="ckb_91" type="radio" name="foo"  style="display: none"/>
                 <label for="ckb_91">
                     <div @click="paymentMethod = 2" class="border-2 cursor-pointer border-gray-300 items-center text-center rounded-lg p-3 focus:outline-none focus:shadow-outline">
-                        <img src="/img/nogod.png" alt="" class="w-24 mx-auto">
-                        <h4 class="text-base font-bold text-red-300">Nagad</h4>
+                        <img :src="'/paymentMethod/'+paymentMethods[1].logo" alt="" class="w-24 mx-auto">
+                        <h4 class="text-base font-bold text-red-300">{{ paymentMethods[1].name }}</h4>
                     </div>
                 </label>
                 <input  id="ckb_92" type="radio" name="foo" style="display: none"/>
                 <label for="ckb_92">
                     <div @click="paymentMethod = 3" class="border-2 cursor-pointer border-gray-300 items-center text-center rounded-lg p-3 focus:outline-none focus:shadow-outline">
-                        <img src="/img/roket.png" alt="" class="w-24 mx-auto">
-                        <h4 class="text-base font-bold text-red-300">Rocket</h4>
+                        <img :src="'/paymentMethod/'+paymentMethods[2].logo" alt="" class="w-24 mx-auto">
+                        <h4 class="text-base font-bold text-red-300">{{ paymentMethods[2].name }}</h4>
                     </div>
                 </label>
             </div>
             <div class="mt-5 border-2 border-gray-600 shadow-xl p-5 text-center">
                 <div v-if="paymentMethod == 1">
-                    <img src="/img/bkash.png" alt="" class="w-24 mx-auto">
-                    <h5 class="text-base font-bold">Our bkash number: <b class="text-red-300">017544894898</b> </h5>
+                    <img :src="'/paymentMethod/'+paymentMethods[0].logo" alt="" class="w-24 mx-auto">
+                    <h5 class="text-base font-bold">Our {{ paymentMethods[0].name }} number: <b class="text-red-300">{{ paymentMethods[0].number }}</b> </h5>
                     <p class="text-white text-center bg-red-300 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded w-56 mx-auto mt-2">How to add money?</p>
                     <span class="my-3 mt-3" style="font-family: auto;">
                         Follow below steps 👇 <br>
@@ -58,8 +58,8 @@
                     </div> -->
                 </div>
                 <div v-else-if="paymentMethod == 2">
-                    <img src="/img/nogod.png" alt="" class="w-24 mx-auto">
-                    <h5 class="text-base font-bold">Our Nagad number: <b class="text-red-300">017845725454</b> </h5>
+                    <img :src="'/paymentMethod/'+paymentMethods[1].logo" alt="" class="w-24 mx-auto">
+                    <h5 class="text-base font-bold">Our {{ paymentMethods[1].name }} number: <b class="text-red-300">{{ paymentMethods[1].number }}</b> </h5>
                     <p class="text-white text-center bg-red-300 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded w-56 mx-auto mt-2">How to add money?</p>
                     <span class="my-3 mt-3" style="font-family: auto;">
                         Follow below steps 👇 <br>
@@ -89,8 +89,8 @@
                     </div> -->
                 </div>
                 <div v-else-if="paymentMethod == 3">
-                    <img src="/img/roket.png" alt="" class="w-24 mx-auto">
-                    <h5 class="text-base font-bold">Our rocket number: <b class="text-red-300">01784565598</b> </h5>
+                    <img :src="'/paymentMethod/'+paymentMethods[2].logo" alt="" class="w-24 mx-auto">
+                    <h5 class="text-base font-bold">Our {{ paymentMethods[2].name }} number: <b class="text-red-300">{{ paymentMethods[2].number }}</b> </h5>
                     <p class="text-white text-center bg-red-300 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded w-56 mx-auto mt-2">How to add money?</p>
                     <span class="my-3 mt-3" style="font-family: auto;">
                         Follow below steps 👇 <br>
@@ -143,7 +143,8 @@ export default {
             paymentMethod: 1,
             paymentNumber: '',
             amount: '',
-            transactionid:''
+            transactionid:'',
+            paymentMethods: [],
         }
     },
     methods: {
@@ -187,8 +188,17 @@ export default {
                     }
                 });
             }
-        }
-    }
+        },
+        loadPaymentMethod() {
+			axios.get("/api/paymentMethods").then(response => {
+				this.paymentMethods = response.data;
+			});
+
+		},
+    },
+	created() {
+		this.loadPaymentMethod();
+	}
 }
 </script>
 

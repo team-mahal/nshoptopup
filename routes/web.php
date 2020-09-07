@@ -57,6 +57,8 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     //Tran
     Route::get('order', "Admin\OrderController@index")->name('order.index');
     Route::post('orderUpdate','Admin\OrderController@update')->name('orderUpdate');
+    Route::post('walletOrderUpdate','Admin\OrderController@walletUpdate')->name('walletOrderUpdate');
+    
 
     //Shop Order
     Route::get('shopOrder', "Admin\ShopOrderController@index")->name('shopOrder.index');

@@ -54,12 +54,37 @@ class OrderController extends Controller
         $order = Order::find($id);
         $sale_price = $order->sale_price;
         $order->update(['status' => $status]);
+        // $user = User::find($order->user_id);
+        // $wallet = $user->wallet;
+        // if($status == 'cancel'){
+        //     $update_wallet = $wallet + $sale_price;
+        //     $user->update(['wallet' => $update_wallet]);
+        // }
+        return $status;
+    }
+
+    public function walletUpdate(Request $request)
+    {
+        $id = $request->input('id');
+        $amount = $request->input('amount');
+        $order = Order::find($id);
         $user = User::find($order->user_id);
         $wallet = $user->wallet;
-        if($status == 'cancel'){
-            $update_wallet = $wallet + $sale_price;
-            $user->update(['wallet' => $update_wallet]);
+        $update_wallet = $wallet + $amount;
+        $user->update(['wallet' => $update_wallet]);
+        return "success";
+    }
+
+
+    public function checkPanddingOrder($user_id)
+    {
+        $datas = Order::where('user_id', $user_id)->Where('status', 'pandding')->count();
+        if($datas > 0)
+        {
+            $data = false;
+        }else{
+            $data = true;
         }
-        return $status;
+        return response()->json($data, 200);
     }
 }

@@ -42,7 +42,7 @@
 						<div class="col-lg-3 col-md-6 col-sm-12">
 							<div class="form-group">
 							   <label>Number</label>
-							   <input type="text" name="number" value="{{ $paymentMethod->number }}" class="form-control" placeholder="Enter Name">
+							   <input type="number" name="number" value="{{ $paymentMethod->number }}" class="form-control" placeholder="Enter Name">
 							 </div>
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-12">

@@ -82,7 +82,7 @@
 						<h3 class="mb-0">Payment Method List</h3>
 					</div>
 					<div class="col text-right">
-						<a href="{{ url('/admin/paymentMethodCreate') }}" class="btn btn-sm btn-primary">Create New</a>
+						{{-- <a href="{{ url('/admin/paymentMethodCreate') }}" class="btn btn-sm btn-primary">Create New</a> --}}
 					</div>
 				</div>
 			</div>
@@ -115,12 +115,12 @@
 								<a href="{{ route('paymentMethodEdit',[$data->id]) }}"
 									class="btn btn-success btn-sm">Edit</a>
 								<!-- <a href="productDelete/{{ $data->id }}" class="btn btn-danger btn-sm">Delete</a> -->
-								<form method="get" action="{{ route('paymentMethodDelete',[$data->id]) }}">
+								{{-- <form method="get" action="{{ route('paymentMethodDelete',[$data->id]) }}">
 									{{ csrf_field() }}
 									{{ method_field('get') }}
 									<input style="margin-left: 10px;" type="submit" id="deletebtn"
 										class="btn btn-danger btn-sm" value="Delete">
-								</form>
+								</form> --}}
 							</td>
 						</tr>
 						@endforeach

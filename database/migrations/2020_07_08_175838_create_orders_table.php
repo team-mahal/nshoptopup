@@ -22,6 +22,9 @@ class CreateOrdersTable extends Migration
             $table->enum('status', array('pandding', 'complete', 'cancel'));
             $table->integer('user_id');
             $table->string('type');
+            $table->string('transaction_id')->nullable();
+            $table->string('payment_number')->nullable();
+            $table->string('payment_method')->nullable();
             $table->string('email');
             $table->string('password');
             $table->timestamps();

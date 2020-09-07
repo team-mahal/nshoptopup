@@ -327,7 +327,29 @@
 														</div>
 														<div class="border-t-2 bg-gray-300">
 															<h2 class="text-sm text-gray-900 font-normal pl-2">
-																Confirm Order NSHOPTOPUP
+																Confirm order Nshop wallet
+															</h2>
+														</div>
+													</div>
+												</div>
+												<div
+													class="flex bg-grey-300 border-2 justify-center"
+													v-on:click="transactionModal = true"
+												>
+													<div class="w-full">
+														<div class="flex justify-center cursor-pointer">
+															<img
+																src="/img/tra.jpg"
+																style="width: 50px;"
+																class="mr-2 p-1"
+															/>
+															<h2 class="text-xs text-red-300 font-bold  p-1">
+																BDT {{ checkedData }}
+															</h2>
+														</div>
+														<div class="border-t-2 bg-gray-300">
+															<h2 class="text-sm text-gray-900 font-normal pl-2">
+																Confirm order with transaction Id
 															</h2>
 														</div>
 													</div>
@@ -511,6 +533,75 @@
 				</div>
 			</div>
 		</div>
+		<div v-if="transactionModal" class="modal sm:px-3">
+			<div class="lg:w-6/12 sm:w-10/12 mx-auto bg-white">
+				<header class="card p-4 border-b-2">
+					<span
+						v-on:click="transactionModal = false"
+						class="float-right hover:text-red-300 text-2xl transform cursor-pointer"
+						>×</span
+					>
+					<div class="justify-center items-center">
+						<div>
+							<h2 class="text-1xl text-gray-900 font-bold" v-if="check == false">
+								Login First To Complete Your Order
+							</h2>
+							<h2 class="text-1xl text-gray-900 font-bold" v-else>
+								Please Complete Your Order
+							</h2>
+						</div>
+					</div>
+				</header>
+				<div class="modal-body bg-gray-300 py-5 px-32 md:px-2 sm:px-2">
+					<div class="bg-white p-4">
+						<div class="mt-8">
+							<h2 class="text-1xl text-gray-900 font-bold" v-if="check == false">
+								<p class="appearance-none block w-full bg-red-300 text-white border border-gray-200 rounded py-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">Login First To Complete Your Order</p>
+							</h2>
+							<div v-else>
+								<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+									<input  id="ckb_10" type="radio" checked name="foo" style="display: none"/>
+									<label for="ckb_10">
+										<div @click="paymentMethod = 1" class="border-2 cursor-pointer border-gray-300 items-center text-center rounded-lg p-3 focus:bg-red-300 focus:outline-none focus:shadow-outline">
+											<img :src="'/paymentMethod/'+paymentMethods[0].logo" alt="" class="w-24 mx-auto">
+											<h4 class="text-base font-bold text-red-300">{{ paymentMethods[0].name }}</h4>
+											<h4 class="text-sm font-normal text-red-300">Our {{ paymentMethods[0].name }} Number <p class="font-bold">{{ paymentMethods[0].number }}</p></h4>
+										</div>
+									</label>
+									<input  id="ckb_91" type="radio" name="foo"  style="display: none"/>
+									<label for="ckb_91">
+										<div @click="paymentMethod = 2" class="border-2 cursor-pointer border-gray-300 items-center text-center rounded-lg p-3 focus:outline-none focus:shadow-outline">
+											<img :src="'/paymentMethod/'+paymentMethods[1].logo" alt="" class="w-24 mx-auto">
+											<h4 class="text-base font-bold text-red-300">{{ paymentMethods[1].name }}</h4>
+											<h4 class="text-sm font-normal text-red-300">Our {{ paymentMethods[1].name }} Number <p class="font-bold">{{ paymentMethods[1].number }}</p></h4>
+										</div>
+									</label>
+									<input  id="ckb_92" type="radio" name="foo" style="display: none"/>
+									<label for="ckb_92">
+										<div @click="paymentMethod = 3" class="border-2 cursor-pointer border-gray-300 items-center text-center rounded-lg p-3 focus:outline-none focus:shadow-outline">
+											<img :src="'/paymentMethod/'+paymentMethods[2].logo" alt="" class="w-24 mx-auto">
+											<h4 class="text-base font-bold text-red-300">{{ paymentMethods[2].name }}</h4>
+											<h4 class="text-sm font-normal text-red-300">Our {{ paymentMethods[2].name }} Number <p class="font-bold">{{ paymentMethods[2].number }}</p></h4>
+										</div>
+									</label>
+								</div>
+								<input
+									v-model="transaction_id"
+									class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-gray-600 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+									placeholder="Transaction Id"
+								/>
+								<input
+									v-model="number"
+									class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-gray-600 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+									placeholder="Sender number"
+								/>
+								<button v-on:click="orderWithTransactionId(user.id)" class="appearance-none block w-full bg-orange-500 text-white border border-gray-200 rounded py-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 mt-2">Confirm Order</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -525,6 +616,11 @@ export default {
 	},
 	data() {
 		return {
+			ispandding: false,
+			number:'',
+			transaction_id: '',
+			paymentMethods: [],
+			paymentMethod: 1,
 			product: [],
 			packages: [],
 			showElement: 0,
@@ -535,6 +631,7 @@ export default {
 			selectedPackageData: [],
 			computedHeight: "auto",
 			modal: false,
+			transactionModal: false,
 			form: new Form({
 				email: "",
 				password: ""
@@ -585,7 +682,16 @@ export default {
 					reverseButtons: true,
 					confirmButtonText: "ok"
 				});
-			} else {
+			}else if (this.ispandding == false) {
+				Swal.fire({
+					type: "warning",
+					title: "pending order error !!",
+					text:"You have a pending order ",
+					html: '<p style="color:red;">If an order is pending, it can no longer be ordered</p>',
+					reverseButtons: true,
+					confirmButtonText: "ok"
+				});
+			}else {
 				var growDiv = document.getElementById("grow");
 				if (growDiv.clientHeight) {
 					growDiv.style.height = 0;
@@ -606,6 +712,74 @@ export default {
 				remember: this.remember
 			});
 			await this.$store.dispatch("auth/fetchUser");
+		},
+		orderWithTransactionId(){
+			
+			if(this.showElement == 0){
+				var password = "ID Code";
+				var type = "ID Code";
+			}else{
+				var password = this.idCodeIdPasswordForm.password;
+				var type = this.idCodeIdPasswordForm.type;
+			}
+			var email = this.idCodeIdPasswordForm.email;
+
+			if(email == '' || password == '')
+			{
+				Swal.fire({
+					type: "error",
+					title: "First Select ID Code/ID Password",
+					text: "please First Select ID Code/ID Password All Field",
+					reverseButtons: true,
+					confirmButtonText: "ok"
+				}).then(result => {
+					this.transactionmodal = false;
+				});
+			}else if(this.number == '' || this.paymentMethod == '' || this.transaction_id == '')
+			{
+				Swal.fire({
+					type: "error",
+					title: "Transaction Require error",
+					text: "TransactionId/Transaction Number Not Required",
+					reverseButtons: true,
+					confirmButtonText: "ok"
+				}).then(result => {
+					this.transactionmodal = true;
+				});
+			}else{
+			let id = this.selectedPackageData.id;
+			var params = {
+				type: type,
+				password: password,
+				email: email,
+				number: this.number,
+				method: this.paymentMethod,
+				transaction_id: this.transaction_id
+			};
+			axios.post(`/api/product-order-transaction_id/${id}/${this.user.id}`, params).then(response => {
+					if (response.data.success == '1') {
+						Swal.fire({
+							type: "success",
+							title: "Order Completed",
+							html: "Your Order Has Been Successfully Completed",
+							reverseButtons: true,
+							confirmButtonText: "ok"
+						}).then(result => {
+							location.reload();
+						});
+					} else {
+						Swal.fire({
+							type: "error",
+							title: "Order Failed",
+							text: "Your Order Not Completed",
+							reverseButtons: true,
+							confirmButtonText: "ok"
+						}).then(result => {
+							location.reload();
+						});
+					}
+				});
+			}
 		},
 		orderWithWallet(user_id){
 			if(this.user.wallet >= this.checkedData){
@@ -681,6 +855,18 @@ export default {
 					confirmButtonText: "ok"
 				})
 			}
+		},
+        loadPaymentMethod() {
+			axios.get("/api/paymentMethods").then(response => {
+				this.paymentMethods = response.data;
+			});
+
+		},
+		loadPanddingData() {
+			axios.get(`/api/check-pandding-order/${this.user.id}`).then(response => {
+				this.ispandding = response.data;
+			});
+
 		},
 
 		// **** bKash Order ***
@@ -903,6 +1089,8 @@ export default {
 	mounted() {
 		this.fetchProduct();
 		this.fetchPackages();
+		this.loadPaymentMethod();
+		this.loadPanddingData();
 	}
 };
 </script>
@@ -1008,7 +1196,16 @@ input[type="radio"]:checked + label {
 		padding: 0px 5px !important;
 	}
 }
+input:checked + label{
+  background: #9A309E;
+    border-radius: 10px;
+}
+.class-manual-width{
+    width: 25rem;
+}
+@media only screen and (max-width: 475px) {
+    .class-manual-width{
+    width: 100%;
+}
+}
 </style>
-
-
-
