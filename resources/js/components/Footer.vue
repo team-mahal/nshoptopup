@@ -58,7 +58,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="mx-auto py-4 mt-4" style="border-top: 2px solid #969696;box-shadow: 1px -1px 8px 0px #c3c2c2;background: rgb(134 2 234 / 0.2);">
+		<div class="mx-auto py-4 mt-4" style="border-top: 2px solid #969696;background: rgb(134 2 234 / 0.2);">
 			<div class="mt-2 text-center">
 				© Copyright 2020. All Rights Reserved.
 				<span>Developed by 
