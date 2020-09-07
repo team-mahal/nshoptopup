@@ -28,15 +28,15 @@
             <div class="mt-5 border-2 border-gray-600 shadow-xl p-5 text-center">
                 <div v-if="paymentMethod == 1">
                     <img src="/img/bkash.png" alt="" class="w-24 mx-auto">
-                    <h5 class="text-base font-bold">Our bkash number: <b class="text-red-300">017544894898</b> </h5>
+                    <!-- <h5 class="text-base font-bold">Our bkash number: <b class="text-red-300">017544894898</b> </h5> -->
                 </div>
                 <div v-else-if="paymentMethod == 2">
                     <img src="/img/nogod.png" alt="" class="w-24 mx-auto">
-                    <h5 class="text-base font-bold">Our Nagad number: <b class="text-red-300">017845725454</b> </h5>
+                    <!-- <h5 class="text-base font-bold">Our Nagad number: <b class="text-red-300">017845725454</b> </h5> -->
                 </div>
                 <div v-else-if="paymentMethod == 3">
                     <img src="/img/roket.png" alt="" class="w-24 mx-auto">
-                    <h5 class="text-base font-bold">Our rocket number: <b class="text-red-300">01784565598</b> </h5>
+                    <!-- <h5 class="text-base font-bold">Our rocket number: <b class="text-red-300">01784565598</b> </h5> -->
                 </div>
                 <h5 class="font-bold mt-3">Your earn wallet : {{ user.earn_wallet }}</h5>
                 <div class="mt-5">

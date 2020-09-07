@@ -1,6 +1,6 @@
 <template>
 	<!-- footer -->
-	<footer class="border-t mt-6 pt-6 pb-5 px-4 lg:px-0" style="background-image: linear-gradient(365deg, rgb(8 169 139), rgb(243 0 255));">
+	<footer class="border-t mt-6 pt-6 px-4 lg:px-0" style="background-image: linear-gradient(365deg, rgb(8 169 139), rgb(243 0 255));">
 		<div class="flex flex-wrap container mx-auto">
 			<div class="w-full lg:w-2/5">
 				<router-link
@@ -57,18 +57,18 @@
 					</div>
 				</div>
 			</div>
-				<div class="mx-auto">
-					<div class="mt-2 text-center">
-						© Copyright 2020. All Rights Reserved.
-						<span>Developed by 
-		                	<span class="text-green-100">
-		                		<a href="https://www.facebook.com/md.jual.ah" target="_blank"> 
-			                    	Team Mahal
-			                 	</a>
-		                 	</span>
-		              	</span>
-	             	 </div>
-              	</div>
+		</div>
+		<div class="mx-auto py-4 mt-4" style="border-top: 2px solid #969696;box-shadow: 1px -1px 8px 0px #c3c2c2;background: rgb(134 2 234 / 0.2);">
+			<div class="mt-2 text-center">
+				© Copyright 2020. All Rights Reserved.
+				<span>Developed by 
+					<span class="text-green-100">
+						<a href="https://www.facebook.com/md.jual.ah" target="_blank"> 
+							Team Mahal
+						</a>
+					</span>
+				</span>
+				</div>
 		</div>
 	</footer>
 </template>
