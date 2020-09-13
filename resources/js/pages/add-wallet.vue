@@ -6,29 +6,29 @@
                  <input  id="ckb_10" type="radio" checked name="foo" style="display: none"/>
                 <label for="ckb_10">
                     <div @click="paymentMethod = 1" class="border-2 cursor-pointer border-gray-300 items-center text-center rounded-lg p-3 focus:bg-red-300 focus:outline-none focus:shadow-outline">
-                        <img :src="'/paymentMethod/'+paymentMethods[0].logo" alt="" class="w-24 mx-auto">
-                        <h4 class="text-base font-bold text-red-300">{{ paymentMethods[0].name }}</h4>
+                        <img v-if="paymentMethods[0] && paymentMethods[0].logo" :src="'/paymentMethod/'+paymentMethods[0].logo" alt="" class="w-24 mx-auto">
+                        <h4 v-if="paymentMethods[0] && paymentMethods[0].name" class="text-base font-bold text-red-300">{{ paymentMethods[0].name }}</h4>
                     </div>
                 </label>
                 <input  id="ckb_91" type="radio" name="foo"  style="display: none"/>
                 <label for="ckb_91">
                     <div @click="paymentMethod = 2" class="border-2 cursor-pointer border-gray-300 items-center text-center rounded-lg p-3 focus:outline-none focus:shadow-outline">
-                        <img :src="'/paymentMethod/'+paymentMethods[1].logo" alt="" class="w-24 mx-auto">
-                        <h4 class="text-base font-bold text-red-300">{{ paymentMethods[1].name }}</h4>
+                        <img v-if="paymentMethods[1]" :src="'/paymentMethod/'+paymentMethods[1].logo" alt="" class="w-24 mx-auto">
+                        <h4 v-if="paymentMethods[1]" class="text-base font-bold text-red-300">{{ paymentMethods[1].name }}</h4>
                     </div>
                 </label>
                 <input  id="ckb_92" type="radio" name="foo" style="display: none"/>
                 <label for="ckb_92">
                     <div @click="paymentMethod = 3" class="border-2 cursor-pointer border-gray-300 items-center text-center rounded-lg p-3 focus:outline-none focus:shadow-outline">
-                        <img :src="'/paymentMethod/'+paymentMethods[2].logo" alt="" class="w-24 mx-auto">
-                        <h4 class="text-base font-bold text-red-300">{{ paymentMethods[2].name }}</h4>
+                        <img v-if="paymentMethods[1]" :src="'/paymentMethod/'+paymentMethods[2].logo" alt="" class="w-24 mx-auto">
+                        <h4 v-if="paymentMethods[1]" class="text-base font-bold text-red-300">{{ paymentMethods[2].name }}</h4>
                     </div>
                 </label>
             </div>
             <div class="mt-5 border-2 border-gray-600 shadow-xl p-5 text-center">
                 <div v-if="paymentMethod == 1">
-                    <img :src="'/paymentMethod/'+paymentMethods[0].logo" alt="" class="w-24 mx-auto">
-                    <h5 class="text-base font-bold">Our {{ paymentMethods[0].name }} number: <b class="text-red-300">{{ paymentMethods[0].number }}</b> </h5>
+                    <img v-if="paymentMethods[1]" :src="'/paymentMethod/'+paymentMethods[0].logo" alt="" class="w-24 mx-auto">
+                    <h5 v-if="paymentMethods[1]" class="text-base font-bold">Our {{ paymentMethods[0].name }} number: <b class="text-red-300">{{ paymentMethods[0].number }}</b> </h5>
                     <p class="text-white text-center bg-red-300 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded w-56 mx-auto mt-2">How to add money?</p>
                     <span class="my-3 mt-3" style="font-family: auto;">
                         Follow below steps 👇 <br>
@@ -44,18 +44,6 @@
                         Verify your Payment by entering amount and bKash mobile account number.<br>
                         Once NSHOPTOPUP Verify your payment details, Within 1 hours your money will be added.<br>
                     </span>
-                    <!-- <div class="mt-5">
-                        <h4 class="font-bold text-base">Amount To Add</h4>
-                        <input v-model="amount" placeholder="Amount To Add" class="p-2 bg-gray-200 hover:bg-white hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
-                        <p v-if="amount === ''" class="text-pink-700">Amount is required</p>  
-                        <p v-else-if="amount < 10" class="text-pink-700">Must be between 10 and 90000</p> 
-                        <p v-else-if="amount >= 90000" class="text-pink-700">Must be between 10 and 90000</p> 
-                    </div>
-                    <div class="">
-                        <h4 class="font-bold text-base">Sender Number</h4>
-                        <input v-model="paymentNumber" placeholder="Sender Number" class="p-2 bg-gray-200 hover:bg-white hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
-                        <p v-if="paymentNumber === ''" class="text-pink-700">Sender Number is required</p> 
-                    </div> -->
                 </div>
                 <div v-else-if="paymentMethod == 2">
                     <img :src="'/paymentMethod/'+paymentMethods[1].logo" alt="" class="w-24 mx-auto">
@@ -75,18 +63,6 @@
                         Verify your Payment by entering amount and bKash mobile account number.<br>
                         Once NSHOPTOPUP Verify your payment details, Within 1 hours your money will be added.<br>
                     </span>
-                    <!-- <div class="mt-5">
-                        <h4 class="font-bold text-base">Amount To Add</h4>
-                        <input v-model="amount" placeholder="Amount To Add" class="p-2 bg-gray-200 hover:bg-white hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
-                        <p v-if="amount === ''" class="text-pink-700">Amount is required</p>  
-                        <p v-else-if="amount < 10" class="text-pink-700">Must be between 10 and 90000</p> 
-                        <p v-else-if="amount >= 90000" class="text-pink-700">Must be between 10 and 90000</p> 
-                    </div>
-                    <div class="">
-                        <h4 class="font-bold text-base">Sender Number</h4>
-                        <input v-model="paymentNumber" placeholder="Sender Number" class="p-2 bg-gray-200 hover:bg-white hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
-                        <p v-if="paymentNumber === ''" class="text-pink-700">Sender Number is required</p> 
-                    </div> -->
                 </div>
                 <div v-else-if="paymentMethod == 3">
                     <img :src="'/paymentMethod/'+paymentMethods[2].logo" alt="" class="w-24 mx-auto">
@@ -99,7 +75,6 @@
                         Select Send Money Option (option 2).<br>
                         Enter NSHOPTOPUP Personal Account Number.<br>
                         Enter Your amount<br>
-                        <!-- Enter Reference Number "PlayZone".<br> -->
                         Now Enter your PIN.<br><br>
                         <b>Almost Done. Now follow Step 2:</b><br>
                         Now Enter Amount To Add place The money you sent and Sender Number Place This is the number from which you paid.<br>
@@ -191,6 +166,7 @@ export default {
         },
         loadPaymentMethod() {
 			axios.get("/api/paymentMethods").then(response => {
+                console.log(response.data)
 				this.paymentMethods = response.data;
 			});
 

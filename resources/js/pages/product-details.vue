@@ -69,9 +69,9 @@
 					class="shadow-lg p-2 bg-white p-4 mb-8"
 					style="box-shadow: 0 2px 10px #0000003b;"
 				>
-					<div class="flex">
+					<div class="flex relative">
 						<div
-							class="rounded-full h-6 w-6 bg-red-300 flex items-center justify-center text-white text-sm"
+							class="rounded-full h-10 w-10 bg-red-300 flex items-center justify-center text-white text-lg absolute"
 						>
 							1
 						</div>
@@ -175,9 +175,10 @@
 					class="shadow-lg p-2 bg-white p-4 mb-8"
 					style="box-shadow: 0 2px 10px #0000003b;"
 				>
-					<div class="flex">
+					<div class="flex relative">
 						<div
-							class="rounded-full h-6 w-6 bg-red-300 flex items-center justify-center text-white text-sm"
+							class="rounded-full h-10 w-10 bg-red-300 flex items-center justify-center text-white text-lg absolute"
+							style="top: -42px;"
 						>
 							0
 						</div>
@@ -189,8 +190,8 @@
 					</div>
 					<div class="mt-4 p-4">
 						<form class="w-full">
-							<div class="flex flex-wrap -mx-3 mb-2">
-								<div class="w-full md:mb-0">
+							<div class="flex flex-wrap -mx-3 mb-2 justify-center">
+								<div class="w-1/3 md:mb-0 m-3">
 									<label
 										class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
 										for="grid-city"
@@ -207,6 +208,23 @@
 									<input type="hidden" v-model="idCodeIdPasswordForm.password" value="id code">
 									<input type="hidden" v-model="idCodeIdPasswordForm.type" value="id code">
 								</div>
+								<div class="w-1/3 m-3 md:mb-0">
+									<label
+										class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+										for="grid-city"
+									>
+										Game Name
+									</label>
+									<input
+										class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+										id="grid-city"
+										type="text"
+										placeholder="Game Name"
+										v-model="idCodeIdPasswordForm.password"
+									/>
+									<input type="hidden" v-model="idCodeIdPasswordForm.password" value="id code">
+									<input type="hidden" v-model="idCodeIdPasswordForm.type" value="id code">
+								</div>
 							</div>
 						</form>
 					</div>
@@ -216,9 +234,10 @@
 					class="shadow-lg p-2 bg-white p-4"
 					style="box-shadow: 0 2px 10px #0000003b;"
 				>
-					<div class="flex">
+					<div class="flex relative">
 						<div
-							class="rounded-full h-6 w-6 bg-red-300 flex items-center justify-center text-white text-sm"
+							class="rounded-full h-10 w-10 bg-red-300 flex items-center justify-center text-white text-lg absolute"
+							style="top: -42px;"
 						>
 							2
 						</div>
@@ -230,31 +249,27 @@
 					</div>
 					<div
 						class="flex flex-wrap mt-4 justify-center"
-					>
-						<div v-for="(p, key, index) in packages" :key="index" class="w-40 m-2">
-							<input
-								type="radio"
-								@change="onChangePackage(p)"
-								:value="p.sale_price"
-								:id="key"
-								v-model="checkedData"
-								style="display:none"
-							/>
-							<label
-								class="rounded w-full checked:bg-gray-900 float-left p-2 border hover:bg-red-700 focus:bg-red-300 hover:text-white border-gray-300 text-center text-gray-700 font-bold"
-								:for="key"
-								>{{ p.name }} <sup class="text-green-700">BDT{{ p.buy_price }}</sup></label
-							>
-						</div>
+					>	
+						<div class="text-center w-40" v-for="(game, key, index) in packages" :key="game.id">
+					  		<div class="m-1">
+					  			<label :for="game.id" class="mb-0 w-40 list-group-item px-1 py-3 d-block"  style="font-size: 11px;position: relative;    overflow: hidden;">
+					  				<span class="absolute left-0" :class="selectedPackageData.id==game.id ? 'element-check-label' : ''" style="color: #fff;"> L </span>
+						  			<input class="absolute" required style="visibility: hidden;" :id="game.id" @change="onChangePackage(game)" v-model="checkedData" name="send" :value="game.sale_price" type="radio">
+									<span class="text-xs">{{ game.name }}</span> <sup class="text-red-900 font-extrabold">BDT{{ game.sale_price }}</sup>
+						  		</label>
+						  	</div>
+					  	</div> 
+					  	
 					</div>
 				</div>
 				<div
 					class="shadow-lg p-2 bg-white p-4 mt-8 transition duration-1000 pb-10"
 					style="box-shadow: 0 2px 10px #0000003b;"
 				>
-					<div class="flex">
+					<div class="flex relative">
 						<div
-							class="rounded-full h-6 w-6 bg-red-300 flex items-center justify-center text-white text-sm"
+							class="rounded-full h-10 w-10 bg-red-300 flex items-center justify-center text-white text-lg absolute"
+							style="top: -42px;"
 						>
 							3
 						</div>
@@ -268,13 +283,13 @@
 								All Payment Channel
 							</h2>
 							<div v-if="check == false">
-									<p v-on:click="modal = true" class="text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-0">Login First To Confirm Order</p>
+								<p v-on:click="modal = true" class="text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-0">Login First To Confirm Order</p>
 							</div>
-							<div v-else class="flex justify-between mt-2 cursor-pointer" v-on:click="growDiv">
+							<div v-else class="flex justify-between mt-2 cursor-pointer">
 								<div class="-ml-2">
 									<img src="/icons/wallet.png" class="mr-2 float-left" />
 									<div class="float-left">
-										<h2 class="text-1xl text-gray-700 font-bold">Shop Wallet</h2>
+										<h2 class="text-1xl text-gray-700 font-bold">Total Amount</h2>
 										<h2
 											class="text-sm text-red-300 italic font-bold text-opacity-75"
 										>
@@ -305,77 +320,56 @@
 							<div class="measuringWrapper">
 								<div>
 									<div v-if="check == false">
-											<p v-on:click="modal = true" class="text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-0">
-												Login First To Confirm Your Order
-											</p>
+										<p v-on:click="modal = true" class="text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-0">
+											Login First To Confirm Your Order
+										</p>
 									</div>
 									<div v-else class="grid sm:grid-cols-2 md:grid-cols-2 gap-4">
-												<div
-													class="flex bg-grey-300 border-2 justify-center"
-													v-on:click="orderWithWallet(user.id)"
-												>
-													<div class="w-full">
-														<div class="flex justify-center cursor-pointer">
-															<img
-																src="/logo.png"
-																style="width: 50px;"
-																class="mr-2 p-1"
-															/>
-															<h2 class="text-xs text-red-300 font-bold  p-1">
-																BDT {{ checkedData }}
-															</h2>
-														</div>
-														<div class="border-t-2 bg-gray-300">
-															<h2 class="text-sm text-gray-900 font-normal pl-2">
-																Confirm order Nshop wallet
-															</h2>
-														</div>
-													</div>
+										<div 
+											v-if="user!=null"
+											class="flex bg-grey-300 border-2 justify-center"
+											v-on:click="orderWithWallet(user.id)"
+										>
+											<div class="w-full">
+												<div class="flex justify-center cursor-pointer">
+													<img
+														src="/logo.png"
+														style="width: 50px;"
+														class="mr-2 p-1"
+													/>
+													<h2 class="text-xs text-red-300 font-bold  p-1">
+														BDT {{ checkedData }}
+													</h2>
 												</div>
-												<div
-													class="flex bg-grey-300 border-2 justify-center"
-													v-on:click="transactionModal = true"
-												>
-													<div class="w-full">
-														<div class="flex justify-center cursor-pointer">
-															<img
-																src="/img/tra.jpg"
-																style="width: 50px;"
-																class="mr-2 p-1"
-															/>
-															<h2 class="text-xs text-red-300 font-bold  p-1">
-																BDT {{ checkedData }}
-															</h2>
-														</div>
-														<div class="border-t-2 bg-gray-300">
-															<h2 class="text-sm text-gray-900 font-normal pl-2">
-																Confirm order with transaction Id
-															</h2>
-														</div>
-													</div>
+												<div class="border-t-2 bg-gray-300">
+													<h2 class="text-sm text-gray-900 font-normal pl-2">
+														Confirm order Nshop wallet
+													</h2>
 												</div>
-												<!-- <div
-													class="flex bg-grey-300 border-2 justify-center"
-													v-on:click="modal = true"
-												>
-													<div class="w-full">
-														<div class="flex justify-center cursor-pointer">
-															<img
-																src="/bkash.jpg"
-																style="width: 50px;"
-																class="mr-2 p-1"
-															/>
-															<h2 class="text-xs text-red-300 font-bold  p-1">
-																BDT {{ checkedData }}
-															</h2>
-														</div>
-														<div class="border-t-2 bg-gray-300">
-															<h2 class="text-sm text-gray-900 font-normal pl-2">
-																bKash
-															</h2>
-														</div>
-													</div>
-												</div> -->
+											</div>
+										</div>
+										<div
+											class="flex bg-grey-300 border-2 justify-center"
+											v-on:click="paymentmethod()"
+										>
+											<div class="w-full">
+												<div class="flex justify-center cursor-pointer">
+													<img
+														src="/img/tra.jpg"
+														style="width: 50px;"
+														class="mr-2 p-1"
+													/>
+													<h2 class="text-xs text-red-300 font-bold  p-1">
+														BDT {{ checkedData }}
+													</h2>
+												</div>
+												<div class="border-t-2 bg-gray-300">
+													<h2 class="text-sm text-gray-900 font-normal pl-2">
+														Confirm order with Payment Method
+													</h2>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -484,48 +478,11 @@
 								<div class="w-full mb-6 md:mb-3 mt-2">
 									<button
 										class="appearance-none block w-full bg-orange-500 text-white border border-gray-200 rounded py-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+										v-if="user!=null && user.wallet >= checkedData"
 										v-on:click="orderWithWallet(user.id)"
-										v-if="user.wallet >= checkedData"
 									>Your Wallet {{ user.wallet }} BDT
 										Confirm Order
 									</button>
-									<!-- BKash Order  -->
-									<!-- <div>
-										<div class="border-2 text-left border-greeen-500 bKash-success">
-											Please send your total amount via bKash and write down your Transaction ID (TrxID). You do not need to pay bKash fees from your side. You must provide the full TrxID. We do not accept (partial) phone number for payment validation.
-										</div>
-										<br>
-										<div class="our-bkash">
-											<h4 class="mr-4 text-sm font-bold mt-2 ml-4">Our bKash Number: <b>   <input value="01997980260" disabled class="p-1 bg-gray-200 border-lg border-pink-500 border-2"/></b></h4><br>
-											<div class="bKash-error">
-												IMPORTANT: This is a MERCHANT NUMBER.
-											</div>
-											<div class="bKash-error">
-												Do NOT call this number. You will not get a response.
-											</div>
-										</div>
-										<div class="flex flex-wrap ml-4">
-												<h5 class="mr-4 font-bold mt-2">Your TrxId : </h5>
-												<div>
-													<input
-														id="search"
-														v-model="trxid"
-														placeholder="Transaction ID"
-														class="float-right p-2 bg-gray-200 hover:bg-white hover:border-gray-300 border-lg border-pink-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300"
-													/>
-													<p v-if="trxid === ''" class="text-pink-700">
-														Transaction ID required
-													</p>
-												</div>
-											</div>
-											<br />
-										<button
-										class="appearance-none block w-full bg-red-300 text-white border border-gray-200 rounded py-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-										v-on:click="submitOrder(user.id)"
-									>
-										Confirm
-									</button>
-									</div> -->
 								</div>
 							</div>
 						</div>
@@ -595,7 +552,7 @@
 									class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-gray-600 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
 									placeholder="Sender number"
 								/>
-								<button v-on:click="orderWithTransactionId(user.id)" class="appearance-none block w-full bg-orange-500 text-white border border-gray-200 rounded py-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 mt-2">Confirm Order</button>
+								<button v-if="user!=null" v-on:click="orderWithTransactionId(user.id)" class="appearance-none block w-full bg-orange-500 text-white border border-gray-200 rounded py-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 mt-2">Confirm Order</button>
 							</div>
 						</div>
 					</div>
@@ -638,9 +595,9 @@ export default {
 			}),
 			remember: false,
 			idCodeIdPasswordForm: new Form({
-				type: "facebook",
+				type: "IDCODE",
 				email: "",
-				password: ""
+				password: "",
 			})
 		};
 	},
@@ -649,6 +606,29 @@ export default {
 		check: "auth/check"
 	}),
 	methods: {
+		paymentmethod(){
+			if (this.checkedData == "") {
+				Swal.fire({
+					type: "warning",
+					title: "You have to select denomination first",
+					text:
+						"Please choose the item you want to purchase before select payment channel",
+					reverseButtons: true,
+					confirmButtonText: "ok"
+				});
+			}else if (this.ispandding == false) {
+				Swal.fire({
+					type: "warning",
+					title: "pending order error !!",
+					text:"You have a pending order ",
+					html: '<p style="color:red;">If an order is pending, it can no longer be ordered</p>',
+					reverseButtons: true,
+					confirmButtonText: "ok"
+				});
+			}else {
+				transactionModal = true
+			}
+		},
 		fetchProduct() {
 			let id = this.$route.params.id;
 			axios.get(`/api/product/${id}`).then(response => {
@@ -671,35 +651,6 @@ export default {
 		},
 		onChangePackage(p) {
 			this.selectedPackageData = p;
-		},
-		growDiv() {
-			if (this.checkedData == "") {
-				Swal.fire({
-					type: "warning",
-					title: "You have to select denomination first",
-					text:
-						"Please choose the item you want to purchase before select payment channel",
-					reverseButtons: true,
-					confirmButtonText: "ok"
-				});
-			}else if (this.ispandding == false) {
-				Swal.fire({
-					type: "warning",
-					title: "pending order error !!",
-					text:"You have a pending order ",
-					html: '<p style="color:red;">If an order is pending, it can no longer be ordered</p>',
-					reverseButtons: true,
-					confirmButtonText: "ok"
-				});
-			}else {
-				var growDiv = document.getElementById("grow");
-				if (growDiv.clientHeight) {
-					growDiv.style.height = 0;
-				} else {
-					var wrapper = document.querySelector(".measuringWrapper");
-					growDiv.style.height = wrapper.clientHeight + "px";
-				}
-			}
 		},
 		formatPrice(value) {
 			let val = (value / 1).toFixed(2).replace(",", ".");
@@ -724,7 +675,7 @@ export default {
 			}
 			var email = this.idCodeIdPasswordForm.email;
 
-			if(email == '' || password == '')
+			if(email == '')
 			{
 				Swal.fire({
 					type: "error",
@@ -782,79 +733,100 @@ export default {
 			}
 		},
 		orderWithWallet(user_id){
-			if(this.user.wallet >= this.checkedData){
+			if (this.checkedData == "") {
 				Swal.fire({
-					type: "question",
-					title: "Are You Sure ?",
-					html: '<b style="color: green;">Confirm your order with NSHOPTOPUP wallet</b>',
-					reverseButtons: true,
-					confirmButtonText: "Yes Confirm Order",
-					showCancelButton: true,
-				}).then(result => {
-					if (result.value) {
-					console.log(this.showElement);
-					if(this.showElement == 0){
-						var password = "ID Code";
-						var type = "ID Code";
-					}else{
-						var password = this.idCodeIdPasswordForm.password;
-						var type = this.idCodeIdPasswordForm.type;
-					}
-					var email = this.idCodeIdPasswordForm.email;
-					console.log(type, email, password);
-					if(email == '' || password == '')
-					{
-						Swal.fire({
-							type: "error",
-							title: "First Select ID Code/ID Password",
-							text: "please First Select ID Code/ID Password All Field",
-							reverseButtons: true,
-							confirmButtonText: "ok"
-						}).then(result => {
-							this.modal = false;
-						});
-					}else{
-					let id = this.selectedPackageData.id;
-					var params = {
-						type: type,
-						password: password,
-						email: email
-					};
-					axios.post(`/api/product-order-walllet/${id}/${user_id}`, params).then(response => {
-							if (response.data.success == '1') {
-								Swal.fire({
-									type: "success",
-									title: "Order Completed",
-									html: "Your Order Has Been Successfully Completed <br><p style='color: green;'>Now Your Wallet  "+ response.data.wallet +" BDT</p>",
-									reverseButtons: true,
-									confirmButtonText: "ok"
-								}).then(result => {
-									location.reload();
-								});
-							} else {
-								Swal.fire({
-									type: "error",
-									title: "Order Failed",
-									text: "Your Order Not Completed",
-									reverseButtons: true,
-									confirmButtonText: "ok"
-								}).then(result => {
-									location.reload();
-								});
-							}
-						});
-					}
-					}
-				});
-			}else{
-				Swal.fire({
-					type: "error",
-					title: "Sorry",
-					html: "<b style='color: red;'>Your KMF wallet is less than your shop wallet</b><br><p color='green'>Please, try another way</p>",
+					type: "warning",
+					title: "You have to select denomination first",
+					text:
+						"Please choose the item you want to purchase before select payment channel",
 					reverseButtons: true,
 					confirmButtonText: "ok"
-				})
+				});
+			}else if (this.ispandding == false) {
+				Swal.fire({
+					type: "warning",
+					title: "pending order error !!",
+					text:"You have a pending order ",
+					html: '<p style="color:red;">If an order is pending, it can no longer be ordered</p>',
+					reverseButtons: true,
+					confirmButtonText: "ok"
+				});
+			}else {
+				if(this.user.wallet >= this.checkedData){
+					Swal.fire({
+						type: "question",
+						title: "Are You Sure ?",
+						html: '<b style="color: green;">Confirm your order with NSHOPTOPUP wallet</b>',
+						reverseButtons: true,
+						confirmButtonText: "Yes Confirm Order",
+						showCancelButton: true,
+					}).then(result => {
+						if (result.value) {
+						console.log(this.showElement);
+						if(this.showElement == 0){
+							var password = "ID Code";
+							var type = "ID Code";
+						}else{
+							var password = this.idCodeIdPasswordForm.password;
+							var type = this.idCodeIdPasswordForm.type;
+						}
+						var email = this.idCodeIdPasswordForm.email;
+						console.log(type, email, password);
+						if(email == '' || password == '')
+						{
+							Swal.fire({
+								type: "error",
+								title: "First Select ID Code/ID Password",
+								text: "please First Select ID Code/ID Password All Field",
+								reverseButtons: true,
+								confirmButtonText: "ok"
+							}).then(result => {
+								this.modal = false;
+							});
+						}else{
+						let id = this.selectedPackageData.id;
+						var params = {
+							type: type,
+							password: password,
+							email: email
+						};
+						axios.post(`/api/product-order-walllet/${id}/${user_id}`, params).then(response => {
+								if (response.data.success == '1') {
+									Swal.fire({
+										type: "success",
+										title: "Order Completed",
+										html: "Your Order Has Been Successfully Completed <br><p style='color: green;'>Now Your Wallet  "+ response.data.wallet +" BDT</p>",
+										reverseButtons: true,
+										confirmButtonText: "ok"
+									}).then(result => {
+										location.reload();
+									});
+								} else {
+									Swal.fire({
+										type: "error",
+										title: "Order Failed",
+										text: "Your Order Not Completed",
+										reverseButtons: true,
+										confirmButtonText: "ok"
+									}).then(result => {
+										location.reload();
+									});
+								}
+							});
+						}
+						}
+					});
+				}else{
+					Swal.fire({
+						type: "error",
+						title: "Sorry",
+						html: "<b style='color: red;'>Your KMF wallet is less than your shop wallet</b><br><p color='green'>Please, try another way</p>",
+						reverseButtons: true,
+						confirmButtonText: "ok"
+					})
+				}
 			}
+
 		},
         loadPaymentMethod() {
 			axios.get("/api/paymentMethods").then(response => {
@@ -863,228 +835,12 @@ export default {
 
 		},
 		loadPanddingData() {
-			axios.get(`/api/check-pandding-order/${this.user.id}`).then(response => {
-				this.ispandding = response.data;
-			});
-
-		},
-
-		// **** bKash Order ***
-		// submitOrder(user_id) {
-		// 	if (this.trxid == "") {
-		// 		Swal.fire({
-		// 			type: "warning",
-		// 			title: "Transaction Id filed is required",
-		// 			text: "Transaction ID required",
-		// 			reverseButtons: true,
-		// 			confirmButtonText: "ok"
-		// 		});
-		// 	} else if (this.check == false) {
-		// 		this.modal = true;
-		// 	} else {
-		// 		axios
-		// 			.get(`/api/trxidData/${this.trxid}/${this.user.id}/${this.checkedData}`)
-		// 			.then(response => {
-		// 				console.log(response.data);
-		// 				if (response.data.error == "0") {
-		// 					if (response.data.used_code == "1") {
-		// 						var form = document.createElement("div");
-		// 						form.innerHTML =
-		// 							"<b style='color:red;'>This trxID is Already Used !!!</b><br><p>Sender Number : <b>" +
-		// 							response.data.transaction.sender +
-		// 							"</b></p><p>Amount : <b>" +
-		// 							response.data.transaction.amount +
-		// 							"</b></p>";
-		// 						Swal.fire({
-		// 							title: "Order Failed !!!",
-		// 							html: form,
-		// 							type: "warning",
-		// 							reverseButtons: true,
-		// 							confirmButtonText: "ok"
-		// 						});
-		// 					} else {
-		// 						if (response.data.order_success_code == "0") {
-		// 							var form = document.createElement("div");
-		// 							form.innerHTML =
-		// 								"<b style='color:red;'>Your Order is Not Completed</b><br><p>Sender Number : <b>" +
-		// 								response.data.transaction.sender +
-		// 								"</b></p><p>Amount : <b>" +
-		// 								response.data.transaction.amount +
-		// 								"</b></br><b style='color:green;'>This Amount Add Your Wallet Check please</b><br><i>Your Payment Amount Less Than Shop Amount As a result Order Failed</i></p>";
-		// 							Swal.fire({
-		// 								title: "Order Failed !!!",
-		// 								html: form,
-		// 								type: "warning",
-		// 								reverseButtons: true,
-		// 								confirmButtonText: "ok"
-		// 							});
-		// 						} else {
-		// 							if (response.data.extra_money == "1") {
-		// 									if(this.showElement == 0){
-		// 												var password = "ID Code";
-		// 												var type = "ID Code";
-		// 											}else{
-		// 												var password = this.idCodeIdPasswordForm.password;
-		// 												var type = this.idCodeIdPasswordForm.type;
-		// 											}
-		// 											var email = this.idCodeIdPasswordForm.email;
-		// 											console.log(type, email, password);
-		// 											if(email == '' || password == '')
-		// 											{
-		// 												Swal.fire({
-		// 													type: "error",
-		// 													title: "First Select ID Code/ID Password",
-		// 													text: "please First Select ID Code/ID Password All Field",
-		// 													reverseButtons: true,
-		// 													confirmButtonText: "ok"
-		// 												}).then(result => {
-		// 													this.modal = false;
-		// 												});
-		// 											}else{
-		// 											let id = this.selectedPackageData.id;
-		// 											var params = {
-		// 												type: type,
-		// 												password: password,
-		// 												email: email
-		// 											};
-		// 											axios.post(`/api/productOrder/${id}/${user_id}`, params).then(response => {
-		// 													console.log(response);
-		// 													if (response.data == "true") {
-		// 														Swal.fire({
-		// 															type: "success",
-		// 															title: "Order Completed",
-		// 															text: "Your Order Has Been Successfully Completed <br><p style='color: green;'>Extra Amount Add Your Wallet Check please</p>",
-		// 															reverseButtons: true,
-		// 															confirmButtonText: "ok"
-		// 														}).then(result => {
-		// 															location.reload();
-		// 														});
-		// 													} else {
-		// 														Swal.fire({
-		// 															type: "error",
-		// 															title: "Order Failed",
-		// 															text: "Your Order Not Completed",
-		// 															reverseButtons: true,
-		// 															confirmButtonText: "ok"
-		// 														}).then(result => {
-		// 															location.reload();
-		// 														});
-		// 													}
-		// 												});
-		// 											}
-
-		// 							} else {
-		// 							 if(this.showElement == 0){
-		// 									var password = "ID Code";
-		// 									var type = "ID Code";
-		// 								}else{
-		// 									var password = this.idCodeIdPasswordForm.password;
-		// 									var type = this.idCodeIdPasswordForm.type;
-		// 								}
-		// 								var email = this.idCodeIdPasswordForm.email;
-		// 								console.log(type, email, password);
-		// 								if(email == '' || password == '')
-		// 								{
-		// 									Swal.fire({
-		// 										type: "error",
-		// 										title: "First Select ID Code/ID Password",
-		// 										text: "please First Select ID Code/ID Password All Field",
-		// 										reverseButtons: true,
-		// 										confirmButtonText: "ok"
-		// 									}).then(result => {
-		// 										this.modal = false;
-		// 									});
-		// 								}else{
-		// 								let id = this.selectedPackageData.id;
-		// 								var params = {
-		// 									type: type,
-		// 									password: password,
-		// 									email: email
-		// 								};
-		// 								axios.post(`/api/productOrder/${id}/${user_id}`, params).then(response => {
-		// 										console.log(response);
-		// 										if (response.data == "true") {
-		// 											Swal.fire({
-		// 												type: "success",
-		// 												title: "Order Completed",
-		// 												text: "Your Order Has Been Successfully Completed",
-		// 												reverseButtons: true,
-		// 												confirmButtonText: "ok"
-		// 											}).then(result => {
-		// 												location.reload();
-		// 											});
-		// 										} else {
-		// 											Swal.fire({
-		// 												type: "error",
-		// 												title: "Order Failed",
-		// 												text: "Your Order Not Completed",
-		// 												reverseButtons: true,
-		// 												confirmButtonText: "ok"
-		// 											}).then(result => {
-		// 												location.reload();
-		// 											});
-		// 										}
-		// 									});
-		// 								}
-		// 							}
-		// 						}
-		// 					}
-		// 				} else {
-		// 					var form = document.createElement("div");
-		// 					if (
-		// 						response.data.transaction.trxStatus == "0010" ||
-		// 						response.data.transaction.trxStatus == "0011"
-		// 					) {
-		// 						form.innerHTML =
-		// 							"<b style='color:red;'>bKash Say, trxID is valid but transaction is in pending state.</b>";
-		// 					} else if (response.data.transaction.trxStatus == "0100") {
-		// 						form.innerHTML =
-		// 							"<b style='color:red;'>bKash Say, trxID is valid but transaction has been reversed.</b>";
-		// 					} else if (response.data.transaction.trxStatus == "0111") {
-		// 						form.innerHTML =
-		// 							"<b style='color:red;'>bKash Say, trxID is valid but transaction has failed.</b>";
-		// 					} else if (response.data.transaction.trxStatus == "1001") {
-		// 						form.innerHTML =
-		// 							"<b style='color:red;'>bKash Say, Invalid MSISDN input. Try with correct mobile no.</b>";
-		// 					} else if (response.data.transaction.trxStatus == "1002") {
-		// 						form.innerHTML =
-		// 							"<b style='color:red;'>bKash Say, Invalid trxID, it does not exist.</b>";
-		// 					} else if (response.data.transaction.trxStatus == "1003") {
-		// 						form.innerHTML =
-		// 							"<b style='color:red;'>bKash Say, Access denied. Username or Password is incorrect.</b>";
-		// 					} else if (response.data.transaction.trxStatus == "1004") {
-		// 						form.innerHTML =
-		// 							"<b style='color:red;'>bKash Say, Access denied. trxID is not related to this username.</b>";
-		// 					} else if (response.data.transaction.trxStatus == "2000") {
-		// 						form.innerHTML =
-		// 							"<b style='color:red;'>bKash Say, Access denied. User does not have access to this module.</b>";
-		// 					} else if (response.data.transaction.trxStatus == "2001") {
-		// 						form.innerHTML =
-		// 							"<b style='color:red;'>bKash Say, Access denied. User date time request is exceeded of the defined limit.</b>";
-		// 					} else if (response.data.transaction.trxStatus == "3000") {
-		// 						form.innerHTML =
-		// 							"<b style='color:red;'>bKash Say, Missing required mandatory fields for this module</b>";
-		// 					} else if (response.data.transaction.trxStatus == "9999") {
-		// 						form.innerHTML =
-		// 							"<b style='color:red;'>bKash Say, Could not process request.</b>";
-		// 					} else if (response.data.transaction.trxStatus == "4001") {
-		// 						form.innerHTML =
-		// 							"<b style='color:red;'>bKash Say, Already Submited This trxID .</b>";
-		// 					} else {
-		// 						form.innerHTML =
-		// 							"<b style='color:red;'>bKash Say, This trxID is Not Valid !!!</b>";
-		// 					}
-		// 					Swal.fire({
-		// 						title: "Order Failed !!!",
-		// 						html: form,
-		// 						type: "warning",
-		// 						reverseButtons: true,
-		// 						confirmButtonText: "ok"
-		// 					});
-		// 				}
-		// 			});
-		// 	}
-		// }
+			if(this.user!=null){
+				axios.get(`/api/check-pandding-order/${this.user.id}`).then(response => {
+					this.ispandding = response.data;
+				});
+			}
+		},	
 	},
 	mounted() {
 		this.fetchProduct();
@@ -1149,18 +905,9 @@ input[type="radio"]:checked + label {
 .smooth-leave-to {
 	height: 0 !important;
 }
-#grow {
-	-moz-transition: height 0.5s;
-	-ms-transition: height 0.5s;
-	-o-transition: height 0.5s;
-	-webkit-transition: height 0.5s;
-	transition: height 0.5s;
-	height: 0;
-	overflow: hidden;
-}
 /* Modal css */
 .modal {
-	z-index: 3;
+	z-index: 18;
 	padding-top: 100px;
 	position: fixed;
 	left: 0;
@@ -1208,4 +955,78 @@ input:checked + label{
     width: 100%;
 }
 }
+</style>
+
+<style>
+	.product__description{
+		height: 29px;
+		overflow: hidden;
+	}
+	.list-group-item {
+	    display: table-cell;
+	    text-decoration: none;
+	    color: #666;
+	    font-weight: 700;
+	    font-size: 14px;
+	    text-align: center;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    word-break: break-word;
+	}
+	.element-check-label {
+	   background-color: #E01B4C;
+	    color: #fff;
+	    width: 20px;
+	    height: 52px;
+	    text-align: center;
+	    position: absolute;
+	    line-height: 52px;
+	    top: -19px;
+	    z-index: 5;
+	    left: -1px;
+	    transform: rotate(45deg) scaleX(-1);
+	    font-size: 14px;
+	    font-weight: 700;
+	}
+	.section {
+	    padding: 15px 5px;
+	    margin: 20px 0;
+	    box-shadow: 0 1px 6px rgba(57,73,76,.35)!important;
+	    animation: fadeIn ease 1s;
+	    position: relative;
+	}
+	.circle {
+	    font-size: 15px;
+	    color: #333;
+	    padding-left: 55px;
+	    margin-top: -12px;
+	    margin-bottom: 8px;
+	}
+	.circle span {
+	    border-radius: 50%;
+	    border: 4px solid #C81F4E;
+	    color: #fcfcfc;
+	    margin-right: 5px;
+	    background-color: #C81F4E;
+	    font-weight: 700;
+	    font-size: 18px;
+	    position: absolute;
+	    top: -10px;
+	    left: 10px;
+	    line-height: 30px;
+	    width: 36px;
+	    height: 36px;
+	    text-align: center;
+	}
+	.ico-question {
+	    background-color: #f66b1c;
+	    color: #fff;
+	    border-radius: 50%;
+	    width: 24px;
+	    height: 24px;
+	    line-height: 24px;
+	    display: inline-block;
+	    text-align: center;
+	    cursor: pointer;
+	}
 </style>

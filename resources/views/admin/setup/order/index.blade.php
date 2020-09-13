@@ -198,6 +198,7 @@
 	  /* Select the text field */
 	  copyText1.select();
 	  copyText1.setSelectionRange(0, 99999); /*For mobile devices*/
+	  document.execCommand("copy");
 	}
 
 
