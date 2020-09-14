@@ -103,29 +103,63 @@ class SiteController extends Controller
         $user = User::find($user_id);
         $wallet = $user->wallet;
         $data1 = [];
+        $paymentMethod=$request->input('method');
 
-        $data1['success'] = 1;
-        $type = $request->input('type');
-        $email = $request->input('email');
-        $password = $request->input('password');
+        $datas = Order::where('user_id', $user_id)->Where('status', 'pandding')->count();
+        if($datas > 0)
+        {
+            $data1['success'] = 0;
+            $data1['message'] = "You Have A Pending Order Please Complete Before Make Another Order.";
+            return response()->json($data1, 200);
+        }else{
+            if($paymentMethod==0){
+                if($wallet >= $packages[0]->sale_price){
+                    $update_wallet = $wallet - $packages[0]->sale_price;
+                    $user->update(['wallet' => $update_wallet]);
+                    $data1['success'] = 1;
+                    $data1['wallet'] = $update_wallet;
+                    $type = $request->input('type');
+                    $email = $request->input('email');
+                    $password = $request->input('password');
 
-        $order = new Order;
-        $order->name = $packages[0]->name;
-        $order->buy_price = $packages[0]->buy_price;
-        $order->sale_price = $packages[0]->sale_price;
-        $order->package_id = $id;
-        $order->user_id = $user_id;
-        $order->type = $type;
-        $order->email = $email;
-        $order->password = $password;
-        $order->status = 'pandding';
-        $order->payment_number = $request->input('number');
-        $order->payment_method = $request->input('method');
-        $order->transaction_id = $request->input('transaction_id');
-            
-        $order->save();
+                    $order = new Order;
+                    $order->name = $packages[0]->name;
+                    $order->buy_price = $packages[0]->buy_price;
+                    $order->sale_price = $packages[0]->sale_price;
+                    $order->package_id = $id;
+                    $order->user_id = $user_id;
+                    $order->type = $type;
+                    $order->email = $email;
+                    $order->password = $password;
+                    $order->status = 'pandding';
+                    $order->save();
+                }else{
+                    $data1['success'] = 0;
+                }
+                return response()->json($data1, 200);
+            }else{
+                $data1['success'] = 1;
+                $type = $request->input('type');
+                $email = $request->input('email');
+                $password = $request->input('password');
 
-        return response()->json($data1, 200);
+                $order = new Order;
+                $order->name = $packages[0]->name;
+                $order->buy_price = $packages[0]->buy_price;
+                $order->sale_price = $packages[0]->sale_price;
+                $order->package_id = $id;
+                $order->user_id = $user_id;
+                $order->type = $type;
+                $order->email = $email;
+                $order->password = $password;
+                $order->status = 'pandding';
+                $order->payment_number = $request->input('number');
+                $order->payment_method = $paymentMethod;
+                $order->transaction_id = $request->input('transaction_id');
+                $order->save();
+                return response()->json($data1, 200);
+            }
+        }
     }
 
     public function getTransactions($id)

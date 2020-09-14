@@ -188,9 +188,9 @@
 							</h3>
 						</div>
 					</div>
-					<div class="mt-4 p-4">
+					<div>
 						<form class="w-full">
-							<div class="flex flex-wrap -mx-3 mb-2 justify-center">
+							<div class="flex flex-wrap -mx-3 mb-2">
 								<div class="w-1/3 md:mb-0 m-3">
 									<label
 										class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -208,7 +208,7 @@
 									<input type="hidden" v-model="idCodeIdPasswordForm.password" value="id code">
 									<input type="hidden" v-model="idCodeIdPasswordForm.type" value="id code">
 								</div>
-								<div class="w-1/3 m-3 md:mb-0">
+								<div class="w-1/3 m-3 md:mb-0" style="display: none;">
 									<label
 										class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
 										for="grid-city"
@@ -282,16 +282,13 @@
 							>
 								All Payment Channel
 							</h2>
-							<div v-if="check == false">
-								<p v-on:click="modal = true" class="text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-0">Login First To Confirm Order</p>
-							</div>
-							<div v-else class="flex justify-between mt-2 cursor-pointer">
+							<div class="flex justify-between mt-2 cursor-pointer">
 								<div class="-ml-2">
 									<img src="/icons/wallet.png" class="mr-2 float-left" />
 									<div class="float-left">
-										<h2 class="text-1xl text-gray-700 font-bold">Total Amount</h2>
+										<h2 class="text-1xl text-gray-900">Total Amount</h2>
 										<h2
-											class="text-sm text-red-300 italic font-bold text-opacity-75"
+											class="text-sm italic text-gray-900 text-opacity-75"
 										>
 											 {{ checkedData }} BDT
 										</h2>
@@ -300,11 +297,12 @@
 								<div class="ml-2">
 									<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="wallet" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-wallet fa-w-16 w-10 h-10 text-red-300 float-left mr-2"><path fill="currentColor" d="M461.2 128H80c-8.84 0-16-7.16-16-16s7.16-16 16-16h384c8.84 0 16-7.16 16-16 0-26.51-21.49-48-48-48H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h397.2c28.02 0 50.8-21.53 50.8-48V176c0-26.47-22.78-48-50.8-48zM416 336c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z" class=""></path></svg>
 									<div class="float-left">
-										<h2 class="text-1xl text-red-300 font-bold">Your available wallet </h2>
+										<h2 class="text-1xl text-gray-900">Your available wallet </h2>
 										<h2
-											class="text-sm text-red-300 italic font-bold text-opacity-75"
+											class="text-sm italic text-gray-900 text-opacity-75"
+											v-if="user"
 										>
-											{{ this.user.wallet }} BDT
+											{{ user.wallet }} BDT
 										</h2>
 									</div>
 								</div>
@@ -317,58 +315,83 @@
 					</div>
 					<div class="w-full mt-4">
 						<div id="grow">
-							<div class="measuringWrapper">
+							<div class="measuringWrapper text-gray-900">
 								<div>
 									<div v-if="check == false">
-										<p v-on:click="modal = true" class="text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded mb-0">
+										<p v-on:click="modal = true" class="text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white py-2 px-2 rounded mb-0">
 											Login First To Confirm Your Order
 										</p>
 									</div>
-									<div v-else class="grid sm:grid-cols-2 md:grid-cols-2 gap-4">
+									<div v-else>
 										<div 
 											v-if="user!=null"
 											class="flex bg-grey-300 border-2 justify-center"
-											v-on:click="orderWithWallet(user.id)"
 										>
-											<div class="w-full">
-												<div class="flex justify-center cursor-pointer">
-													<img
-														src="/logo.png"
-														style="width: 50px;"
-														class="mr-2 p-1"
-													/>
-													<h2 class="text-xs text-red-300 font-bold  p-1">
-														BDT {{ checkedData }}
-													</h2>
+											<label :for="'p0'" class="mb-0 w-40 list-group-item pt-3 d-block w-full"  style="font-size: 11px;position: relative;    overflow: hidden;">
+												<div class="w-full">
+													<span class="absolute left-0" :class="selectedpaymentmethod.id==0 ? 'element-check-label' : ''" style="color: #fff;"> L </span>
+													<input class="absolute" required style="visibility: hidden;" :id="'p0'" @change="onChangePayment({id:0,name:'nshopwallet'})" name="sends" :value="{id:0,name:'nshopwallet'}" type="radio">
+													<div class="flex justify-between cursor-pointer p-3">
+														<img
+															src="/logo.png"
+															style="width: 100px;"
+															class="mr-2 p-1"
+														/>
+														<h2 class="text-xs font-bold text-gray-900  p-1">
+															<p>Price</p>
+															<p>BDT {{ checkedData }}</p>
+														</h2>
+													</div>
+													<div class="border-t-2 bg-gray-300">
+														<h2 class="text-sm text-gray-900 font-normal pl-2">
+															Pay With Nshop wallet
+														</h2>
+													</div>
 												</div>
-												<div class="border-t-2 bg-gray-300">
-													<h2 class="text-sm text-gray-900 font-normal pl-2">
-														Confirm order Nshop wallet
-													</h2>
-												</div>
-											</div>
+											</label>
 										</div>
 										<div
-											class="flex bg-grey-300 border-2 justify-center"
-											v-on:click="paymentmethod()"
+											class="flex bg-grey-300 border-2 justify-center mt-3"
+											v-for="m in paymentMethods"
 										>
-											<div class="w-full">
-												<div class="flex justify-center cursor-pointer">
-													<img
-														src="/img/tra.jpg"
-														style="width: 50px;"
-														class="mr-2 p-1"
-													/>
-													<h2 class="text-xs text-red-300 font-bold  p-1">
-														BDT {{ checkedData }}
-													</h2>
+											<label :for="'p'+m.id" class="mb-0 w-40 list-group-item pt-3 d-block w-full"  style="font-size: 11px;position: relative;    overflow: hidden;">
+												<div class="w-full">
+									  				<span class="absolute left-0" :class="selectedpaymentmethod.id==m.id ? 'element-check-label' : ''" style="color: #fff;"> L </span>
+										  			<input class="absolute" required style="visibility: hidden;" :id="'p'+m.id" @change="onChangePayment(m)" name="sends" :value="m" type="radio">
+													<div class="flex justify-between cursor-pointer p-3">
+														<img
+															:src="'/paymentMethod/'+m.logo"
+															style="width: 60px;height: 60px"
+															class="mr-2 p-1"
+														/>
+														<h2 class="text-xs font-bold text-gray-900  p-1">
+															<p>Price</p>
+															<p>BDT {{ checkedData }}</p>
+														</h2>
+													</div>
+													<div class="border-t-2 bg-gray-300">
+														<h2 class="text-sm text-gray-900 font-normal pl-2">
+															Pay With {{ m.name }}
+														</h2>
+													</div>
 												</div>
-												<div class="border-t-2 bg-gray-300">
-													<h2 class="text-sm text-gray-900 font-normal pl-2">
-														Confirm order with Payment Method
-													</h2>
-												</div>
-											</div>
+										  	</label>
+										</div>
+										<div class="mt-5 text-right">
+											<div v-if="selectedpaymentmethod!=[] && selectedpaymentmethod.id!=0">
+												<input
+													v-model="transaction_id"
+													class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-gray-600 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+													placeholder="Transaction Id"
+												/>
+												<input
+													v-model="number"
+													class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-gray-600 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+													placeholder="Sender number"
+												/>
+											</div> 
+											<button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 mt-2 rounded" v-if="selectedPackageData.length!=0 && selectedpaymentmethod.length!=0" v-on:click="orderWithTransactionId(user.id)">Buy Now</button>
+											<button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 mt-2 rounded" v-else disabled>Buy Nowa</button>
 										</div>
 									</div>
 								</div>
@@ -490,6 +513,7 @@
 				</div>
 			</div>
 		</div>
+
 		<div v-if="transactionModal" class="modal sm:px-3">
 			<div class="lg:w-6/12 sm:w-10/12 mx-auto bg-white">
 				<header class="card p-4 border-b-2">
@@ -559,6 +583,7 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 </template>
 
@@ -586,6 +611,7 @@ export default {
 			key: "",
 			trxid: "",
 			selectedPackageData: [],
+			selectedpaymentmethod:[],
 			computedHeight: "auto",
 			modal: false,
 			transactionModal: false,
@@ -606,6 +632,9 @@ export default {
 		check: "auth/check"
 	}),
 	methods: {
+		onChangePayment(v){
+			this.selectedpaymentmethod=v
+		},
 		paymentmethod(){
 			if (this.checkedData == "") {
 				Swal.fire({
@@ -634,6 +663,9 @@ export default {
 			axios.get(`/api/product/${id}`).then(response => {
 				this.product = response.data;
 				this.showElement = response.data.type;
+				if(response.data.type==2){
+					this.idCodeIdPasswordForm.password="IDCODE"
+				}
 			});
 		},
 		fetchPackages() {
@@ -675,7 +707,16 @@ export default {
 			}
 			var email = this.idCodeIdPasswordForm.email;
 
-			if(email == '')
+			if(this.selectedpaymentmethod.id==0 && this.checkedData > this.user.wallet ){
+				Swal.fire({
+					type: "error",
+					title: "Your Balance Is Low Please Add Money Or Pay WIth Other Methods",
+					text: "Your Balance Is Low Please Add Money Or Pay WIth Other Methods",
+					reverseButtons: true,
+					confirmButtonText: "ok"
+				});
+			}
+			else if(email == '')
 			{
 				Swal.fire({
 					type: "error",
@@ -686,7 +727,7 @@ export default {
 				}).then(result => {
 					this.transactionmodal = false;
 				});
-			}else if(this.number == '' || this.paymentMethod == '' || this.transaction_id == '')
+			}else if(this.selectedpaymentmethod.id!=0 && (this.number == '' || this.transaction_id == ''))
 			{
 				Swal.fire({
 					type: "error",
@@ -704,7 +745,7 @@ export default {
 				password: password,
 				email: email,
 				number: this.number,
-				method: this.paymentMethod,
+				method: this.selectedpaymentmethod.id,
 				transaction_id: this.transaction_id
 			};
 			axios.post(`/api/product-order-transaction_id/${id}/${this.user.id}`, params).then(response => {
@@ -722,11 +763,9 @@ export default {
 						Swal.fire({
 							type: "error",
 							title: "Order Failed",
-							text: "Your Order Not Completed",
+							text: response.data.message,
 							reverseButtons: true,
 							confirmButtonText: "ok"
-						}).then(result => {
-							location.reload();
 						});
 					}
 				});
@@ -772,7 +811,7 @@ export default {
 						}
 						var email = this.idCodeIdPasswordForm.email;
 						console.log(type, email, password);
-						if(email == '' || password == '')
+						if(email == '')
 						{
 							Swal.fire({
 								type: "error",
@@ -820,7 +859,7 @@ export default {
 					Swal.fire({
 						type: "error",
 						title: "Sorry",
-						html: "<b style='color: red;'>Your KMF wallet is less than your shop wallet</b><br><p color='green'>Please, try another way</p>",
+						html: "<b style='color: red;'>Your Nshop wallet is less than your shop wallet</b><br><p color='green'>Please, try another way</p>",
 						reverseButtons: true,
 						confirmButtonText: "ok"
 					})

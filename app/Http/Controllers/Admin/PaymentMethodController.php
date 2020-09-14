@@ -66,7 +66,7 @@ class PaymentMethodController extends Controller
         if($request->file('logo') != ''){        
             if($request->hasFile('logo')) {
                 $file_path = public_path().'/paymentMethod/'.$request->input('oldlogo');;
-                unlink($file_path);
+                // unlink($file_path);
                 $logo = $request->file('logo');
                 $filename = time().'.'.$request->file('logo')->extension();  
                 $request->file('logo')->move(public_path('paymentMethod'), $filename);
