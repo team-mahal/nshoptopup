@@ -391,7 +391,7 @@
 												/>
 											</div> 
 											<button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 mt-2 rounded" v-if="selectedPackageData.length!=0 && selectedpaymentmethod.length!=0" v-on:click="orderWithTransactionId(user.id)">Buy Now</button>
-											<button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 mt-2 rounded" v-else disabled>Buy Nowa</button>
+											<button class="bg-green-500 text-white font-bold py-2 px-4 rounded opacity-50 cursor-not-allowed mt-2" v-else disabled>Buy Now</button>
 										</div>
 									</div>
 								</div>
