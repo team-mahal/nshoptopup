@@ -191,7 +191,7 @@
 					<div>
 						<form class="w-full">
 							<div class="flex flex-wrap -mx-3 mb-2">
-								<div class="w-1/3 md:mb-0 m-3">
+								<div class="w-1/2 md:mb-0 m-3">
 									<label
 										class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
 										for="grid-city"
@@ -208,7 +208,7 @@
 									<input type="hidden" v-model="idCodeIdPasswordForm.password" value="id code">
 									<input type="hidden" v-model="idCodeIdPasswordForm.type" value="id code">
 								</div>
-								<div class="w-1/3 m-3 md:mb-0" style="display: none;">
+								<div class="w-1/23 m-3 md:mb-0" style="display: none;">
 									<label
 										class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
 										for="grid-city"

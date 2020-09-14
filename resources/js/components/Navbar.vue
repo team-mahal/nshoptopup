@@ -112,7 +112,26 @@ export default {
 		cartCount: 'cart/cartCount',
 	}),
 
+	mounted () {
+    	document.addEventListener('click', this.close)
+    	document.addEventListener('click', this.close1)
+  	},
+  	beforeDestroy () {
+    	document.removeEventListener('click',this.close)
+    	document.removeEventListener('click',this.close1)
+  	},
+
 	methods: {
+		close (e) {
+      		if (!this.$el.contains(e.target)) {
+      		  	this.open = false
+      		}
+    	},
+    	close1 (e) {
+      		if (!this.$el.contains(e.target)) {
+      		  	this.open1 = false
+      		}
+    	},
 		async logout () {
 			// Log out the user.
 			await this.$store.dispatch('auth/logout')
