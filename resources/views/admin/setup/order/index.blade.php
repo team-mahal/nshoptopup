@@ -82,32 +82,29 @@
 			<?php }else{ ?>
 			<div class="table-responsive">
 				<!-- Projects table -->
-				<table class="table align-items-center table-flush">
+				<table class="table table-sm table-bordered" style="padding: 0px;margin:0px;">
 					<thead class="thead-light">
 						<tr>
-							<th scope="col">#</th>
-							<th scope="col">Action</th>
-							<th scope="col">Order ID</th>
-							<th scope="col">User ID</th>
-							<th scope="col">Type</th>
-							<th scope="col">ID Code / ID Email</th>
-							<th scope="col">PAssword</th>
-							<th scope="col">Transaction ID</th>
-							<th scope="col">Payment Number</th>
-							<th scope="col">Payment Method</th>
-							<th scope="col">Name</th>
-							<th scope="col">Buy Price</th>
-							<th scope="col">Sale Price</th>
-							<th scope="col">Amount</th>
-							<th scope="col">Action</th>
-							<th scope="col">Name Save</th>
+							<th  style="padding: 15px;margin:10px;" scope="col">Action</th>
+							<th  style="padding: 15px;margin:10px;" scope="col">O.ID</th>
+							<th  style="padding: 15px;margin:10px;" scope="col">U.ID</th>
+							<th  style="padding: 15px;margin:10px;" scope="col">Type</th>
+							<th  style="padding: 15px;margin:10px;" scope="col">ID Code / ID Email</th>
+							<th  style="padding: 15px;margin:10px;" scope="col">PAssword</th>
+							<th  style="padding: 15px;margin:10px;" scope="col">T.ID</th>
+							<th  style="padding: 15px;margin:10px;" scope="col">P.Number</th>
+							<th  style="padding: 15px;margin:10px;" scope="col">P.Method</th>
+							<th  style="padding: 15px;margin:10px;" scope="col">Name</th>
+							<th  style="padding: 15px;margin:10px;" scope="col">BP</th>
+							<th  style="padding: 15px;margin:10px;" scope="col">SP</th>
+							<th  style="padding: 15px;margin:10px;" scope="col">Amount</th>
+							<th  style="padding: 15px;margin:10px;" scope="col">Name Save</th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach($datas as $key => $data)
 						<tr>
-							<td scope="row">{{ $key }}</td>
-							<td>
+							<td  style="padding: 0px;margin:0px;">
 								@if ($data->status == 'cancel' || $data->status == 'complete')
 								<select disabled name="status" id="status{{$data->id}}"
 									onchange="myChange({{$data->id}}, this.value)" required class="form-control" style="width: 110px;">
@@ -135,35 +132,37 @@
 									@endif
 								</select>
 							</td>
-							<td style="">{{$data->id}}</td>
-							<td style="">{{$data->user_id}}</td>
-							<td style="">{{$data->type}}</td>
-							<td style="">
+							<td style="padding: 15px;margin:10px;">{{$data->id}}</td>
+							<td style="padding: 15px;margin:10px;">{{$data->user_id}}</td>
+							<td style="padding: 15px;margin:10px;">{{$data->type}}</td>
+							<td style="padding: 15px;margin:10px;">
 								<span>
 									<button class="btn btn-sm btn-secondary" onclick="myFunction( {{ $data->id }} )">Copy</button>
-									<input value="{{$data->email}}" id="{{ $data->id }}">
+									<input value="{{$data->email}}" id="{{ $data->id }}" style="width: 80px;">
 								</span>
 							</td>
-							<td style="">
+							<td style="padding: 15px;margin:10px;">
 								<button class="btn btn-sm btn-secondary" onclick="myFunction1( {{ $data->id }}+'a' )">Copy</button>
-								<input  value="{{$data->password}}" id="{{ $data->id.'a' }}"></span>
+								<input  value="{{$data->password}}" id="{{ $data->id.'a' }}" style="width: 80px;"></span>
 							</td>
-							<td style="">{{$data->transaction_id}}</td>
-							<td style="">{{$data->payment_number}}</td>
-							<td style="">
+							<td style="padding: 15px;margin:10px;">{{$data->transaction_id}}</td>
+							<td style="padding: 15px;margin:10px;">{{$data->payment_number}}</td>
+							<td style="padding: 15px;margin:10px;">
 								@if($data->payment_method== 1) {{ 'bKash' }}
 								@elseif($data->payment_method == 2) {{ 'Nogod' }}
 								@elseif($data->payment_method == 2) {{ 'Rocket' }}
 								@endif
 							</td>
-							<td style="">{{$data->name}}</td>
-							<td style="">{{$data->buy_price}}</td>
-							<td style="">{{$data->sale_price}}</td>
-							<td style=""><input type="number" id="{{ $data->id.'input' }}" placeholder="Enter Amount" value="{{ $data->refoundamount }}"></td>
-							<td style=""><button class="btn btn-sm btn-success"  onclick="walletUpdate({{ $data->id }},{{ $data->id }}+'input' )">Update</button></td>
+							<td style="padding: 15px;margin:10px;">{{$data->name}}</td>
+							<td style="padding: 15px;margin:10px;">{{$data->buy_price}}</td>
+							<td style="padding: 15px;margin:10px;">{{$data->sale_price}}</td>
+							<td style="padding: 15px;margin:10px;">
+								<input type="number" id="{{ $data->id.'input' }}" placeholder="Enter Amount" value="{{ $data->refoundamount }}" style="width: 70px">
+								<button class="btn btn-sm btn-success"  onclick="walletUpdate({{ $data->id }},{{ $data->id }}+'input' )">Update</button>
+							</td>
 							@if($data->type=='IDCODE')
-							<td style="">
-								<input type="text" id="{{ $data->id.'input1' }}" value="{{ $data->password }}" placeholder="Enter Game Name">
+							<td style="padding: 15px;margin:10px;">
+								<input type="text" id="{{ $data->id.'input1' }}" value="{{ $data->password }}" placeholder="Enter Game Name" style="width: 110px">
 								<button class="btn btn-sm btn-success"  onclick="walletGameName({{ $data->id }},{{ $data->id }}+'input1' )">Update</button>
 							</td>
 							@endif
