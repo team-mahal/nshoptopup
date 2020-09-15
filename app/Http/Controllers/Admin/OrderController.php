@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\Package;
 use App\User;
+use App\PaymentMethod;
 use DB;
 
 class OrderController extends Controller
@@ -18,9 +19,9 @@ class OrderController extends Controller
         $order_id = $request->order_id;
         $status = $request->status;
         if (empty($user_id) && empty($order_id) && empty($status)) {
-            $datas = Order::orderBy('id', 'DESC')->paginate(10);
+            $datas = Order::with('paymentm')->orderBy('id', 'DESC')->paginate(10);
         }else{
-            $datas = Order::where('user_id', $user_id)->orWhere('status', $status)->orWhere('id', $order_id)->paginate(10);
+            $datas = Order::with('paymentm')->where('user_id', $user_id)->orWhere('status', $status)->orWhere('id', $order_id)->paginate(10);
         }
         return view('admin.setup.order.index', ['datas' => $datas]);
     }

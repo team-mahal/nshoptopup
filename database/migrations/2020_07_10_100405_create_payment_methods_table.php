@@ -17,7 +17,10 @@ class CreatePaymentMethodsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('number');
-            $table->string('logo');
+            $table->integer('discount');
+            $table->string('currency');
+            $table->string('currency');
+            $table->text('des');
             $table->timestamps();
         });
     }

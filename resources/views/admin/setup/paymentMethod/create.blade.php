@@ -1,4 +1,5 @@
 @include('admin.layouts.header')
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 
 <div class="container-fluid min-700px">
 	{{-- Product List  --}}
@@ -42,6 +43,18 @@
 					</div>
 					<div class="col-lg-3 col-md-6 col-sm-12">
 						<div class="form-group">
+						   <label>Discount</label>
+						   <input type="text" name="discount" class="form-control" placeholder="Enter Discount">
+						 </div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-12">
+						<div class="form-group">
+						   <label>Currency</label>
+						   <input type="text" name="currency" class="form-control" placeholder="Enter currency">
+						 </div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-12">
+						<div class="form-group">
 						   <label>Number</label>
 						   <input type="text" name="number" class="form-control" placeholder="Enter number">
 						 </div>
@@ -62,4 +75,11 @@
 		</div>
 	</div>
 </div>
+<script>
+	var editor = CKEDITOR.replace('description');
+	editor.on( 'required', function( evt ) {
+		editor.showNotification( 'This field is required.', 'warning' );
+		evt.cancel();
+	});
+</script>
 @include('admin.layouts.footer')

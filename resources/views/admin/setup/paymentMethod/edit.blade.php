@@ -1,4 +1,6 @@
 @include('admin.layouts.header')
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+
 <div class="container-fluid min-700px">
 	{{-- Product List  --}}
 	<div class="col-xl-12">
@@ -40,6 +42,18 @@
 							 </div>
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-12">
+						<div class="form-group">
+							   <label>Discount</label>
+							   <input type="text" name="discount" class="form-control" placeholder="Enter Discount" value="{{ $paymentMethod->discount }}">
+							 </div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="form-group">
+							   <label>Currency</label>
+							   <input type="text" name="currency" class="form-control" placeholder="Enter currency" value="{{ $paymentMethod->currency }}">
+							 </div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-12">
 							<div class="form-group">
 							   <label>Number</label>
 							   <input type="number" name="number" value="{{ $paymentMethod->number }}" class="form-control" placeholder="Enter Name">
@@ -52,6 +66,12 @@
 								   <input type="hidden" value="{{ $paymentMethod->logo }}" name="oldlogo">
 							 </div>
 						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+	                        <div class="form-group">
+	                            <label for="description">Description</label>
+	                            <textarea class="form-control" id="description" name="des" rows="4">{{ $paymentMethod->des }}</textarea>
+	                        </div>
+	                    </div>
 						<div class="col-lg-2 col-md-6 col-sm-12">
 							<div class="form-group">
 							   <button type="submit" class="btn btn-primary form-control" style="margin-top: 30px;">Update</button>
@@ -62,4 +82,11 @@
 		</div>
 	</div>
 </div>
+<script>
+	var editor = CKEDITOR.replace('description');
+	editor.on( 'required', function( evt ) {
+		editor.showNotification( 'This field is required.', 'warning' );
+		evt.cancel();
+	});
+</script>
 @include('admin.layouts.footer')

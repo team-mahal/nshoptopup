@@ -215,7 +215,7 @@
 					<div
 						class="flex flex-wrap mt-4 justify-center"
 					>	
-						<div class="text-center w-32" v-for="(game, key, index) in packages" :key="game.id">
+						<div class="text-center" v-for="(game, key, index) in packages" :key="game.id">
 					  		<div class="m-1">
 					  			<label :for="game.id" class="mb-0 w-40 list-group-item py-3 d-block"  style="font-size: 11px;position: relative;    overflow: hidden;">
 					  				<span class="absolute left-0" :class="selectedPackageData.id==game.id ? 'element-check-label' : ''" style="color: #fff;"> L </span>
@@ -297,7 +297,7 @@
 														/>
 														<h2 class="text-xs font-bold text-gray-900  p-1">
 															<p>Price</p>
-															<p>BDT {{ checkedData }}</p>
+															<p>{{  m.currency }} {{ abc(m.discount) }}</p>
 														</h2>
 													</div>
 													<div class="border-t-2 bg-gray-300">
@@ -309,7 +309,7 @@
 										  	</label>
 										</div>
 										<div class="mt-5 text-right">
-											<button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 mt-2 rounded" v-if="selectedPackageData.length!=0 && selectedpaymentmethod.length!=0" v-on:click="buynow(user.id)">Buy Now</button>
+											<button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 mt-2 rounded" v-if="selectedPackageData.length!=0 && selectedpaymentmethod.length!=0 && idCodeIdPasswordForm.email" v-on:click="buynow(user.id)">Buy Now</button>
 											<button class="bg-green-500 text-white font-bold py-2 px-4 rounded opacity-50 cursor-not-allowed mt-2" v-else disabled>Buy Now</button>
 										</div>
 									</div>
@@ -461,7 +461,7 @@
 							<div v-else>
 								<div class="">
 									<p>Package: <span>{{ selectedPackageData.name }}</span></p>
-									<p>Price: <span>BDT {{ selectedPackageData.sale_price }}</span></p>
+									<p>Price: <span>{{ selectedpaymentmethod.currency }} {{ abc1() }}</span></p>
 									<p>Payment Method: <span>{{ selectedpaymentmethod.name }}</span></p>
 									<div v-if="showElement==0">
 										<p>ID CODE: <span>{{ idCodeIdPasswordForm.email }}</span></p>
@@ -475,19 +475,8 @@
 								<div v-if="selectedpaymentmethod!=[] && selectedpaymentmethod.id!=0">
 
 									<p class="text-white text-center bg-red-300 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded w-56 mx-auto mt-2">How to add money?</p>
-				                    <span class="my-3 mt-3" style="font-family: auto;">
-				                        Follow below steps 👇 <br>
-				                        <b>  Step 1: </b><br>
-				                        Dial <span v-if="selectedpaymentmethod.id==1">*247#</span> <span v-if="selectedpaymentmethod.id==2">*167#</span><span v-if="selectedpaymentmethod.id==3">*322#</span> <br>
-				                        Select Send Money Option.<br>
-				                        Enter NSHOPTOPUP Personal Account Number.<br>
-				                        Enter Your amount<br>
-				                        Enter Reference Number "PlayZone".<br>
-				                        Now Enter your PIN.<br><br>
-				                        <b>Almost Done. Now follow Step 2:</b><br>
-				                        Now Enter Amount To Add place The money you sent and Sender Number Place This is the number from which you paid.<br>
-				                        Verify your Payment by entering amount and Payment mobile account number And Transaction id.<br>
-				                        Once NSHOPTOPUP Verify your payment details, Within 1 hours your money will be added.<br>
+				                    <span class="my-3 mt-3" style="font-family: auto;" v-html="selectedpaymentmethod.des">
+				                      	
 				                    </span>
 
 									<input
@@ -558,6 +547,22 @@ export default {
 		check: "auth/check"
 	}),
 	methods: {
+		abc1(){
+			if(this.selectedpaymentmethod.discount>0){
+				var data = (parseInt(this.selectedPackageData.sale_price)*parseInt(this.selectedpaymentmethod.discount)/100)
+				return this.selectedPackageData.sale_price-data;
+			}else{
+				return this.selectedPackageData.sale_price;
+			}
+		},
+		abc(v){
+			if(v>0){
+				var data = (parseInt(this.checkedData)*parseInt(v)/100)
+				return this.checkedData-data;
+			}else{
+				return this.checkedData
+			}
+		},
 		onChangePayment(v){
 			this.selectedpaymentmethod=v
 		},

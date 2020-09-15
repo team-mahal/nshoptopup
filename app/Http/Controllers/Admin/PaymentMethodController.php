@@ -28,6 +28,8 @@ class PaymentMethodController extends Controller
             ]);
         $paymentMethod = new paymentMethod;
         $paymentMethod->name = $request->input('name');
+        $paymentMethod->discount = $request->input('discount');
+        $paymentMethod->currency = $request->input('currency');
         $paymentMethod->number = $request->input('number');
             if($request->hasFile('logo')) {
             $logo = $request->file('logo');
@@ -59,9 +61,12 @@ class PaymentMethodController extends Controller
     {
         $request->validate([
             'logo' => 'mimes:jpeg,png,jpg,txt,xlx,xls,pdf|max:2048'
-            ]);
+        ]);
         $paymentMethod = paymentMethod::find($id);
         $name = $request->input('name');
+        $discount = $request->input('discount');
+        $currency = $request->input('currency');
+        $des    = $request->input('des');
         $number = $request->input('number');
         if($request->file('logo') != ''){        
             if($request->hasFile('logo')) {
@@ -72,10 +77,9 @@ class PaymentMethodController extends Controller
                 $request->file('logo')->move(public_path('paymentMethod'), $filename);
             }
        }else{
-        $filename = $request->input('oldlogo');
+            $filename = $request->input('oldlogo');
        }
-
-       $paymentMethod->update(['logo' => $filename, 'name' => $name, 'number' => $number]);
+       $paymentMethod->update(['logo' => $filename, 'name' => $name,'discount' => $discount,'currency' => $currency,'des' => $des,'number' => $number]);
        return back()
             ->with('success','Payment Method Update Successfully.')
             ->with('file', $filename);

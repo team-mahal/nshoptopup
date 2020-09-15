@@ -95,7 +95,6 @@
 							<th  style="padding: 15px;margin:10px;" scope="col">P.Number</th>
 							<th  style="padding: 15px;margin:10px;" scope="col">P.Method</th>
 							<th  style="padding: 15px;margin:10px;" scope="col">Name</th>
-							<th  style="padding: 15px;margin:10px;" scope="col">BP</th>
 							<th  style="padding: 15px;margin:10px;" scope="col">SP</th>
 							<th  style="padding: 15px;margin:10px;" scope="col">Amount</th>
 							<th  style="padding: 15px;margin:10px;" scope="col">Name Save</th>
@@ -154,8 +153,7 @@
 								@endif
 							</td>
 							<td style="padding: 15px;margin:10px;">{{$data->name}}</td>
-							<td style="padding: 15px;margin:10px;">{{$data->buy_price}}</td>
-							<td style="padding: 15px;margin:10px;">{{$data->sale_price}}</td>
+							<td style="padding: 15px;margin:10px;"><span>@if($data->paymentm){{ $data->paymentm->currency }}@endif</span> {{ $data->sale_price }}</td>
 							<td style="padding: 15px;margin:10px;">
 								<input type="number" id="{{ $data->id.'input' }}" placeholder="Enter Amount" value="{{ $data->refoundamount }}" style="width: 70px">
 								<button class="btn btn-sm btn-success"  onclick="walletUpdate({{ $data->id }},{{ $data->id }}+'input' )">Update</button>

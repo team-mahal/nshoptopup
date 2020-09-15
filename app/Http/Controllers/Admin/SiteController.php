@@ -99,11 +99,12 @@ class SiteController extends Controller
 
     public function ProductOrderWithTransactionId(Request $request, $id, $user_id)
     {
-        $packages = Package::where(['id' => $id])->get();
+        $packages = Package::find($id);
         $user = User::find($user_id);
         $wallet = $user->wallet;
         $data1 = [];
         $paymentMethod=$request->input('method');
+
 
         $datas = Order::where('user_id', $user_id)->Where('status', 'pandding')->count();
         if($datas > 0)
@@ -113,8 +114,8 @@ class SiteController extends Controller
             return response()->json($data1, 200);
         }else{
             if($paymentMethod==0){
-                if($wallet >= $packages[0]->sale_price){
-                    $update_wallet = $wallet - $packages[0]->sale_price;
+                if($wallet >= $packages->sale_price){
+                    $update_wallet = $wallet - $packages->sale_price;
                     $user->update(['wallet' => $update_wallet]);
                     $data1['success'] = 1;
                     $data1['wallet'] = $update_wallet;
@@ -123,9 +124,9 @@ class SiteController extends Controller
                     $password = $request->input('password');
 
                     $order = new Order;
-                    $order->name = $packages[0]->name;
-                    $order->buy_price = $packages[0]->buy_price;
-                    $order->sale_price = $packages[0]->sale_price;
+                    $order->name = $packages->name;
+                    $order->buy_price = $packages->buy_price;
+                    $order->sale_price = $packages->sale_price;
                     $order->package_id = $id;
                     $order->user_id = $user_id;
                     $order->type = $type;
@@ -138,15 +139,26 @@ class SiteController extends Controller
                 }
                 return response()->json($data1, 200);
             }else{
+
                 $data1['success'] = 1;
                 $type = $request->input('type');
                 $email = $request->input('email');
                 $password = $request->input('password');
 
+                $pm=PaymentMethod::find($paymentMethod);
+                $price=0;
+                if($pm->discount>0){
+                    $p=($packages->sale_price*$pm->discount)/100;
+                    $price=$packages->sale_price-$p;
+                }else{
+                    $price=$packages->sale_price;
+                }
+
+
                 $order = new Order;
-                $order->name = $packages[0]->name;
-                $order->buy_price = $packages[0]->buy_price;
-                $order->sale_price = $packages[0]->sale_price;
+                $order->name = $packages->name;
+                $order->buy_price = $packages->buy_price;
+                $order->sale_price = $price;
                 $order->package_id = $id;
                 $order->user_id = $user_id;
                 $order->type = $type;
