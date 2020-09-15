@@ -86,6 +86,7 @@ class OrderController extends Controller
         $order = Order::find($id);
         $order->password=$amount;
         $order->update();
+        // $this->sendmessage();
         return "success";
     }
 
@@ -109,24 +110,25 @@ class OrderController extends Controller
     }
 
 
-    public function FunctionName($value='')
+    public function sendmessage()
     {
-          // $url = "http://msms.putulhost.com/smsapi";
-          // $data = [
-          //   "api_key" => "your_api-key",
-          //   "type" => "{content type}",
-          //   "contacts" => "88017xxxxxxxx+88018xxxxxxxx"
-          //   "senderid" => "{sender id}",
-          //   "msg" => "{your message}",
-          // ];
-          // $ch = curl_init();
-          // curl_setopt($ch, CURLOPT_URL, $url);
-          // curl_setopt($ch, CURLOPT_POST, 1);
-          // curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-          // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-          // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-          // $response = curl_exec($ch);
-          // curl_close($ch);
-          // return $response;
+          $url = "http://msms.putulhost.com/smsapi";
+          $data = [
+            "api_key" => "C20045365f076fa8c44be2.89586259",
+            "type" => "text",
+            "contacts" => "8801784622362",
+            "senderid" => "8809612446000",
+            "msg" => "hi",
+          ];
+          $ch = curl_init();
+          curl_setopt($ch, CURLOPT_URL, $url);
+          curl_setopt($ch, CURLOPT_POST, 1);
+          curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+          curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+          $response = curl_exec($ch);
+          curl_close($ch);
+          echo $response;
+          return $response;
     }
 }

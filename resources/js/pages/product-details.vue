@@ -196,7 +196,7 @@
 				</div>
 
 				<div
-					class="shadow-lg p-2 bg-white p-4"
+					class="shadow-lg p-2 bg-white "
 					style="box-shadow: 0 2px 10px #0000003b;"
 				>
 					<div class="flex relative">
@@ -215,9 +215,9 @@
 					<div
 						class="flex flex-wrap mt-4 justify-center"
 					>	
-						<div class="text-center w-40" v-for="(game, key, index) in packages" :key="game.id">
+						<div class="text-center w-32" v-for="(game, key, index) in packages" :key="game.id">
 					  		<div class="m-1">
-					  			<label :for="game.id" class="mb-0 w-40 list-group-item px-1 py-3 d-block"  style="font-size: 11px;position: relative;    overflow: hidden;">
+					  			<label :for="game.id" class="mb-0 w-40 list-group-item py-3 d-block"  style="font-size: 11px;position: relative;    overflow: hidden;">
 					  				<span class="absolute left-0" :class="selectedPackageData.id==game.id ? 'element-check-label' : ''" style="color: #fff;"> L </span>
 						  			<input class="absolute" required style="visibility: hidden;" :id="game.id" @change="onChangePackage(game)" v-model="checkedData" name="send" :value="game.sale_price" type="radio">
 									<span class="text-xs">{{ game.name }}</span>
