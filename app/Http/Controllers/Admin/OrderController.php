@@ -54,12 +54,6 @@ class OrderController extends Controller
         $order = Order::find($id);
         $sale_price = $order->sale_price;
         $order->update(['status' => $status]);
-        // $user = User::find($order->user_id);
-        // $wallet = $user->wallet;
-        // if($status == 'cancel'){
-        //     $update_wallet = $wallet + $sale_price;
-        //     $user->update(['wallet' => $update_wallet]);
-        // }
         return $status;
     }
 
@@ -68,10 +62,30 @@ class OrderController extends Controller
         $id = $request->input('id');
         $amount = $request->input('amount');
         $order = Order::find($id);
+
+        $user = User::find($order->user_id);
+        $wallet = $user->wallet;
+        $update_wallet = $wallet - $order->refoundamount;
+        $user->update(['wallet' => $update_wallet]);
+        
+        $order->refoundamount=$amount;
+        $order->update();
+
+
         $user = User::find($order->user_id);
         $wallet = $user->wallet;
         $update_wallet = $wallet + $amount;
         $user->update(['wallet' => $update_wallet]);
+        return "success";
+    }
+
+    public function savegamename(Request $request)
+    {
+        $id = $request->input('id');
+        $amount = $request->input('amount');
+        $order = Order::find($id);
+        $order->password=$amount;
+        $order->update();
         return "success";
     }
 
@@ -85,6 +99,12 @@ class OrderController extends Controller
         }else{
             $data = true;
         }
+        return response()->json($data, 200);
+    }
+
+    public function gamename(Request $request,$id)
+    {
+        $data = Order::orderBy('id', 'DESC')->where('email', $id)->where('type','IDCODE')->first();
         return response()->json($data, 200);
     }
 }

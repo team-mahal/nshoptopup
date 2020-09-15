@@ -58,6 +58,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::get('order', "Admin\OrderController@index")->name('order.index');
     Route::post('orderUpdate','Admin\OrderController@update')->name('orderUpdate');
     Route::post('walletOrderUpdate','Admin\OrderController@walletUpdate')->name('walletOrderUpdate');
+    Route::post('savegamename','Admin\OrderController@savegamename')->name('savegamename');
     
 
     //Shop Order

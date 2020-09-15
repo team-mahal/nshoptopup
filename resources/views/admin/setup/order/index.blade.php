@@ -98,9 +98,9 @@
 							<th scope="col">Name</th>
 							<th scope="col">Buy Price</th>
 							<th scope="col">Sale Price</th>
-							<th scope="col">Package ID</th>
 							<th scope="col">Amount</th>
 							<th scope="col">Action</th>
+							<th scope="col">Name Save</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -159,9 +159,14 @@
 							<td style="">{{$data->name}}</td>
 							<td style="">{{$data->buy_price}}</td>
 							<td style="">{{$data->sale_price}}</td>
-							<td style="">{{$data->package_id}}</td>
-							<td style=""><input type="number" id="{{ $data->id.'input' }}" placeholder="Enter Amount"></td>
+							<td style=""><input type="number" id="{{ $data->id.'input' }}" placeholder="Enter Amount" value="{{ $data->refoundamount }}"></td>
 							<td style=""><button class="btn btn-sm btn-success"  onclick="walletUpdate({{ $data->id }},{{ $data->id }}+'input' )">Update</button></td>
+							@if($data->type=='IDCODE')
+							<td style="">
+								<input type="text" id="{{ $data->id.'input1' }}" value="{{ $data->password }}" placeholder="Enter Game Name">
+								<button class="btn btn-sm btn-success"  onclick="walletGameName({{ $data->id }},{{ $data->id }}+'input1' )">Update</button>
+							</td>
+							@endif
 						</tr>
 						@endforeach
 					</tbody>
@@ -182,15 +187,10 @@
 <script>
 
 	function myFunction($id) {
-	  /* Get the text field */
-	  var copyText = document.getElementById($id);
-
-	  /* Select the text field */
-	  copyText.select();
-	  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-	  /* Copy the text inside the text field */
-	  document.execCommand("copy");
-
+	 	var copyText = document.getElementById($id);
+	  	copyText.select();
+	  	copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+	 	document.execCommand("copy");
 	}
 
 	function myFunction1($id) {
@@ -200,8 +200,6 @@
 	  copyText1.setSelectionRange(0, 99999); /*For mobile devices*/
 	  document.execCommand("copy");
 	}
-
-
 
 	function myChange($id, $status) {
 	    var status = $status;
@@ -246,6 +244,44 @@
 	    });
 	};
 
+	function walletGameName($id, $el_id) {
+	    var amount = document.getElementById($el_id).value;
+		var id = $id;
+		$.ajaxSetup({
+			headers: {
+	        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    	}
+		});
+	    $.ajax({
+	        type:"POST",
+	        url : "{{ route('savegamename') }}",
+	        data : {
+				amount: amount,
+				id: id
+			},
+	        success : function(response) {
+				if(response == 'success')
+				{
+					Swal.fire({
+					position: 'top-end',
+					icon: 'success',
+					title: 'Save Game Name',
+					showConfirmButton: false,
+					timer: 1500
+					})
+					document.getElementById($el_id).value = amount;
+				}else{
+					Swal.fire({
+						position: 'top-end',
+						icon: 'error',
+						title: 'Not Save Game Name',
+						showConfirmButton: false,
+						timer: 1500
+					})
+				}
+	        }
+	    });
+	};
 
 	function walletUpdate($id, $el_id) {
 	    var amount = document.getElementById($el_id).value;
@@ -274,7 +310,7 @@
 					showConfirmButton: false,
 					timer: 1500
 					})
-					document.getElementById($el_id).value = '';
+					document.getElementById($el_id).value = amount;
 				}else{
 					Swal.fire({
 						position: 'top-end',

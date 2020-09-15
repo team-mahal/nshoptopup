@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->integer('buy_price');
             $table->integer('sale_price');
             $table->integer('package_id');
+            $table->integer('refoundamount');
             $table->enum('status', array('pandding', 'complete', 'cancel'));
             $table->integer('user_id');
             $table->string('type');
