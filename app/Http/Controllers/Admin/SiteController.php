@@ -179,15 +179,22 @@ class SiteController extends Controller
 
     public function addWallet(Request $request, $id)
     {
-        $walletInfo = new WalletInfo;
-        $walletInfo->user_id = $id;
-        $walletInfo->paymentMethod = $request->paymentMethod;
-        $walletInfo->transactionid = $request->transactionid;
-        $walletInfo->paymentNumber = $request->paymentNumber;
-        $walletInfo->amount = $request->amount;
-        $walletInfo->status = 'pandding';
-        $walletInfo->save();
-        return response()->json('true', 200);
+
+        $data = WalletInfo::where('user_id',$id)->where('status','pandding')->count();
+        if($data>0){
+            return response()->json('false', 200);
+        }
+        else{
+            $walletInfo = new WalletInfo;
+            $walletInfo->user_id = $id;
+            $walletInfo->paymentMethod = $request->paymentMethod;
+            $walletInfo->transactionid = $request->transactionid;
+            $walletInfo->paymentNumber = $request->paymentNumber;
+            $walletInfo->amount = $request->amount;
+            $walletInfo->status = 'pandding';
+            $walletInfo->save();
+            return response()->json('true', 200);
+        }
     }
 
     public function withdrawWallet(Request $request, $id)

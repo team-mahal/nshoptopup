@@ -140,8 +140,7 @@ export default {
                     amount: this.amount
                 };
                 axios.post(`/api/add-wallet/${this.user.id}`, params).then(response => {
-                console.log(response.data);
-                    if (response.data == 'true') {
+                if (response.data == 'true') {
                     this.paymentMethod = 1;
                     this.paymentNumber = '';
                     this.amount = '';
@@ -156,7 +155,7 @@ export default {
                     Swal.fire({
                         type: "error",
                         title: "Order Send Failed",
-                        text: "<p style='color: red;'>Your request has been Not Successfully sent</p>",
+                        html: "<p style='color: red;'>You Have A Pending Request. Please Completed it Before Make Another</p>",
                         reverseButtons: true,
                         confirmButtonText: "ok"
                     });
