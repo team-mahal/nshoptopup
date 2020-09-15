@@ -62,7 +62,7 @@
 						@foreach($datas as $key => $data)
 						<tr>
 							<td scope="row">{{ $key+1 }}</td>
-							<td style="">{!! $data->product->name !!}</td>
+							<td style="">@if($data->product){!! $data->product->name !!}@endif</td>
 							<td style="">{!! $data->match_name !!}</td>
 							<td style="">{!! $data->start_time !!}</td>
 							<td style="">{!! $data->room_id !!}/{{ $data->password }}</td>

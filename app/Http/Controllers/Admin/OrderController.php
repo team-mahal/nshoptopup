@@ -107,4 +107,26 @@ class OrderController extends Controller
         $data = Order::orderBy('id', 'DESC')->where('email', $id)->where('type','IDCODE')->first();
         return response()->json($data, 200);
     }
+
+
+    public function FunctionName($value='')
+    {
+          // $url = "http://msms.putulhost.com/smsapi";
+          // $data = [
+          //   "api_key" => "your_api-key",
+          //   "type" => "{content type}",
+          //   "contacts" => "88017xxxxxxxx+88018xxxxxxxx"
+          //   "senderid" => "{sender id}",
+          //   "msg" => "{your message}",
+          // ];
+          // $ch = curl_init();
+          // curl_setopt($ch, CURLOPT_URL, $url);
+          // curl_setopt($ch, CURLOPT_POST, 1);
+          // curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+          // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+          // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+          // $response = curl_exec($ch);
+          // curl_close($ch);
+          // return $response;
+    }
 }

@@ -28,7 +28,6 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="md:w-7/12 w-full px-2 mt-4">
 				<div
 					v-if="showElement == 1"
@@ -464,9 +463,9 @@
 									<p>Package: <span>{{ selectedPackageData.name }}</span></p>
 									<p>Price: <span>BDT {{ selectedPackageData.sale_price }}</span></p>
 									<p>Payment Method: <span>{{ selectedpaymentmethod.name }}</span></p>
-									<div v-if="showElement==2">
+									<div v-if="showElement==0">
 										<p>ID CODE: <span>{{ idCodeIdPasswordForm.email }}</span></p>
-										<p>GAME NAME: <span>{{ gamename }}</span></p>
+										<p>NICK NAME: <span>{{ gamename }}</span></p>
 									</div>
 									<div v-else>
 										<p>ID: <span>{{ idCodeIdPasswordForm.email }}</span></p>
@@ -474,6 +473,23 @@
 									</div>
 								</div>
 								<div v-if="selectedpaymentmethod!=[] && selectedpaymentmethod.id!=0">
+
+									<p class="text-white text-center bg-red-300 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded w-56 mx-auto mt-2">How to add money?</p>
+				                    <span class="my-3 mt-3" style="font-family: auto;">
+				                        Follow below steps 👇 <br>
+				                        <b>  Step 1: </b><br>
+				                        Dial <span v-if="selectedpaymentmethod.id==1">*247#</span> <span v-if="selectedpaymentmethod.id==2">*167#</span><span v-if="selectedpaymentmethod.id==3">*322#</span> <br>
+				                        Select Send Money Option.<br>
+				                        Enter NSHOPTOPUP Personal Account Number.<br>
+				                        Enter Your amount<br>
+				                        Enter Reference Number "PlayZone".<br>
+				                        Now Enter your PIN.<br><br>
+				                        <b>Almost Done. Now follow Step 2:</b><br>
+				                        Now Enter Amount To Add place The money you sent and Sender Number Place This is the number from which you paid.<br>
+				                        Verify your Payment by entering amount and Payment mobile account number And Transaction id.<br>
+				                        Once NSHOPTOPUP Verify your payment details, Within 1 hours your money will be added.<br>
+				                    </span>
+
 									<input
 										v-model="transaction_id"
 										class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-gray-600 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"

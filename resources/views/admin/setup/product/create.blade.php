@@ -73,14 +73,14 @@
 							<label>Type</label>
 							<select name="type" id="type" class="form-control">
 								@if(old('type') == 0)
-								<option value="0" selected>Type-1</option>
+								<option value="0" selected>ID CODE</option>
 								@else
-								<option value="0">Type-1</option>
+								<option value="0">ID CODE</option>
 								@endif
 								@if(old('type') == 1)
-								<option value="1" selected>Type-2</option>
+								<option value="1" selected>IN GAME</option>
 								@else
-								<option value="1">Type-2</option>
+								<option value="1">IN GAME</option>
 								@endif
 							</select>
 						</div>
