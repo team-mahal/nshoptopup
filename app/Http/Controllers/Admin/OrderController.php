@@ -55,6 +55,12 @@ class OrderController extends Controller
         $order = Order::find($id);
         $sale_price = $order->sale_price;
         $order->update(['status' => $status]);
+        if($status=='complete'){
+            $user = User::find($order->user_id);
+            if($user->phone){
+                $this->sendmessage($user->phone,$order->id);
+            }
+        }
         return $status;
     }
 
@@ -111,15 +117,15 @@ class OrderController extends Controller
     }
 
 
-    public function sendmessage()
+    public function sendmessage($number,$orderid)
     {
           $url = "http://msms.putulhost.com/smsapi";
           $data = [
             "api_key" => "C20045365f076fa8c44be2.89586259",
             "type" => "text",
-            "contacts" => "8801784622362",
+            "contacts" => $number,
             "senderid" => "8809612446000",
-            "msg" => "hi",
+            "msg" => "Your Order Id (". $orderid .") Has Been Completed. Happy Top Up WIth NSHOP.",
           ];
           $ch = curl_init();
           curl_setopt($ch, CURLOPT_URL, $url);

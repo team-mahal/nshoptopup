@@ -21,6 +21,15 @@
 				</div>
 			</div>
 
+			<!-- Email -->
+			<div class="form-group font-bold">
+				<label class="col-md-3 col-form-label text-md-right">Phone</label>
+				<div class="col-md-7">
+					<input v-model="form.phone" :class="{ 'is-invalid': form.errors.has('phone') }" placeholder="Phone" class="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3" type="text" name="phone">
+					<has-error :form="form" field="phone" />
+				</div>
+			</div>
+
 			<!-- Password -->
 			<div class="form-group font-bold">
 				<label class="col-md-3 col-form-label text-md-right">{{ $t('password') }}</label>
@@ -75,6 +84,7 @@ export default {
 			name: '',
 			email: '',
 			password: '',
+			phone:'',
 			password_confirmation: ''
 		}),
 		mustVerifyEmail: false

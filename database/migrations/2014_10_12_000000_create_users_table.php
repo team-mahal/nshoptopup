@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->integer('earn_wallet')->default(0);
             $table->integer('matchesplayed')->default(0);
             $table->string('file')->nullable();
-            $table->integer('phone')->nullable();
+            $table->string('phone')->nullable();
             $table->text('address')->nullable();
             $table->rememberToken();
             $table->timestamps();
