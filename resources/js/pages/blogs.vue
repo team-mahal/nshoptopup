@@ -50,9 +50,7 @@
 </template>
 <script>
 import axios from "axios";
-import carousel from "vue-owl-carousel";
 export default {
-    components: { carousel },
     data(){
         return{
             blogs: [],
