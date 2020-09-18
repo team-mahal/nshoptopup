@@ -112,7 +112,7 @@ class OrderController extends Controller
 
     public function gamename(Request $request,$id)
     {
-        $data = Order::orderBy('id', 'DESC')->where('email', $id)->where('gamename','!=','ID Code')->where('type','ID Code')->first();
+        $data = Order::orderBy('id', 'DESC')->where('email', $id)->where('password','!=','ID Code')->where('type','ID Code')->first();
         return response()->json($data, 200);
     }
 
