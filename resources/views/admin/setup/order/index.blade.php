@@ -158,7 +158,7 @@
 								<input type="number" id="{{ $data->id.'input' }}" placeholder="Enter Amount" value="{{ $data->refoundamount }}" style="width: 70px">
 								<button class="btn btn-sm btn-success"  onclick="walletUpdate({{ $data->id }},{{ $data->id }}+'input' )">Update</button>
 							</td>
-							@if($data->type=='IDCODE')
+							@if($data->type=='IDCODE' || $data->type=='ID Code')
 							<td style="padding: 15px;margin:10px;">
 								<input type="text" id="{{ $data->id.'input1' }}" value="{{ $data->password }}" placeholder="Enter Game Name" style="width: 110px">
 								<button class="btn btn-sm btn-success"  onclick="walletGameName({{ $data->id }},{{ $data->id }}+'input1' )">Update</button>
