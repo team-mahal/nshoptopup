@@ -1,6 +1,6 @@
 <template>
     <div class="container mx-auto">
-        <div class="text-center md:my-2">
+        <div class="text-center md:my-2"> 
             <h2 class="text-xl md:text-3xl text-red-300 font-bold">SHOP ORDER DETAILS</h2>
         </div>
         <div class="div overflow-x-scroll" >
