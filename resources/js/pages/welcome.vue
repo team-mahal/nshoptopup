@@ -1,9 +1,12 @@
 <template>
 	<div>
 		<div class="container mx-auto">
-			<carousel :autoplay="true" :items="1" autoHeight="true" :loop="true" v-if="loaded">
-				<img v-for="slider in sliders" :key="slider.id" :src="'/slider/'+slider.logo" style="height: 400px;" class="object-cover" />
-			</carousel>
+			<carousel-3d :perspective="0"  v-if="loaded" :controls-visible="true" :controls-prev-html="'&#10092;'" :controls-next-html="'&#10093;'" 
+               :controls-width="30" :controls-height="60" :space="600" :display="3" :autoplay="true" :autoplay-timeout="4000" :width="713" :height="255">
+			    <slide v-for="(slide, i) in sliders" :index="i">
+			       <img  :src="'/slider/'+slide.logo" class="object-contain">
+			    </slide>
+			  </carousel-3d>
 		</div>
 
 		<section class="container mx-auto" id="favourite-game">
@@ -105,11 +108,9 @@
 
 <script>
 import { mapGetters } from "vuex";
-import carousel from "vue-owl-carousel";
 import axios from "axios";
 export default {
 	layout: "default",
-	components: { carousel },
 	metaInfo() {
 		return { title: this.$t("home") };
 	},
@@ -159,3 +160,13 @@ export default {
 	}
 };
 </script>
+<style type="text/css">
+	.carousel-3d-container {
+	  .carousel-3d-slide {
+	    padding: 20px;
+	    
+	    .title { font-size: 22px; }
+	  }
+	}
+
+</style>

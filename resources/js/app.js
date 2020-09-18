@@ -7,6 +7,9 @@ import App from '~/components/App'
 import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
 
+import Carousel3d from 'vue-carousel-3d';
+Vue.use(Carousel3d);
+
 import '~/plugins'
 import '~/components'
 import KProgress from 'k-progress';

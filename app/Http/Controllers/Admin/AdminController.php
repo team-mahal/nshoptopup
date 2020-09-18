@@ -19,9 +19,14 @@ class AdminController extends Controller
         $total_orders = DB::table('orders')->count();
         $today_users = DB::table('users')->whereDate('created_at', DB::raw('CURDATE()'))->get()->count();
         $today_orders = DB::table('orders')->whereDate('created_at', DB::raw('CURDATE()'))->get()->count();
+        $totalwallet =      DB::table('users')->sum('wallet');
+        $totalearnwallet = DB::table('users')->sum('earn_wallet');
+
+
+
         $percentige = $today_users*100/$total_users;
         $percentige_orders = $today_orders*100/$total_orders;
-        return view('admin.index')->with(['total_users' => $total_users, 'total_orders' => $total_orders, 'today_users' => $today_users, 'percentige' => $percentige , 'today_orders' => $today_orders, 'percentige_orders' => $percentige_orders]);
+        return view('admin.index')->with(['total_users' => $total_users, 'total_orders' => $total_orders, 'today_users' => $today_users, 'percentige' => $percentige ,'totalwallet' => $totalwallet ,'totalearnwallet' => $totalearnwallet , 'today_orders' => $today_orders, 'percentige_orders' => $percentige_orders]);
     }
 
     /**

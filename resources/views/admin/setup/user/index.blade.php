@@ -85,6 +85,8 @@
 							<th scope="col">Wallet</th>
 							<th scope="col">Name</th>
 							<th scope="col">E-mail</th>
+							<th scope="col">Wallt</th>
+							<th scope="col">Earn Wallt</th>
 							<th scope="col">Phone</th>
 							<th scope="col">Address</th>
 						</tr>
@@ -97,6 +99,8 @@
 							<td style="">{{$data->wallet}}</td>
 							<td style="">{{$data->name}}</td>
 							<td style="">{{$data->email}}</td>
+							<td style="">{{$data->wallet}}</td>
+							<td style="">{{$data->earn_wallet}}</td>
 							<td style="">0{{$data->phone}}</td>
 							<td style="">{{$data->address}}</td>
 						</tr>
