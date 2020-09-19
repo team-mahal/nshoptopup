@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 
 Route::get('sliders', "Admin\SiteController@getSlider");
+Route::get('notice', "Admin\NoticeController@show");
 Route::get('products', "Admin\ProductController@getProduct");
 Route::get('productplayzoon', "Admin\ProductController@productplayzoon");
 Route::get('shop-products', "Admin\CommonController@getProduct");

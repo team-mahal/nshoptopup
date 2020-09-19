@@ -60,7 +60,7 @@
 		</div>
 		<div class="mx-auto py-4 mt-4">
 			<div class="mt-2 text-center">
-				© Copyright 2020. All Rights Reserved.
+				© Copyright 2020. All Rights Reserved NSHOPTOPUP.
 				<span>Developed by 
 					<span class="text-green-100">
 						<a href="https://www.facebook.com/md.jual.ah" target="_blank"> 
