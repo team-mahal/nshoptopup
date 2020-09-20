@@ -101,7 +101,7 @@
 							<td style="">{{$data->email}}</td>
 							<td style="">{{$data->wallet}}</td>
 							<td style="">{{$data->earn_wallet}}</td>
-							<td style="">0{{$data->phone}}</td>
+							<td style="">{{$data->phone}}</td>
 							<td style="">{{$data->address}}</td>
 						</tr>
 						@endforeach

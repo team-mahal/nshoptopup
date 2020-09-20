@@ -119,6 +119,7 @@ class OrderController extends Controller
 
     public function sendmessage($number,$orderid)
     {
+          $number=substr($number,1);
           $url = "http://msms.putulhost.com/smsapi";
           $data = [
             "api_key" => "C20045365f076fa8c44be2.89586259",
