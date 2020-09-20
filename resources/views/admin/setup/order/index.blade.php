@@ -104,13 +104,16 @@
 						@foreach($datas as $key => $data)
 						<tr>
 							<td  style="padding: 0px;margin:0px;">
-								@if ($data->status == 'cancel' || $data->status == 'complete')
-								<select disabled name="status" id="status{{$data->id}}"
-									onchange="myChange({{$data->id}}, this.value)" required class="form-control" style="width: 110px;">
-									@else
+								@if ($data->status == 'cancel')
+									<select disabled name="status" id="status{{$data->id}}"
+										onchange="myChange({{$data->id}}, this.value)" required class="form-control text-danger" style="width: 110px;">
+								@elseif($data->status == 'complete')
+									<select disabled name="status" id="status{{$data->id}}"
+										onchange="myChange({{$data->id}}, this.value)" required class="form-control text-success" style="width: 110px;">
+								@else
 									<select enable name="status" id="status{{$data->id}}"
-									onchange="myChange({{$data->id}}, this.value)" required class="form-control" style="width: 110px">
-									@endif
+										onchange="myChange({{$data->id}}, this.value)" required class="form-control" style="width: 110px">
+								@endif
 									@if ($data->status == '')
 									<option value="">select once</option>
 									@endif
@@ -125,7 +128,7 @@
 									<option value="complete">complete</option>
 									@endif
 									@if ($data->status == 'cancel')
-									<option Selected value="cancel">cancel</option>
+									<option Selected value="cancel" class="text-danger">cancel</option>
 									@else
 									<option value="cancel">cancel</option>
 									@endif

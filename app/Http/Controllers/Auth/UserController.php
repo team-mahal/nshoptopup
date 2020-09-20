@@ -33,8 +33,12 @@ class UserController extends Controller
         $phone = $request->phone;
         if (empty($user_id) && empty($email) && empty($phone)) {
             $datas = User::orderBy('id', 'DESC')->paginate(10);
+        }elseif(!empty($user_id)){
+            $datas = User::where('id', $user_id)->paginate(10);
+        }elseif(!empty($email)){
+            $datas = User::where('email', $email)->orWhere('phone', $phone)->paginate(10);
         }else{
-            $datas = User::where('id', $user_id)->orWhere('email', $email)->orWhere('phone', $phone)->paginate(10);
+            $datas = User::where('phone', $phone)->paginate(10);
         }
         return view('admin.setup.user.index', ['datas' => $datas]);
     }
