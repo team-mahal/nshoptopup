@@ -248,10 +248,15 @@
 						<div id="grow">
 							<div class="measuringWrapper text-gray-900">
 								<div>
-									<div v-if="check == false">
-										<p v-on:click="modal = true" class="text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white py-2 px-2 rounded mb-0">
+									<div v-if="check == false" class="flex flex-wrap">
+										<p v-on:click="modal = true" class="w-1/2 text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white py-2 px-2 rounded mb-0">
 											Login First To Confirm Your Order
 										</p>
+										<div class="w-1/2">
+											<router-link :to="{ name: 'register' }" class="text-center block bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2 w-full" active-class="active">
+												{{ $t('register') }}
+											</router-link>
+										</div>
 									</div>
 									<div v-else>
 										<div 
@@ -354,7 +359,7 @@
 										class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
 										for="email"
 									>
-										{{ $t("email") }}
+										Nshop Email
 									</label>
 									<input
 										v-model="form.email"
@@ -371,7 +376,7 @@
 										class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
 										for="email"
 									>
-										{{ $t("password") }}
+										Nshop Account Password
 									</label>
 									<input
 										v-model="form.password"
@@ -407,6 +412,9 @@
 									>
 										{{ $t("login") }}
 									</button>
+									<router-link :to="{ name: 'register' }" class="mt-5 text-center block bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2 w-full" active-class="active">
+										{{ $t('register') }}
+									</router-link>
 								</div>
 								<div class="text-center">
 									<h4 class="text-sm">

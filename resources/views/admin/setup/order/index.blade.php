@@ -152,7 +152,9 @@
 							<td style="padding: 15px;margin:10px;">
 								@if($data->payment_method== 1) {{ 'bKash' }}
 								@elseif($data->payment_method == 2) {{ 'Nogod' }}
-								@elseif($data->payment_method == 2) {{ 'Rocket' }}
+								@elseif($data->payment_method == 3) {{ 'Paytm' }}
+								@elseif($data->payment_method == 3) {{ 'Roket' }}
+								@else {{ 'NSHOP' }}
 								@endif
 							</td>
 							<td style="padding: 15px;margin:10px;">{{$data->name}}</td>
