@@ -22,7 +22,7 @@
 			        <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
 			          	<path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
 			        </svg>
-		      	</button>
+		      	</button> 
 		    </div>
 		
 		    <nav :class="{'flex': open1, 'hidden': !open1}" class="flex-col flex-grow pb-4 md:pb-0 md:flex md:justify-end md:flex-row" @click="open1 = !open1">
