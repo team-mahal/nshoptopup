@@ -528,7 +528,7 @@ export default {
 			selectedpaymentmethod:[],
 			computedHeight: "auto",
 			modal: false,
-			gamename:'',
+			gamename:null,
 			transactionModal: false,
 			form: new Form({
 				email: "",
@@ -641,10 +641,16 @@ export default {
 			if(this.showElement == 0){
 				var password = "ID Code";
 				var type = "ID Code";
+				if(this.gamename!=null){
+					password=this.gamename
+				}
 			}else{
 				var password = this.idCodeIdPasswordForm.password;
 				var type = this.idCodeIdPasswordForm.type;
 			}
+
+
+
 			var email = this.idCodeIdPasswordForm.email;
 
 			if(this.selectedpaymentmethod.id==0 && this.checkedData > this.user.wallet ){

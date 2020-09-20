@@ -10,6 +10,12 @@ Vue.use(Vuelidate)
 import Carousel3d from 'vue-carousel-3d';
 Vue.use(Carousel3d);
 
+import VuePhoneNumberInput from 'vue-phone-number-input';
+import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+
+Vue.component('vuephone', VuePhoneNumberInput);
+
+
 import '~/plugins'
 import '~/components'
 import KProgress from 'k-progress';
