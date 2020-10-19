@@ -9,6 +9,7 @@ use App\Package;
 use App\User;
 use App\PaymentMethod;
 use DB;
+use smasif\ShurjopayLaravelPackage\ShurjopayService;
 
 class OrderController extends Controller
 {

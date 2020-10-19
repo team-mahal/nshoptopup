@@ -263,6 +263,33 @@
 											v-if="user!=null"
 											class="flex bg-grey-300 border-2 justify-center"
 										>
+											<label :for="'p100000'" class="mb-0 w-40 list-group-item pt-3 d-block w-full"  style="font-size: 11px;position: relative;overflow: hidden;">
+												<div class="w-full">
+													<span class="absolute left-0" :class="selectedpaymentmethod.id==100000 ? 'element-check-label' : ''" style="color: #fff;"> L </span>
+													<input class="absolute" required style="visibility: hidden;" :id="'p100000'" @change="onChangePayment({id:100000,name:'nshopwallet'})" name="sends" :value="{id:100000,name:'nshopwallet'}" type="radio">
+													<div class="flex justify-between cursor-pointer py-1 px-2">
+														<img
+															src="/logo.png"
+															style="width: 100px;"
+															class="mr-2 p-1"
+														/>
+														<h2 class="text-xs font-bold text-gray-900  p-1">
+															<p>Price</p>
+															<p>BDT {{ checkedData }}</p>
+														</h2>
+													</div>
+													<div class="border-t-2 bg-gray-300">
+														<h2 class="text-sm text-gray-900 font-normal pl-2">
+															Pay With BDT
+														</h2>
+													</div>
+												</div>
+											</label>
+										</div>
+										<div 
+											v-if="user!=null"
+											class="flex bg-grey-300 border-2 justify-center"
+										>
 											<label :for="'p0'" class="mb-0 w-40 list-group-item pt-3 d-block w-full"  style="font-size: 11px;position: relative;overflow: hidden;">
 												<div class="w-full">
 													<span class="absolute left-0" :class="selectedpaymentmethod.id==0 ? 'element-check-label' : ''" style="color: #fff;"> L </span>
@@ -286,6 +313,7 @@
 												</div>
 											</label>
 										</div>
+										
 										<div
 											class="flex bg-grey-300 border-2 justify-center mt-3"
 											v-for="m in paymentMethods"
@@ -480,7 +508,7 @@
 										<p>PASSWORD: <span>{{ idCodeIdPasswordForm.password }}</span></p>
 									</div>
 								</div>
-								<div v-if="selectedpaymentmethod!=[] && selectedpaymentmethod.id!=0">
+								<div v-if="selectedpaymentmethod!=[] && selectedpaymentmethod.id!=0  && selectedpaymentmethod.id!=100000">
 
 									<p class="text-white text-center bg-red-300 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded w-56 mx-auto mt-2">How to add money?</p>
 				                    <span class="my-3 mt-3" style="font-family: auto;" v-html="selectedpaymentmethod.des">
@@ -505,7 +533,7 @@
 				</div>
 			</div>
 		</div>
-
+		<div id="spay"></div>
 	</div>
 </template>
 
@@ -660,8 +688,25 @@ export default {
 
 
 			var email = this.idCodeIdPasswordForm.email;
-
-			if(this.selectedpaymentmethod.id==0 && this.checkedData > this.user.wallet ){
+			if(this.selectedpaymentmethod.id=100000)
+			{
+				let id = this.selectedPackageData.id;
+				var params = {
+					type: type,
+					password: password,
+					email: email,
+					number: this.number,
+					method: this.selectedpaymentmethod.id,
+					transaction_id: this.transaction_id
+				};
+				axios.post(`/api/product-order-transaction_id/${id}/${this.user.id}`, params).then(response => {
+					console.log(response.data)
+					document.getElementById("spay").innerHTML=response.data;
+					// document.getElementById("frm_submit").setAttribute("target", "_blank");
+					document.getElementById('frm_submit').submit()
+				});
+			}
+			else if(this.selectedpaymentmethod.id==0 && this.checkedData > this.user.wallet ){
 				Swal.fire({
 					type: "error",
 					title: "Your Balance Is Low Please Add Money Or Pay WIth Other Methods",
@@ -693,16 +738,16 @@ export default {
 					this.transactionmodal = true;
 				});
 			}else{
-			let id = this.selectedPackageData.id;
-			var params = {
-				type: type,
-				password: password,
-				email: email,
-				number: this.number,
-				method: this.selectedpaymentmethod.id,
-				transaction_id: this.transaction_id
-			};
-			axios.post(`/api/product-order-transaction_id/${id}/${this.user.id}`, params).then(response => {
+				let id = this.selectedPackageData.id;
+				var params = {
+					type: type,
+					password: password,
+					email: email,
+					number: this.number,
+					method: this.selectedpaymentmethod.id,
+					transaction_id: this.transaction_id
+				};
+				axios.post(`/api/product-order-transaction_id/${id}/${this.user.id}`, params).then(response => {
 					if (response.data.success == '1') {
 						Swal.fire({
 							type: "success",

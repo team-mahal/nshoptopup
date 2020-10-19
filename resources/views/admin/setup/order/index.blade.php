@@ -86,6 +86,7 @@
 					<thead class="thead-light">
 						<tr>
 							<th  style="padding: 15px;margin:10px;" scope="col">Action</th>
+							<th  style="padding: 15px;margin:10px;" scope="col">Payment</th>
 							<th  style="padding: 15px;margin:10px;" scope="col">O.ID</th>
 							<th  style="padding: 15px;margin:10px;" scope="col">U.ID</th>
 							<th  style="padding: 15px;margin:10px;" scope="col">Type</th>
@@ -134,6 +135,7 @@
 									@endif
 								</select>
 							</td>
+							<td style="padding: 15px;margin:10px;">{{$data->payment}}</td>
 							<td style="padding: 15px;margin:10px;">{{$data->id}}</td>
 							<td style="padding: 15px;margin:10px;">{{$data->user_id}}</td>
 							<td style="padding: 15px;margin:10px;">{{$data->type}}</td>

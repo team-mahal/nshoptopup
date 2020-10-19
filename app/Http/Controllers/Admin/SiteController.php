@@ -14,6 +14,10 @@ use App\TransactionInfo;
 use App\Slider;
 use App\WalletInfo;
 use App\WithdrawInfo;
+
+
+use smasif\ShurjopayLaravelPackage\ShurjopayService;
+
 use App\PaymentMethod;
 
 class SiteController extends Controller
@@ -99,79 +103,138 @@ class SiteController extends Controller
 
     public function ProductOrderWithTransactionId(Request $request, $id, $user_id)
     {
-        $packages = Package::find($id);
-        $user = User::find($user_id);
-        $wallet = $user->wallet;
-        $data1 = [];
+
         $paymentMethod=$request->input('method');
 
+        if($paymentMethod==100000){
 
-        $datas = Order::where('user_id', $user_id)->Where('status', 'pandding')->count();
-        if($datas > 0)
-        {
-            $data1['success'] = 0;
-            $data1['message'] = "You Have A Pending Order Please Complete Before Make Another Order.";
-            return response()->json($data1, 200);
+            $shurjopay_service = new ShurjopayService(); 
+
+            $tx_id = $shurjopay_service->generateTxId();
+
+            $success_route = route('paymetsuccess');
+
+            $packages = Package::find($id);
+            $user = User::find($user_id);
+            $wallet = $user->wallet;
+            $data1 = [];
+
+            $datas = Order::where('user_id', $user_id)->Where('status', 'pandding')->count();
+
+            $data1['success'] = 1;
+            $type = $request->input('type');
+            $email = $request->input('email');
+            $password = $request->input('password');
+
+            $order = new Order;
+            $order->name = $packages->name;
+            $order->buy_price = $packages->buy_price;
+            $order->sale_price = $packages->sale_price;
+            $order->package_id = $id;
+            $order->user_id = $user_id;
+            $order->type = $type;
+            $order->email = $email;
+            $order->password = $password;
+            $order->status = 'pandding';
+            $order->payment = 'waiting';
+            $order->payment_number = $request->input('number');
+            $order->payment_method = $paymentMethod;
+            $order->transaction_id = $tx_id;
+            $order->save();
+
+            return $shurjopay_service->sendPayment($packages->sale_price,$success_route);
+
         }else{
-            if($paymentMethod==0){
-                if($wallet >= $packages->sale_price){
-                    $update_wallet = $wallet - $packages->sale_price;
-                    $user->update(['wallet' => $update_wallet]);
+
+            $packages = Package::find($id);
+            $user = User::find($user_id);
+            $wallet = $user->wallet;
+            $data1 = [];
+
+
+            $datas = Order::where('user_id', $user_id)->Where('status', 'pandding')->count();
+            if($datas > 0)
+            {
+                $data1['success'] = 0;
+                $data1['message'] = "You Have A Pending Order Please Complete Before Make Another Order.";
+                return response()->json($data1, 200);
+            }else{
+                if($paymentMethod==0){
+                    if($wallet >= $packages->sale_price){
+                        $update_wallet = $wallet - $packages->sale_price;
+                        $user->update(['wallet' => $update_wallet]);
+                        $data1['success'] = 1;
+                        $data1['wallet'] = $update_wallet;
+                        $type = $request->input('type');
+                        $email = $request->input('email');
+                        $password = $request->input('password');
+
+                        $order = new Order;
+                        $order->name = $packages->name;
+                        $order->buy_price = $packages->buy_price;
+                        $order->sale_price = $packages->sale_price;
+                        $order->package_id = $id;
+                        $order->user_id = $user_id;
+                        $order->type = $type;
+                        $order->email = $email;
+                        $order->password = $password;
+                        $order->status = 'pandding';
+                        $order->save();
+                    }else{
+                        $data1['success'] = 0;
+                    }
+                    return response()->json($data1, 200);
+                }else{
+
                     $data1['success'] = 1;
-                    $data1['wallet'] = $update_wallet;
                     $type = $request->input('type');
                     $email = $request->input('email');
                     $password = $request->input('password');
 
+                    $pm=PaymentMethod::find($paymentMethod);
+                    $price=0;
+                    if($pm->discount>0){
+                        $p=($packages->sale_price*$pm->discount)/100;
+                        $price=$packages->sale_price-$p;
+                    }else{
+                        $price=$packages->sale_price;
+                    }
+
+
                     $order = new Order;
                     $order->name = $packages->name;
                     $order->buy_price = $packages->buy_price;
-                    $order->sale_price = $packages->sale_price;
+                    $order->sale_price = $price;
                     $order->package_id = $id;
                     $order->user_id = $user_id;
                     $order->type = $type;
                     $order->email = $email;
                     $order->password = $password;
                     $order->status = 'pandding';
+                    $order->payment_number = $request->input('number');
+                    $order->payment_method = $paymentMethod;
+                    $order->transaction_id = $request->input('transaction_id');
                     $order->save();
-                }else{
-                    $data1['success'] = 0;
+                    return response()->json($data1, 200);
                 }
-                return response()->json($data1, 200);
-            }else{
-
-                $data1['success'] = 1;
-                $type = $request->input('type');
-                $email = $request->input('email');
-                $password = $request->input('password');
-
-                $pm=PaymentMethod::find($paymentMethod);
-                $price=0;
-                if($pm->discount>0){
-                    $p=($packages->sale_price*$pm->discount)/100;
-                    $price=$packages->sale_price-$p;
-                }else{
-                    $price=$packages->sale_price;
-                }
-
-
-                $order = new Order;
-                $order->name = $packages->name;
-                $order->buy_price = $packages->buy_price;
-                $order->sale_price = $price;
-                $order->package_id = $id;
-                $order->user_id = $user_id;
-                $order->type = $type;
-                $order->email = $email;
-                $order->password = $password;
-                $order->status = 'pandding';
-                $order->payment_number = $request->input('number');
-                $order->payment_method = $paymentMethod;
-                $order->transaction_id = $request->input('transaction_id');
-                $order->save();
-                return response()->json($data1, 200);
             }
         }
+    }
+
+    public function paymetsuccess(Request $request)
+    {
+
+        $order = Order::where('transaction_id', $request->tx_id)->Where('status', 'pandding')->first();
+        var_dump($request->all());
+        if($request->status=='Success'){
+            $order->payment = 'completed';
+            $order->update();
+        }else{
+            $order->status = 'cancel';
+            $order->payment = 'cancel';
+            $order->update();
+        }
+        return redirect('/my-orders'); 
     }
 
     public function getTransactions($id)
