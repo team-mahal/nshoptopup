@@ -17,6 +17,7 @@
                         <th class="border border-gray-400 px-4 py-2">PRODUCT NAME</th>
                         <th class="border border-gray-400 px-4 py-2">AMOUNT</th>
                         <th class="border border-gray-400 px-4 py-2">STATUS</th>
+                        <th class="border border-gray-400 px-4 py-2">PAYMENT</th>
                     </tr>
                 </thead>
                 <tbody class="text-center">
@@ -27,6 +28,7 @@
                         <td class="border border-gray-400 px-4 py-2">{{ order.name }}</td>
                         <td class="border border-gray-400 px-4 py-2">{{ formatPrice(order.sale_price) }}</td>
                         <td class="border border-gray-400 px-4 py-2">{{ order.status }}</td>
+                        <td class="border border-gray-400 px-4 py-2">{{ order.payment }}</td>
                     </tr>
                     <tr>
                         <td class="border border-gray-400 px-4 py-2 text-right font-bold" colspan="4">Total</td>

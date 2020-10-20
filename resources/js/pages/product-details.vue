@@ -271,7 +271,7 @@
 														<img
 															src="/logo.png"
 															style="width: 100px;"
-															class="mr-2 p-1"
+															class="mr-2 p-1 object-contain"
 														/>
 														<h2 class="text-xs font-bold text-gray-900  p-1">
 															<p>Price</p>
@@ -298,7 +298,7 @@
 														<img
 															src="/logo.png"
 															style="width: 100px;"
-															class="mr-2 p-1"
+															class="mr-2 p-1 object-contain"
 														/>
 														<h2 class="text-xs font-bold text-gray-900  p-1">
 															<p>Price</p>
