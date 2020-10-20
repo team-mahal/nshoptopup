@@ -217,7 +217,7 @@
 					>	
 						<div class="text-center" v-for="(game, key, index) in packages" :key="game.id">
 					  		<div class="m-1">
-					  			<label :for="game.id" class="mb-0 w-40 list-group-item py-3 d-block"  style="font-size: 11px;position: relative;    overflow: hidden;">
+					  			<label :for="game.id" class="mb-0 list-group-item py-3 d-block"  style="width: 8rem; font-size: 11px;position: relative;    overflow: hidden;">
 					  				<span class="absolute left-0" :class="selectedPackageData.id==game.id ? 'element-check-label' : ''" style="color: #fff;"> L </span>
 						  			<input class="absolute" required style="visibility: hidden;" :id="game.id" @change="onChangePackage(game)" v-model="checkedData" name="send" :value="game.sale_price" type="radio">
 									<span class="text-xs">{{ game.name }}</span>
