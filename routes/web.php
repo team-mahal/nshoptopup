@@ -90,8 +90,10 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
 
     Route::get('users', "Auth\UserController@getUser")->name('users.index');
 
-    Route::get('paymetsuccess','Admin\SiteController@paymetsuccess')->name('paymetsuccess');
 
 });
+
+    Route::get('paymetsuccess','Admin\SiteController@paymetsuccess')->name('paymetsuccess');
+
 
 Route::post('frolaImageUpload', 'Admin\AboutPrivacyController@imagesUpload')->name('frolaImageUpload');
