@@ -94,6 +94,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
 });
 
     Route::get('paymetsuccess','Admin\SiteController@paymetsuccess')->name('paymetsuccess');
+    Route::get('addpaymentsuccess','Admin\SiteController@addpaymentsuccess')->name('addpaymentsuccess');
 
 
 Route::post('frolaImageUpload', 'Admin\AboutPrivacyController@imagesUpload')->name('frolaImageUpload');
