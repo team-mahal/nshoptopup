@@ -224,9 +224,7 @@ class SiteController extends Controller
 
     public function paymetsuccess(Request $request)
     {
-
         $order = Order::where('transaction_id', $request->tx_id)->Where('status', 'pandding')->first();
-        var_dump($request->all());
         if($request->status=='Success'){
             $order->payment = 'completed';
             $order->update();
@@ -256,21 +254,45 @@ class SiteController extends Controller
     public function addWallet(Request $request, $id)
     {
 
-        $data = WalletInfo::where('user_id',$id)->where('status','pandding')->count();
-        if($data>0){
-            return response()->json('false', 200);
+        $shurjopay_service = new ShurjopayService(); 
+
+        $tx_id = $shurjopay_service->generateTxId();
+
+        $success_route = route('addpaymentsuccess');
+
+        $walletInfo = new WalletInfo;
+        $walletInfo->user_id = $id;
+        $walletInfo->paymentMethod = 0;
+        $walletInfo->transactionid = $tx_id;
+        $walletInfo->paymentNumber = 0;
+        $walletInfo->amount = $request->amount;
+        $walletInfo->status = 'pandding';
+        $walletInfo->save();
+        return $shurjopay_service->sendPayment($request->amount,$success_route);
+       
+    }
+
+    public function addpaymentsuccess(Request $request)
+    {
+        
+        $order = WalletInfo::where('transactionid', $request->tx_id)->Where('status', 'pandding')->first();
+        if($request->status=='Success'){
+
+            $user = User::find($order->user_id);
+            $user->wallet=$user->wallet+$order->amount;
+            $user->update();
+            
+
+            $order->status = 'completed';
+            $order->update();
+
+        }else{
+            $order->status = 'cancel';
+            $order->update();
         }
-        else{
-            $walletInfo = new WalletInfo;
-            $walletInfo->user_id = $id;
-            $walletInfo->paymentMethod = $request->paymentMethod;
-            $walletInfo->transactionid = $request->transactionid;
-            $walletInfo->paymentNumber = $request->paymentNumber;
-            $walletInfo->amount = $request->amount;
-            $walletInfo->status = 'pandding';
-            $walletInfo->save();
-            return response()->json('true', 200);
-        }
+
+        return redirect('/my-wallet'); 
+
     }
 
     public function withdrawWallet(Request $request, $id)

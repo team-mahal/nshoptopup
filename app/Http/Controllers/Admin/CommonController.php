@@ -100,6 +100,8 @@ class CommonController extends Controller
 
     public function getOrders($id)
     {
+        Order::where('user_id', $id)->where('payment','waiting')->delete();
+        
         $order = Order::where('user_id', $id)->latest()->get();
         if($order)
             return response()->json($order, 200);

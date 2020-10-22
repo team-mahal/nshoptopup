@@ -105,6 +105,7 @@ export default {
             });
         },
         getOrdersData(){
+
             var id = this.user.id;
             axios.get(`/api/orders-data/${id}`).then(response => {
                 this.orders = response.data;
@@ -127,6 +128,13 @@ export default {
     mounted() {
         this.getInvoicesData();
         this.getOrdersData();
+
+
+
+    },
+    created(){
+
+
     }
 }
 </script>

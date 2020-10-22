@@ -38,7 +38,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('shopOrder/{total}/{user_id}', "Admin\CommonController@shopStore");
     Route::get('transactions-data/{id}', "Admin\TransactionInfoController@getTransaction");
     Route::get('withdraws-data/{id}', "Admin\WithdrawInfoController@getWithdraw");
-    Route::post('join/{id}', "MatchController@join");
+    Route::post('join/{id}', "MatchController@join"); 
 });
 
 Route::get('sliders', "Admin\SiteController@getSlider");

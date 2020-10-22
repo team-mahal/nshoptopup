@@ -266,7 +266,7 @@
 											<label :for="'p100000'" class="mb-0 w-40 list-group-item pt-3 d-block w-full"  style="font-size: 11px;position: relative;overflow: hidden;">
 												<div class="w-full">
 													<span class="absolute left-0" :class="selectedpaymentmethod.id==100000 ? 'element-check-label' : ''" style="color: #fff;"> L </span>
-													<input class="absolute" required style="visibility: hidden;" :id="'p100000'" @change="onChangePayment({id:100000,name:'nshopwallet'})" name="sends" :value="{id:100000,name:'nshopwallet'}" type="radio">
+													<input class="absolute" required style="visibility: hidden;" :id="'p100000'" @change="onChangePayment({id:100000,name:'NPay'})" name="sends" :value="{id:100000,name:'nshopwallet'}" type="radio">
 													<div class="flex justify-between cursor-pointer py-1 px-2">
 														<img
 															src="/logo.png"
@@ -280,7 +280,7 @@
 													</div>
 													<div class="border-t-2 bg-gray-300">
 														<h2 class="text-sm text-gray-900 font-normal pl-2">
-															Pay With BDT
+															Pay With NPay
 														</h2>
 													</div>
 												</div>
