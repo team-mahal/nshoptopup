@@ -23,9 +23,15 @@ class AdminController extends Controller
         $totalearnwallet = DB::table('users')->sum('earn_wallet');
 
 
+        if($total_users != 0)
+            $percentige = $today_users*100/$total_users;
+        else 
+            $percentige = 0;
 
-        $percentige = $today_users*100/$total_users;
-        $percentige_orders = $today_orders*100/$total_orders;
+        if($total_users != 0)
+            $percentige_orders = $today_orders*100/$total_orders;
+        else
+            $percentige_orders = 0;
         return view('admin.index')->with(['total_users' => $total_users, 'total_orders' => $total_orders, 'today_users' => $today_users, 'percentige' => $percentige ,'totalwallet' => $totalwallet ,'totalearnwallet' => $totalearnwallet , 'today_orders' => $today_orders, 'percentige_orders' => $percentige_orders]);
     }
 
