@@ -688,7 +688,7 @@ export default {
 
 
 			var email = this.idCodeIdPasswordForm.email;
-			if(this.selectedpaymentmethod.id=100000)
+			if(this.selectedpaymentmethod.id==100000)
 			{
 				let id = this.selectedPackageData.id;
 				var params = {
