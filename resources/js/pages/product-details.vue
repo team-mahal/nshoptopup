@@ -270,7 +270,7 @@
 													<div class="flex justify-between cursor-pointer py-1 px-2">
 														<img
 															src="/4.png"
-															style="width: 300px;"
+															style="width: 150px;"
 															class="mr-2 p-1 object-contain"
 														/>
 														<h2 class="text-xs font-bold text-gray-900  p-1">
