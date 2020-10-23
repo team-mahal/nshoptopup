@@ -67,7 +67,7 @@ Route::get('matchs/{status}/{id}', "MatchController@index");
 Route::get('singlematch/{id}', "MatchController@singlematch");
 
 Route::get('paymentMethods', "Admin\SiteController@getPaymentMethod");
-
+Route::get('getWebsiteInfo', "Admin\SiteController@getWebsiteInfo");
 
 Route::group(['middleware' => 'guest:api'], function () {
     Route::post('login', 'Auth\LoginController@login');

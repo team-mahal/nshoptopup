@@ -75,6 +75,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::post('paymentMethodUpdate/{id}', "Admin\PaymentMethodController@update")->name('paymentMethodUpdate');
     
     Route::resource('blog', 'Admin\BlogController');
+    Route::resource('websiteinfo', 'Admin\WebsiteinfoController');
     Route::resource('aboutprivacy', 'Admin\AboutPrivacyController');
     Route::resource('slider', 'Admin\SliderCotroller');
     Route::resource('notice', 'Admin\NoticeController');

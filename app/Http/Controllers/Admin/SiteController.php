@@ -14,6 +14,7 @@ use App\TransactionInfo;
 use App\Slider;
 use App\WalletInfo;
 use App\WithdrawInfo;
+use App\Websiteinfo;
 
 
 use smasif\ShurjopayLaravelPackage\ShurjopayService;
@@ -316,6 +317,13 @@ class SiteController extends Controller
     {
         $paymentMethod = PaymentMethod::get();
         return response()->json($paymentMethod, 200);
+    }
+
+
+    public function getWebsiteInfo()
+    {
+        $websiteinfo = Websiteinfo::find(1);
+        return response()->json($websiteinfo, 200);
     }
 
 }
