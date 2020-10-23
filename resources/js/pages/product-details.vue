@@ -269,8 +269,8 @@
 													<input class="absolute" required style="visibility: hidden;" :id="'p100000'" @change="onChangePayment({id:100000,name:'NPay'})" name="sends" :value="{id:100000,name:'nshopwallet'}" type="radio">
 													<div class="flex justify-between cursor-pointer py-1 px-2">
 														<img
-															src="/logo.png"
-															style="width: 100px;"
+															src="/4.png"
+															style="width: 300px;"
 															class="mr-2 p-1 object-contain"
 														/>
 														<h2 class="text-xs font-bold text-gray-900  p-1">
