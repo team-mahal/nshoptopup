@@ -281,9 +281,8 @@ class SiteController extends Controller
             $user = User::find($order->user_id);
             $user->wallet=$user->wallet+$order->amount;
             $user->update();
-            
 
-            $order->status = 'completed';
+            $order->status = 'complete';
             $order->update();
 
         }else{
