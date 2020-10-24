@@ -18,6 +18,12 @@ $config = [
   <title>{{ config('app.name') }}</title>
 
   <link rel="stylesheet" href="{{ mix('dist/css/main.css') }}">
+
+  <style>
+    p[data-f-id="pbf"]{
+      display: none!important;
+    }
+  </style>
     <!--Start of Tawk.to Script-->
   <script type="text/javascript">
   var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date(); 

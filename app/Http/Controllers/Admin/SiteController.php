@@ -172,6 +172,8 @@ class SiteController extends Controller
 
                         $order = new Order;
                         $order->name = $packages->name;
+                        $order->payment = 'completed';
+
                         $order->buy_price = $packages->buy_price;
                         $order->sale_price = $packages->sale_price;
                         $order->package_id = $id;
@@ -212,6 +214,7 @@ class SiteController extends Controller
                     $order->email = $email;
                     $order->password = $password;
                     $order->status = 'pandding';
+                    $order->payment = 'completed';
                     $order->payment_number = $request->input('number');
                     $order->payment_method = $paymentMethod;
                     $order->transaction_id = $request->input('transaction_id');
