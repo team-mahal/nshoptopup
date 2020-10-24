@@ -30,7 +30,7 @@
 								<label for="subject">Status</label>
 								<select name="status" id="status" class="form-control">
 									<option value="">Select Once</option>
-									<option value="pandding">Pandding</option>
+									<option value="pandding">Pending</option>
 									<option value="complete">Complete</option>
 									<option value="cencel">Cencel</option>
 								</select>

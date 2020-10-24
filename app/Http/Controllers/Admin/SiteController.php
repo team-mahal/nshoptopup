@@ -92,7 +92,7 @@ class SiteController extends Controller
             $order->type = $type;
             $order->email = $email;
             $order->password = $password;
-            $order->status = 'pandding';
+            $order->status = 'pending';
                 
             $order->save();
         }else{
@@ -120,7 +120,7 @@ class SiteController extends Controller
             $wallet = $user->wallet;
             $data1 = [];
 
-            $datas = Order::where('user_id', $user_id)->Where('status', 'pandding')->count();
+            $datas = Order::where('user_id', $user_id)->Where('status', 'pending')->count();
 
             $data1['success'] = 1;
             $type = $request->input('type');
@@ -136,7 +136,7 @@ class SiteController extends Controller
             $order->type = $type;
             $order->email = $email;
             $order->password = $password;
-            $order->status = 'pandding';
+            $order->status = 'pending';
             $order->payment = 'waiting';
             $order->payment_number = $request->input('number');
             $order->payment_method = $paymentMethod;
@@ -153,7 +153,7 @@ class SiteController extends Controller
             $data1 = [];
 
 
-            $datas = Order::where('user_id', $user_id)->Where('status', 'pandding')->count();
+            $datas = Order::where('user_id', $user_id)->Where('status', 'pending')->count();
             if($datas > 0)
             {
                 $data1['success'] = 0;
@@ -181,7 +181,7 @@ class SiteController extends Controller
                         $order->type = $type;
                         $order->email = $email;
                         $order->password = $password;
-                        $order->status = 'pandding';
+                        $order->status = 'pending';
                         $order->save();
                     }else{
                         $data1['success'] = 0;
@@ -213,7 +213,7 @@ class SiteController extends Controller
                     $order->type = $type;
                     $order->email = $email;
                     $order->password = $password;
-                    $order->status = 'pandding';
+                    $order->status = 'pending';
                     $order->payment = 'completed';
                     $order->payment_number = $request->input('number');
                     $order->payment_method = $paymentMethod;
@@ -227,7 +227,7 @@ class SiteController extends Controller
 
     public function paymetsuccess(Request $request)
     {
-        $order = Order::where('transaction_id', $request->tx_id)->Where('status', 'pandding')->first();
+        $order = Order::where('transaction_id', $request->tx_id)->Where('status', 'pending')->first();
         if($request->status=='Success'){
             $order->payment = 'completed';
             $order->update();
@@ -269,7 +269,7 @@ class SiteController extends Controller
         $walletInfo->transactionid = $tx_id;
         $walletInfo->paymentNumber = 0;
         $walletInfo->amount = $request->amount;
-        $walletInfo->status = 'pandding';
+        $walletInfo->status = 'pending';
         $walletInfo->save();
         return $shurjopay_service->sendPayment($request->amount,$success_route);
        
@@ -278,7 +278,7 @@ class SiteController extends Controller
     public function addpaymentsuccess(Request $request)
     {
         
-        $order = WalletInfo::where('transactionid', $request->tx_id)->Where('status', 'pandding')->first();
+        $order = WalletInfo::where('transactionid', $request->tx_id)->Where('status', 'pending')->first();
         if($request->status=='Success'){
 
             $user = User::find($order->user_id);
@@ -309,7 +309,7 @@ class SiteController extends Controller
             $withdrawInfo->paymentMethod = $request->paymentMethod;
             $withdrawInfo->receiverNumber = $request->paymentNumber;
             $withdrawInfo->amount = $amount;
-            $withdrawInfo->status = 'pandding';
+            $withdrawInfo->status = 'pending';
             $withdrawInfo->save();
             return response()->json('true', 200);
         }
