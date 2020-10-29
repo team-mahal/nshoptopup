@@ -1,5 +1,37 @@
 <template>
 	<div class="container mx-auto">
+		<section class="container mx-auto" id="favourite-game">
+			<div class="text-center">
+				<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 md:gap-4 p-2 lg:p-0">
+					<div
+						v-for="product in similarproduct"
+						:key="product.id"
+						class="rounded overflow-hidden shadow-lg hover:shadow-xl border-2 mt-5"
+					>
+						<router-link
+							:to="{
+								name: 'details',
+								params: { id: product.id, slug: makeSlug(product.name) }
+							}"
+						>
+							<!-- params: { id: product.id,slug: makeSlug(product.name) }, -->
+
+							<img
+								class="w-full"
+								:src="'/product/' + product.logo"
+								v-bind:alt="product.name"
+							/>
+							<div class="px-2 py-4">
+								<div class="font-bold text-sm mb-2">{{ product.name }}</div>
+								<p class="text-gray-700 text-base">
+									{{ product.tag_line }}
+								</p>
+							</div>
+						</router-link>
+					</div>
+				</div>
+			</div>
+		</section>
 		<div class="flex flex-wrap">
 			<div class="md:w-5/12 w-full shadow-lg p-2">
 				<div class="px-2 py-4">
@@ -250,7 +282,7 @@
 								<div>
 									<div v-if="check == false" class="flex flex-wrap">
 										<p v-on:click="modal = true" class="w-1/2 text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white py-2 px-2 rounded mb-0">
-											Login First To Confirm Your Order
+											Login
 										</p>
 										<div class="w-1/2">
 											<router-link :to="{ name: 'register' }" class="text-center block bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2 w-full" active-class="active">
@@ -554,6 +586,7 @@ export default {
 			paymentMethods: [],
 			paymentMethod: 1,
 			product: [],
+			similarproduct: [],
 			packages: [],
 			showElement: 0,
 			showAcountType: 1,
@@ -633,6 +666,20 @@ export default {
 				if(response.data.type==2){
 					this.idCodeIdPasswordForm.password="IDCODE"
 				}
+			});
+		},
+		makeSlug(slug) {
+			var words = slug.split(" ");
+			for (var i = 0; i < words.length; i++) {
+				var word = words[i];
+				words[i] = word.charAt(0).toLowerCase() + word.slice(1);
+			}
+			return words.join("-");
+		},
+		similarproducts() {
+			let id = this.$route.params.id;
+			axios.get(`/api/similarproduct/${id}`).then(response => {
+				this.similarproduct = response.data;
 			});
 		},
 		fetchPackages() {
@@ -785,6 +832,7 @@ export default {
 		},	
 	},
 	mounted() {
+		this.similarproducts();
 		this.fetchProduct();
 		this.fetchPackages();
 		this.loadPaymentMethod();

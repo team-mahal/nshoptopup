@@ -31,6 +31,15 @@ class ProductController extends Controller
             return response()->json('failed', 404);
     }
 
+
+    public function similarproduct($id)
+    {
+        $product = Product::find($id);
+        $products = Product::where('brand_id',$product->brand_id)->get();
+        return response()->json($products, 200);
+    }
+
+
     public function index()
     {
         $datas = Product::with('brand')->orderBy('id', 'DESC')->paginate(10);

@@ -48,6 +48,7 @@ Route::get('productplayzoon', "Admin\ProductController@productplayzoon");
 Route::get('shop-products', "Admin\CommonController@getProduct");
 // data api ***
 Route::get('product/{id}', "Admin\ProductController@getSingelProduct");
+Route::get('similarproduct/{id}', "Admin\ProductController@similarproduct");
 Route::get('shop-product/{id}', "Admin\CommonController@getSingelProduct");
 Route::get('packages/{id}', "Admin\PackageController@getProductWiseDataFind");
 
