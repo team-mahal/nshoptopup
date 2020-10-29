@@ -61,6 +61,23 @@
 								</select>
 							</div>
 						</div>
+
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="form-group">
+								<label>Group </label>
+								<select name="brand_id" id="is_shop" class="form-control">
+									<option value="">Select A Option</option>
+									@foreach ($brand as $element)
+										@if($product->brand_id==$element->id)
+											<option selected value="{{ $element->id }}">{{ $element->name }}</option>
+										@else
+											<option value="{{ $element->id }}">{{ $element->name }}</option>
+										@endif
+									@endforeach
+								</select>
+							</div>
+						</div>
+
 						<div class="col-lg-3 col-md-6 col-sm-12">
 							@if($product->is_shop ==0)
 							<div class="form-group" id="sh_tag_line">

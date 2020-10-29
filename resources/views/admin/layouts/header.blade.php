@@ -62,16 +62,16 @@
 						<span class="docs-normal">Setup</span>
 					</h6>
 					<ul class="navbar-nav mb-md-3">
-						<li class="nav-item ">
-							<a class="nav-link" href="{{ url('/admin/product') }}">
-								<img src="{{ asset('admin/img/icons/common/product.png') }}" class="mr-2"/>
-								<span class="nav-link-text">Product</span>
-							</a>
-						</li>
 							<li class="nav-item ">
 								<a class="nav-link" href="{{ url('/admin/brand') }}">
 									<img src="{{ asset('admin/img/icons/common/bag-brand.png') }}" class="mr-2"/>
-									<span class="nav-link-text">Brand</span>
+									<span class="nav-link-text">Group</span>
+								</a>
+							</li>
+							<li class="nav-item ">
+								<a class="nav-link" href="{{ url('/admin/product') }}">
+									<img src="{{ asset('admin/img/icons/common/product.png') }}" class="mr-2"/>
+									<span class="nav-link-text">Product</span>
 								</a>
 							</li>
 							<li class="nav-item ">

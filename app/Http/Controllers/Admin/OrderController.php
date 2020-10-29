@@ -22,7 +22,7 @@ class OrderController extends Controller
         if (empty($user_id) && empty($order_id) && empty($status)) {
             $datas = Order::with('paymentm')->where('payment', '!=' , 'waiting')->orderBy('id', 'DESC')->paginate(10);
         }else{
-            $datas = Order::with('paymentm')->where('user_id', $user_id)->orWhere('status', $status)->orWhere('id', $order_id)->paginate(10);
+            $datas = Order::with('paymentm')->where('user_id', $user_id)->orWhere('status', $status)->orWhere('id', $order_id)->paginate(101000);
         }
         return view('admin.setup.order.index', ['datas' => $datas]);
     }

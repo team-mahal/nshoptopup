@@ -98,9 +98,11 @@
 						<tr>
 							<th scope="col">#</th>
 							<th scope="col">Name</th>
+							<th scope="col">Group</th>
 							<th scope="col">Shop</th>
 							<th scope="col">Buy Price</th>
 							<th scope="col">Sale Price</th>
+							<th scope="col">Group</th>
 							<th scope="col">Tag Line</th>
 							<th scope="col">Type</th>
 							<th scope="col">Logo</th>
@@ -112,6 +114,7 @@
 						<tr>
 							<td scope="row">{{ $key+1 }}</td>
 							<td style="">{{$data->name}}</td>
+							<td style="">@if($data->brand){{ $data->brand->name }}@endif</td>
 							<td style="">@if ($data->is_shop == 0) {{"Not Shop"}}
 								@else {{"Shop"}}
 								@endif

@@ -58,6 +58,19 @@
 							</select>
 						</div>
 					</div>
+
+					<div class="col-lg-3 col-md-6 col-sm-12">
+						<div class="form-group">
+							<label>Group </label> 
+							<select name="brand_id" id="is_shop" class="form-control" required>
+								<option value="">Select A Option</option>
+								@foreach ($brand as $element)
+									<option value="{{ $element->id }}">{{ $element->name }}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
+
 					<div class="col-lg-3 col-md-6 col-sm-12">
 						<div class="form-group" id="sh_tag_line">
 							<label>Tag Line</label>

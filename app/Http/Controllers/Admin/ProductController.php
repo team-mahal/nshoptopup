@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
+use App\Brand;
 use DB;
 
 class ProductController extends Controller
 {
     public function getProduct()
     {
-        $product = Product::where('is_shop', 0)->latest()->get();
+        $product = Product::where('is_shop', 0)->with('brand')->latest()->get();
         return response()->json($product, 200);
     }
 
@@ -32,13 +33,14 @@ class ProductController extends Controller
 
     public function index()
     {
-        $datas = DB::table('products')->orderBy('id', 'DESC')->paginate(10);
+        $datas = Product::with('brand')->orderBy('id', 'DESC')->paginate(10);
         return view('admin.setup.product.index', ['datas' => $datas]);
     }
 
     public function create()
     {
-        return view('admin.setup.product.create');
+        $brand = Brand::all();
+        return view('admin.setup.product.create',['brand'=>$brand]);
     }
 
     public function store(Request $request)
@@ -52,6 +54,7 @@ class ProductController extends Controller
         $product->name = $request->input('name');
         $product->type = $request->input('type');
         $product->tag_line = $request->input('tag_line');
+        $product->brand_id = $request->input('brand_id');
         $product->is_shop = $request->input('is_shop');
         $product->buy_price = $request->input('buy_price');
         $product->sale_price = $request->input('sale_price');
@@ -73,7 +76,8 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        return view('admin.setup.product.edit', ['product' => $product]);
+        $brand = Brand::all();
+        return view('admin.setup.product.edit', ['product' => $product,'brand'=>$brand]);
     }
 
     public function update(Request $request, $id)
@@ -87,6 +91,7 @@ class ProductController extends Controller
         $type = $request->input('type');
         $tag_line = $request->input('tag_line');
         $is_shop = $request->input('is_shop');
+        $brand_id = $request->input('brand_id');
         $buy_price = $request->input('buy_price');
         $sale_price = $request->input('sale_price');
         if($request->file('logo') != ''){        
@@ -101,7 +106,7 @@ class ProductController extends Controller
         $filename = $request->input('oldlogo');
        }
 
-       $product->update(['is_shop' => $is_shop, 'buy_price' => $buy_price, 'sale_price' => $sale_price, 'logo' => $filename, 'name' => $name, 'tag_line' => $tag_line, 'description' => $description, 'type' => $type]);
+       $product->update(['is_shop' => $is_shop, 'buy_price' => $buy_price, 'sale_price' => $sale_price,'brand_id' => $brand_id, 'logo' => $filename, 'name' => $name, 'tag_line' => $tag_line, 'description' => $description, 'type' => $type]);
        return back()
             ->with('success','Product Update Successfully.')
             ->with('file', $filename);

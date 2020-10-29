@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('tag_line')->nullable();
             $table->string('logo');
             $table->integer('buy_price')->nullable();
+            $table->integer('brand_id')->nullable();
             $table->integer('sale_price')->nullable();
             $table->integer('is_shop')->nullable();
             $table->integer('quantity')->nullable();
