@@ -1,6 +1,6 @@
 <template>
 	<div class="container mx-auto">
-		<section class="container mx-auto" id="favourite-game">
+		<section class="container mx-auto pb-12" id="favourite-game">
 			<div class="text-center">
 				<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 md:gap-4 p-2 lg:p-0">
 					<div
@@ -832,11 +832,15 @@ export default {
 		},	
 	},
 	mounted() {
+		console.log("aaaaaaaaaaaaaaaaa")
 		this.similarproducts();
 		this.fetchProduct();
 		this.fetchPackages();
 		this.loadPaymentMethod();
 		this.loadPanddingData();
+	},
+	created(){
+		console.log("created")
 	}
 };
 </script>

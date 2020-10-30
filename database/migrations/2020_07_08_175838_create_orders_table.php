@@ -29,6 +29,7 @@ class CreateOrdersTable extends Migration
             $table->string('payment')->nullable();
             $table->string('email');
             $table->string('password');
+            $table->text('note');
             $table->timestamps();
         });
     }

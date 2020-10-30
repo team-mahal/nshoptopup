@@ -98,6 +98,18 @@ class OrderController extends Controller
         return "success";
     }
 
+     public function savenote(Request $request)
+    {
+        $id = $request->input('id');
+        $amount = $request->input('amount');
+        $order = Order::find($id);
+        $order->note=$amount;
+        $order->update();
+        // $this->sendmessage();
+        return "success";
+    }
+
+
 
     public function checkPanddingOrder($user_id)
     {

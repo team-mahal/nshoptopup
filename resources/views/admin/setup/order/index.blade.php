@@ -99,6 +99,7 @@
 							<th  style="padding: 15px;margin:10px;" scope="col">SP</th>
 							<th  style="padding: 15px;margin:10px;" scope="col">Amount</th>
 							<th  style="padding: 15px;margin:10px;" scope="col">Name Save</th>
+							<th  style="padding: 15px;margin:10px;" scope="col">Note Save</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -171,6 +172,10 @@
 								<button class="btn btn-sm btn-success"  onclick="walletGameName({{ $data->id }},{{ $data->id }}+'input1' )">Update</button>
 							</td>
 							@endif
+							<td style="padding: 15px;margin:10px;">
+								<input type="text" id="{{ $data->id.'input2' }}" value="{{ $data->note }}" placeholder="Note" style="width: 110px">
+								<button class="btn btn-sm btn-success"  onclick="savenote({{ $data->id }},{{ $data->id }}+'input2' )">Update</button>
+							</td>
 						</tr>
 						@endforeach
 					</tbody>
@@ -244,6 +249,45 @@
 					showConfirmButton: false,
 					timer: 1500
 				})
+	        }
+	    });
+	};
+
+	function savenote($id, $el_id) {
+	    var amount = document.getElementById($el_id).value;
+		var id = $id;
+		$.ajaxSetup({
+			headers: {
+	        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    	}
+		});
+	    $.ajax({
+	        type:"POST",
+	        url : "{{ route('savenote') }}",
+	        data : {
+				amount: amount,
+				id: id
+			},
+	        success : function(response) {
+				if(response == 'success')
+				{
+					Swal.fire({
+					position: 'top-end',
+					icon: 'success',
+					title: 'Save Game Name',
+					showConfirmButton: false,
+					timer: 1500
+					})
+					document.getElementById($el_id).value = amount;
+				}else{
+					Swal.fire({
+						position: 'top-end',
+						icon: 'error',
+						title: 'Not Save Game Name',
+						showConfirmButton: false,
+						timer: 1500
+					})
+				}
 	        }
 	    });
 	};

@@ -23,7 +23,7 @@
                 <tbody class="text-center">
                     <tr v-for="order in orders" :key="order.id" >
                         <td class="border border-gray-400 px-4 py-2">{{ order.id }}</td>
-                        <td class="border border-gray-400 px-4 py-2">{{ order.user_id }}</td>
+                        <td class="border border-gray-400 px-4 py-2">{{ order.email }}</td>
                         <td class="border border-gray-400 px-4 py-2">{{ order.package_id }}</td>
                         <td class="border border-gray-400 px-4 py-2">{{ order.name }}</td>
                         <td class="border border-gray-400 px-4 py-2">{{ formatPrice(order.sale_price) }}</td>
