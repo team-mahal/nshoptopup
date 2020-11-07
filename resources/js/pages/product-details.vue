@@ -1,572 +1,561 @@
 <template>
-	<div class="container mx-auto">
-		<section class="container mx-auto pb-12" id="favourite-game">
-			<div class="text-center">
-				<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 md:gap-4 p-2 lg:p-0">
-					<div
-						v-for="product in similarproduct"
-						:key="product.id"
-						class="rounded overflow-hidden shadow-lg hover:shadow-xl border-2 mt-5"
-					>
-						<router-link
-							:to="{
-								name: 'details',
-								params: { id: product.id, slug: makeSlug(product.name) }
-							}"
-						>
-							<!-- params: { id: product.id,slug: makeSlug(product.name) }, -->
+<div class="container mx-auto">
 
-							<img
-								class="w-full"
-								:src="'/product/' + product.logo"
-								v-bind:alt="product.name"
-							/>
-							<div class="px-2 py-4">
-								<div class="font-bold text-sm mb-2">{{ product.name }}</div>
-								<p class="text-gray-700 text-base">
-									{{ product.tag_line }}
-								</p>
-							</div>
-						</router-link>
-					</div>
-				</div>
-			</div>
-		</section>
-		<div class="flex flex-wrap">
-			<div class="md:w-5/12 w-full shadow-lg p-2">
-				<div class="px-2 py-4">
-					<h3
-						class="text-4xl sm:text-1xl md:text-2xl lg:text-4xl text-red-300 font-bold"
-					>
-						{{ product.name }}
-					</h3>
-					<h4 class="text-2xl text-red-300 font-bold">
-						{{ product.tag_line }}
-					</h4>
-					<div class="flex justify-center p-3 py-5">
-						<div class="w-5/12">
-							<img
-								class="w-full rounded"
-								:src="'/product/' + product.logo"
-								v-bind:alt="product.name"
-							/>
-						</div>
-					</div>
-					<div
-						class="font-bold text-xs text-gray-600 mb-2"
-						v-html="product.description"
-					>
-						{{ product.description }}
-					</div>
-				</div>
-			</div>
-			<div class="md:w-7/12 w-full px-2 mt-4">
-				<div
-					v-if="showElement == 1"
-					class="shadow-lg p-2 bg-white p-4 mb-8"
-					style="box-shadow: 0 2px 10px #0000003b;"
+	<div class="flex flex-wrap">
+		<div class="md:w-5/12 w-full shadow-lg p-2">
+			<div class="px-2 py-4">
+				<h3
+					class="text-4xl sm:text-1xl md:text-2xl lg:text-4xl text-red-300 font-bold"
 				>
-					<div class="flex relative">
-						<div
-							class="rounded-full h-10 w-10 bg-red-300 flex items-center justify-center text-white text-lg absolute" style="top: -42px;"
-						>
-							1
-						</div>
-						<div class="ml-2">
-							<h3 class="text-1xl text-gray-700 font-bold">
-								ID / Password
-							</h3>
-						</div>
+					{{ product.name }}
+				</h3>
+				<h4 class="text-2xl text-red-300 font-bold">
+					{{ product.tag_line }}
+				</h4>
+				<div class="flex justify-center p-3 py-5">
+					<div class="w-5/12">
+						<img
+							class="w-full rounded"
+							:src="'/product/' + product.logo"
+							v-bind:alt="product.name"
+						/>
 					</div>
-					<div class="mt-4">
-						<form class="w-full">
-							<div class="flex flex-wrap -mx-3 mb-2">
-								<div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-									<label
-										class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-										for="account-type"
-									>
-										Account Type
-									</label>
-									<div class="relative">
-										<select
-											class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-											id="account-type"
-											@change="onChange($event)"
-											v-model="idCodeIdPasswordForm.type"
-										>
-											<option value="facebook">Facebook</option>
-											<option value="gmail">Gmail</option>
-										</select>
-										<div
-											class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-										>
-											<svg
-												class="fill-current h-4 w-4"
-												xmlns="http://www.w3.org/2000/svg"
-												viewBox="0 0 20 20"
-											>
-												<path
-													d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-												/>
-											</svg>
-										</div>
-									</div>
-								</div>
-								<div
-									v-if="showAcountType === 1"
-									class="w-full md:w-1/3 px-3 mb-6 md:mb-0"
+				</div>
+				<div
+					class="font-bold text-xs text-gray-600 mb-2"
+					v-html="product.description"
+				>
+					{{ product.description }}
+				</div>
+			</div>
+
+			<div class="flex flex-wrap text-center mx-auto justify-center">
+				<div
+					v-for="product in similarproduct"
+					:key="product.id"
+					class="rounded overflow-hidden shadow-lg hover:shadow-xl border-2 mt-5"
+				>
+					<router-link
+						:to="{
+							name: 'details',
+							params: { id: product.id, slug: makeSlug(product.name) }
+						}"
+					>
+						<div class="px-2">
+							<div class="font-bold text-sm mb-2">{{ product.name }}</div>
+						</div>
+					</router-link>
+				</div>
+			</div>
+		</div>
+		<div class="md:w-7/12 w-full px-2 mt-4">
+			<div
+				v-if="showElement == 1"
+				class="shadow-lg p-2 bg-white p-4 mb-8"
+				style="box-shadow: 0 2px 10px #0000003b;"
+			>
+				<div class="flex relative">
+					<div
+						class="rounded-full h-10 w-10 bg-red-300 flex items-center justify-center text-white text-lg absolute" style="top: -42px;"
+					>
+						1
+					</div>
+					<div class="ml-2">
+						<h3 class="text-1xl text-gray-700 font-bold">
+							ID / Password
+						</h3>
+					</div>
+				</div>
+				<div class="mt-4">
+					<form class="w-full">
+						<div class="flex flex-wrap -mx-3 mb-2">
+							<div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+								<label
+									class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+									for="account-type"
 								>
-									<label
-										class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-										for="grid-city"
+									Account Type
+								</label>
+								<div class="relative">
+									<select
+										class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+										id="account-type"
+										@change="onChange($event)"
+										v-model="idCodeIdPasswordForm.type"
 									>
-										Facebook Number
-									</label>
-									<input
-										class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-										id="grid-city"
-										type="text"
-										placeholder="Enter Number"
-										v-model="idCodeIdPasswordForm.email"
-									/>
-								</div>
-								<div v-else class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-									<label
-										class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-										for="grid-city"
+										<option value="facebook">Facebook</option>
+										<option value="gmail">Gmail</option>
+									</select>
+									<div
+										class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
 									>
-										Your Gmail
-									</label>
-									<input
-										class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-										id="grid-city"
-										type="email"
-										placeholder="Enter Email"
-										v-model="idCodeIdPasswordForm.email"
-									/>
-								</div>
-
-								<div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-									<label
-										class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-										for="password"
-									>
-										Password
-									</label>
-									<input
-										class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-										id="password"
-										type="password"
-										placeholder="Enter Password"
-										v-model="idCodeIdPasswordForm.password"
-									/>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-
-				<div
-					v-else
-					class="shadow-lg p-2 bg-white p-4 mb-8"
-					style="box-shadow: 0 2px 10px #0000003b;"
-				>
-					<div class="flex relative">
-						<div
-							class="rounded-full h-10 w-10 bg-red-300 flex items-center justify-center text-white text-lg absolute"
-							style="top: -42px;"
-						>
-							0
-						</div>
-						<div class="ml-2">
-							<h3 class="text-1xl text-gray-700 font-bold">
-								ID / Code
-							</h3>
-						</div>
-					</div>
-					<div>
-						<form class="w-full">
-							<div class="flex flex-wrap -mx-3 mb-2">
-								<div class="w-1/2 md:mb-0 m-3">
-									<label
-										class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-										for="grid-city"
-									>
-										Id Code
-									</label>
-									<input
-										class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-										id="grid-city"
-										type="text"
-										placeholder="ID CODE"
-										v-model="idCodeIdPasswordForm.email"
-									/>
-									<input type="hidden" v-model="idCodeIdPasswordForm.password" value="id code">
-									<input type="hidden" v-model="idCodeIdPasswordForm.type" value="id code">
-								</div>
-								<div class="w-1/23 m-3 md:mb-0" style="display: none;">
-									<label
-										class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-										for="grid-city"
-									>
-										Game Name
-									</label>
-									<input
-										class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-										id="grid-city"
-										type="text"
-										placeholder="Game Name"
-										v-model="idCodeIdPasswordForm.password"
-									/>
-									<input type="hidden" v-model="idCodeIdPasswordForm.password" value="id code">
-									<input type="hidden" v-model="idCodeIdPasswordForm.type" value="id code">
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-
-				<div
-					class="shadow-lg p-2 bg-white "
-					style="box-shadow: 0 2px 10px #0000003b;"
-				>
-					<div class="flex relative">
-						<div
-							class="rounded-full h-10 w-10 bg-red-300 flex items-center justify-center text-white text-lg absolute"
-							style="top: -42px;"
-						>
-							2
-						</div>
-						<div class="ml-2">
-							<h3 class="text-1xl text-gray-700 font-bold">
-								Select Recharge
-							</h3>
-						</div>
-					</div>
-					<div
-						class="flex flex-wrap mt-4 justify-center"
-					>	
-						<div class="text-center" v-for="(game, key, index) in packages" :key="game.id">
-					  		<div class="m-1">
-					  			<label :for="game.id" class="mb-0 list-group-item py-3 d-block"  style="width: 8rem; font-size: 11px;position: relative;    overflow: hidden;">
-					  				<span class="absolute left-0" :class="selectedPackageData.id==game.id ? 'element-check-label' : ''" style="color: #fff;"> L </span>
-						  			<input class="absolute" required style="visibility: hidden;" :id="game.id" @change="onChangePackage(game)" v-model="checkedData" name="send" :value="game.sale_price" type="radio">
-									<span class="text-xs">{{ game.name }}</span>
-						  		</label>
-						  	</div>
-					  	</div> 
-					  	
-					</div>
-				</div>
-				<div
-					class="shadow-lg p-2 bg-white p-4 mt-8 transition duration-1000 pb-10"
-					style="box-shadow: 0 2px 10px #0000003b;"
-				>
-					<div class="flex relative">
-						<div
-							class="rounded-full h-10 w-10 bg-red-300 flex items-center justify-center text-white text-lg absolute"
-							style="top: -42px;"
-						>
-							3
-						</div>
-						<div class="ml-2">
-							<h3 class="text-1xl text-gray-700 font-bold">
-								Select Payment
-							</h3>
-						</div>
-					</div>
-					<div class="w-full mt-4">
-						<div id="grow">
-							<div class="measuringWrapper text-gray-900">
-								<div>
-									<div v-if="check == false" class="flex flex-wrap">
-										<p v-on:click="modal = true" class="w-1/2 text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white py-2 px-2 rounded mb-0">
-											Login
-										</p>
-										<div class="w-1/2">
-											<router-link :to="{ name: 'register' }" class="text-center block bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2 w-full" active-class="active">
-												{{ $t('register') }}
-											</router-link>
-										</div>
-									</div>
-									<div v-else>
-										<div 
-											v-if="user!=null"
-											class="flex bg-grey-300 border-2 justify-center"
+										<svg
+											class="fill-current h-4 w-4"
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 20 20"
 										>
-											<label :for="'p100000'" class="mb-0 w-40 list-group-item pt-3 d-block w-full"  style="font-size: 11px;position: relative;overflow: hidden;">
-												<div class="w-full">
-													<span class="absolute left-0" :class="selectedpaymentmethod.id==100000 ? 'element-check-label' : ''" style="color: #fff;"> L </span>
-													<input class="absolute" required style="visibility: hidden;" :id="'p100000'" @change="onChangePayment({id:100000,name:'NPay'})" name="sends" :value="{id:100000,name:'nshopwallet'}" type="radio">
-													<div class="flex justify-between cursor-pointer py-1 px-2">
-														<img
-															src="/4.png"
-															style="width: 150px;"
-															class="mr-2 p-1 object-contain"
-														/>
-														<h2 class="text-xs font-bold text-gray-900  p-1">
-															<p>Price</p>
-															<p>BDT {{ checkedData }}</p>
-														</h2>
-													</div>
-													<div class="border-t-2 bg-gray-300">
-														<h2 class="text-sm text-gray-900 font-normal pl-2">
-															Pay With NPay
-														</h2>
-													</div>
-												</div>
-											</label>
-										</div>
-										<div 
-											v-if="user!=null"
-											class="flex bg-grey-300 border-2 justify-center"
-										>
-											<label :for="'p0'" class="mb-0 w-40 list-group-item pt-3 d-block w-full"  style="font-size: 11px;position: relative;overflow: hidden;">
-												<div class="w-full">
-													<span class="absolute left-0" :class="selectedpaymentmethod.id==0 ? 'element-check-label' : ''" style="color: #fff;"> L </span>
-													<input class="absolute" required style="visibility: hidden;" :id="'p0'" @change="onChangePayment({id:0,name:'nshopwallet'})" name="sends" :value="{id:0,name:'nshopwallet'}" type="radio">
-													<div class="flex justify-between cursor-pointer py-1 px-2">
-														<img
-															src="/logo.png"
-															style="width: 100px;"
-															class="mr-2 p-1 object-contain"
-														/>
-														<h2 class="text-xs font-bold text-gray-900  p-1">
-															<p>Price</p>
-															<p>BDT {{ checkedData }}</p>
-														</h2>
-													</div>
-													<div class="border-t-2 bg-gray-300">
-														<h2 class="text-sm text-gray-900 font-normal pl-2">
-															Pay With Nshop wallet
-														</h2>
-													</div>
-												</div>
-											</label>
-										</div>
-										
-										<div
-											class="flex bg-grey-300 border-2 justify-center mt-3"
-											v-for="m in paymentMethods"
-										>
-											<label :for="'p'+m.id" class="mb-0 w-40 list-group-item pt-3 d-block w-full"  style="font-size: 11px;position: relative;    overflow: hidden;">
-												<div class="w-full">
-									  				<span class="absolute left-0" :class="selectedpaymentmethod.id==m.id ? 'element-check-label' : ''" style="color: #fff;"> L </span>
-										  			<input class="absolute" required style="visibility: hidden;" :id="'p'+m.id" @change="onChangePayment(m)" name="sends" :value="m" type="radio">
-													<div class="flex justify-between cursor-pointer py-1 px-2">
-														<img
-															:src="'/paymentMethod/'+m.logo"
-															style="width: 40px;height: 40px"
-															class="mr-2 p-1 object-contain"
-														/>
-														<h2 class="text-xs font-bold text-gray-900  p-1">
-															<p>Price</p>
-															<p>{{  m.currency }} {{ abc(m.discount) }}</p>
-														</h2>
-													</div>
-													<div class="border-t-2 bg-gray-300">
-														<h2 class="text-sm text-gray-900 font-normal pl-2">
-															Pay With {{ m.name }}
-														</h2>
-													</div>
-												</div>
-										  	</label>
-										</div>
-										<div class="mt-5 text-right">
-											<button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 mt-2 rounded" v-if="selectedPackageData.length!=0 && selectedpaymentmethod.length!=0 && idCodeIdPasswordForm.email" v-on:click="buynow(user.id)">Buy Now</button>
-											<button class="bg-green-500 text-white font-bold py-2 px-4 rounded opacity-50 cursor-not-allowed mt-2" v-else disabled>Buy Now</button>
-										</div>
+											<path
+												d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+											/>
+										</svg>
 									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div v-if="modal" class="modal sm:px-3">
-			<div class="lg:w-6/12 sm:w-10/12 mx-auto bg-white">
-				<header class="card p-4 border-b-2">
-					<span
-						v-on:click="modal = false"
-						class="float-right hover:text-red-300 text-2xl transform cursor-pointer"
-						>×</span
-					>
-					<div class="justify-center items-center">
-						<div>
-							<h2 class="text-1xl text-gray-900 font-bold" v-if="check == false">
-								Login First To Complete Your Order
-							</h2>
-							<h2 class="text-1xl text-gray-900 font-bold" v-else>
-								Please Complete Your Order
-							</h2>
-						</div>
-					</div>
-				</header>
-				<div class="modal-body bg-gray-300 py-5 px-32 md:px-2 sm:px-2">
-					<div class="bg-white p-4">
-						<div class="mt-8">
-							<form
-								v-if="check == false"
-								@submit.prevent="login"
-								@keydown="form.onKeydown($event)"
-								class="w-full"
+							<div
+								v-if="showAcountType === 1"
+								class="w-full md:w-1/3 px-3 mb-6 md:mb-0"
 							>
-								<div class="w-full px-3 mb-6 md:mb-3">
-									<label
-										class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-										for="email"
-									>
-										Nshop Email
-									</label>
-									<input
-										v-model="form.email"
-										:class="{ 'is-invalid': form.errors.has('email') }"
-										class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-										type="email"
-										name="email"
-										placeholder="Email"
-									/>
-									<has-error class="text-red-600" :form="form" field="email" />
-								</div>
-								<div class="w-full px-3 mb-6 md:mb-3">
-									<label
-										class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-										for="email"
-									>
-										Nshop Account Password
-									</label>
-									<input
-										v-model="form.password"
-										:class="{ 'is-invalid': form.errors.has('password') }"
-										class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-										type="password"
-										name="password"
-										placeholder="Password"
-									/>
-									<has-error :form="form" field="password" />
-								</div>
-								<div class="text-right px-3">
-									<p class="text-sm text-gray-900 transform -translate-y-2">
-										Login First To Submit Order
-									</p>
-									<div class="flex float-right">
-										<label
-											for="remember-me"
-											class="font-bold text-xs text-red-300 mr-2"
-										>
-											{{ $t("remember_me") }} </label
-										><checkbox
-											v-model="remember"
-											name="remember"
-											class=""
-										></checkbox>
-									</div>
-								</div>
-								<div class="w-full px-3 mb-6 md:mb-3 mt-2">
-									<button
-										class="appearance-none block w-full bg-red-300 text-white border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-										:loading="form.busy"
-									>
-										{{ $t("login") }}
-									</button>
-									<router-link :to="{ name: 'register' }" class="mt-5 text-center block bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2 w-full" active-class="active">
-										{{ $t('register') }}
-									</router-link>
-								</div>
-								<div class="text-center">
-									<h4 class="text-sm">
-										By clicking "Confirm", you agree to
-										<router-link :to="'/privacy-policy'" class="text-red-300"
-											>Nshop Terms and Conditions.</router-link>
-									</h4>
-								</div>
-							</form>
-							<div v-else class="">
-								<div class="w-full mb-6 md:mb-3 mt-2">
-									<button
-										class="appearance-none block w-full bg-orange-500 text-white border border-gray-200 rounded py-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-										v-if="user!=null && user.wallet >= checkedData"
-										v-on:click="orderWithWallet(user.id)"
-									>Your Wallet {{ user.wallet }} BDT
-										Confirm Order
-									</button>
-								</div>
+								<label
+									class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+									for="grid-city"
+								>
+									Facebook Number
+								</label>
+								<input
+									class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+									id="grid-city"
+									type="text"
+									placeholder="Enter Number"
+									v-model="idCodeIdPasswordForm.email"
+								/>
+							</div>
+							<div v-else class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+								<label
+									class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+									for="grid-city"
+								>
+									Your Gmail
+								</label>
+								<input
+									class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+									id="grid-city"
+									type="email"
+									placeholder="Enter Email"
+									v-model="idCodeIdPasswordForm.email"
+								/>
+							</div>
+
+							<div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+								<label
+									class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+									for="password"
+								>
+									Password
+								</label>
+								<input
+									class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+									id="password"
+									type="password"
+									placeholder="Enter Password"
+									v-model="idCodeIdPasswordForm.password"
+								/>
 							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
-		</div>
 
-		<div v-if="transactionModal" class="modal sm:px-3">
-			<div class="lg:w-6/12 sm:w-10/12 mx-auto bg-white">
-				<header class="card p-4 border-b-2">
-					<span
-						v-on:click="transactionModal = false"
-						class="float-right hover:text-red-300 text-2xl transform cursor-pointer"
-						>×</span
+			<div
+				v-else
+				class="shadow-lg p-2 bg-white p-4 mb-8"
+				style="box-shadow: 0 2px 10px #0000003b;"
+			>
+				<div class="flex relative">
+					<div
+						class="rounded-full h-10 w-10 bg-red-300 flex items-center justify-center text-white text-lg absolute"
+						style="top: -42px;"
 					>
-					<div class="justify-center items-center">
-						<div>
-							<h2 class="text-1xl text-gray-900 font-bold" v-if="check == false">
-								Login First To Complete Your Order
-							</h2>
-							<h2 class="text-1xl text-gray-900 font-bold" v-else>
-								Please Complete Your Order
-							</h2>
-						</div>
+						0
 					</div>
-				</header>
-				<div class="modal-body bg-gray-300 py-5 px-32 md:px-2 sm:px-2">
-					<div class="bg-white p-4">
-						<div class="mt-8">
-							<h2 class="text-1xl text-gray-900 font-bold" v-if="check == false">
-								<p class="appearance-none block w-full bg-red-300 text-white border border-gray-200 rounded py-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">Login First To Complete Your Order</p>
-							</h2>
-							<div v-else>
-								<div class="">
-									<p>Package: <span>{{ selectedPackageData.name }}</span></p>
-									<p>Price: <span>{{ selectedpaymentmethod.currency }} {{ abc1() }}</span></p>
-									<p>Payment Method: <span>{{ selectedpaymentmethod.name }}</span></p>
-									<div v-if="showElement==0">
-										<p>ID CODE: <span>{{ idCodeIdPasswordForm.email }}</span></p>
-										<p>NICK NAME: <span>{{ gamename }}</span></p>
-									</div>
-									<div v-else>
-										<p>ID: <span>{{ idCodeIdPasswordForm.email }}</span></p>
-										<p>PASSWORD: <span>{{ idCodeIdPasswordForm.password }}</span></p>
+					<div class="ml-2">
+						<h3 class="text-1xl text-gray-700 font-bold">
+							ID / Code
+						</h3>
+					</div>
+				</div>
+				<div>
+					<form class="w-full">
+						<div class="flex flex-wrap -mx-3 mb-2">
+							<div class="w-1/2 md:mb-0 m-3">
+								<label
+									class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+									for="grid-city"
+								>
+									Id Code
+								</label>
+								<input
+									class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+									id="grid-city"
+									type="text"
+									placeholder="ID CODE"
+									v-model="idCodeIdPasswordForm.email"
+								/>
+								<input type="hidden" v-model="idCodeIdPasswordForm.password" value="id code">
+								<input type="hidden" v-model="idCodeIdPasswordForm.type" value="id code">
+							</div>
+							<div class="w-1/23 m-3 md:mb-0" style="display: none;">
+								<label
+									class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+									for="grid-city"
+								>
+									Game Name
+								</label>
+								<input
+									class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+									id="grid-city"
+									type="text"
+									placeholder="Game Name"
+									v-model="idCodeIdPasswordForm.password"
+								/>
+								<input type="hidden" v-model="idCodeIdPasswordForm.password" value="id code">
+								<input type="hidden" v-model="idCodeIdPasswordForm.type" value="id code">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div
+				class="shadow-lg p-2 bg-white "
+				style="box-shadow: 0 2px 10px #0000003b;"
+			>
+				<div class="flex relative">
+					<div
+						class="rounded-full h-10 w-10 bg-red-300 flex items-center justify-center text-white text-lg absolute"
+						style="top: -42px;"
+					>
+						2
+					</div>
+					<div class="ml-2">
+						<h3 class="text-1xl text-gray-700 font-bold">
+							Select Recharge
+						</h3>
+					</div>
+				</div>
+				<div
+					class="flex flex-wrap mt-4 justify-center"
+				>	
+					<div class="text-center" v-for="(game, key, index) in packages" :key="game.id">
+				  		<div class="m-1">
+				  			<label :for="game.id" class="mb-0 list-group-item py-3 d-block"  style="width: 8rem; font-size: 11px;position: relative;    overflow: hidden;">
+				  				<span class="absolute left-0" :class="selectedPackageData.id==game.id ? 'element-check-label' : ''" style="color: #fff;"> L </span>
+					  			<input class="absolute" required style="visibility: hidden;" :id="game.id" @change="onChangePackage(game)" v-model="checkedData" name="send" :value="game.sale_price" type="radio">
+								<span class="text-xs">{{ game.name }}</span>
+					  		</label>
+					  	</div>
+				  	</div> 
+				  	
+				</div>
+			</div>
+			<div
+				class="shadow-lg p-2 bg-white p-4 mt-8 transition duration-1000 pb-10"
+				style="box-shadow: 0 2px 10px #0000003b;"
+			>
+				<div class="flex relative">
+					<div
+						class="rounded-full h-10 w-10 bg-red-300 flex items-center justify-center text-white text-lg absolute"
+						style="top: -42px;"
+					>
+						3
+					</div>
+					<div class="ml-2">
+						<h3 class="text-1xl text-gray-700 font-bold">
+							Select Payment
+						</h3>
+					</div>
+				</div>
+				<div class="w-full mt-4">
+					<div id="grow">
+						<div class="measuringWrapper text-gray-900">
+							<div>
+								<div v-if="check == false" class="flex flex-wrap">
+									<p v-on:click="modal = true" class="w-1/2 text-white cursor-pointer text-center bg-orange-500 hover:bg-pink-500 text-white py-2 px-2 rounded mb-0">
+										Login
+									</p>
+									<div class="w-1/2">
+										<router-link :to="{ name: 'register' }" class="text-center block bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2 w-full" active-class="active">
+											{{ $t('register') }}
+										</router-link>
 									</div>
 								</div>
-								<div v-if="selectedpaymentmethod!=[] && selectedpaymentmethod.id!=0  && selectedpaymentmethod.id!=100000">
-
-									<p class="text-white text-center bg-red-300 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded w-56 mx-auto mt-2">How to add money?</p>
-				                    <span class="my-3 mt-3" style="font-family: auto;" v-html="selectedpaymentmethod.des">
-				                      	
-				                    </span>
-
-									<input
-										v-model="transaction_id"
-										class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-gray-600 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-										placeholder="Transaction Id"
-									/>
-									<input
-										v-model="number"
-										class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-gray-600 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-										placeholder="Sender number"
-									/>
+								<div v-else>
+									<div 
+										v-if="user!=null"
+										class="flex bg-grey-300 border-2 justify-center"
+									>
+										<label :for="'p100000'" class="mb-0 w-40 list-group-item pt-3 d-block w-full"  style="font-size: 11px;position: relative;overflow: hidden;">
+											<div class="w-full">
+												<span class="absolute left-0" :class="selectedpaymentmethod.id==100000 ? 'element-check-label' : ''" style="color: #fff;"> L </span>
+												<input class="absolute" required style="visibility: hidden;" :id="'p100000'" @change="onChangePayment({id:100000,name:'NPay'})" name="sends" :value="{id:100000,name:'nshopwallet'}" type="radio">
+												<div class="flex justify-between cursor-pointer py-1 px-2">
+													<img
+														src="/4.png"
+														style="width: 150px;"
+														class="mr-2 p-1 object-contain"
+													/>
+													<h2 class="text-xs font-bold text-gray-900  p-1">
+														<p>Price</p>
+														<p>BDT {{ checkedData }}</p>
+													</h2>
+												</div>
+												<div class="border-t-2 bg-gray-300">
+													<h2 class="text-sm text-gray-900 font-normal pl-2">
+														Pay With NPay
+													</h2>
+												</div>
+											</div>
+										</label>
+									</div>
+									<div 
+										v-if="user!=null"
+										class="flex bg-grey-300 border-2 justify-center"
+									>
+										<label :for="'p0'" class="mb-0 w-40 list-group-item pt-3 d-block w-full"  style="font-size: 11px;position: relative;overflow: hidden;">
+											<div class="w-full">
+												<span class="absolute left-0" :class="selectedpaymentmethod.id==0 ? 'element-check-label' : ''" style="color: #fff;"> L </span>
+												<input class="absolute" required style="visibility: hidden;" :id="'p0'" @change="onChangePayment({id:0,name:'nshopwallet'})" name="sends" :value="{id:0,name:'nshopwallet'}" type="radio">
+												<div class="flex justify-between cursor-pointer py-1 px-2">
+													<img
+														src="/logo.png"
+														style="width: 100px;"
+														class="mr-2 p-1 object-contain"
+													/>
+													<h2 class="text-xs font-bold text-gray-900  p-1">
+														<p>Price</p>
+														<p>BDT {{ checkedData }}</p>
+													</h2>
+												</div>
+												<div class="border-t-2 bg-gray-300">
+													<h2 class="text-sm text-gray-900 font-normal pl-2">
+														Pay With Nshop wallet
+													</h2>
+												</div>
+											</div>
+										</label>
+									</div>
+									
+									<div
+										class="flex bg-grey-300 border-2 justify-center mt-3"
+										v-for="m in paymentMethods"
+									>
+										<label :for="'p'+m.id" class="mb-0 w-40 list-group-item pt-3 d-block w-full"  style="font-size: 11px;position: relative;    overflow: hidden;">
+											<div class="w-full">
+								  				<span class="absolute left-0" :class="selectedpaymentmethod.id==m.id ? 'element-check-label' : ''" style="color: #fff;"> L </span>
+									  			<input class="absolute" required style="visibility: hidden;" :id="'p'+m.id" @change="onChangePayment(m)" name="sends" :value="m" type="radio">
+												<div class="flex justify-between cursor-pointer py-1 px-2">
+													<img
+														:src="'/paymentMethod/'+m.logo"
+														style="width: 40px;height: 40px"
+														class="mr-2 p-1 object-contain"
+													/>
+													<h2 class="text-xs font-bold text-gray-900  p-1">
+														<p>Price</p>
+														<p>{{  m.currency }} {{ abc(m.discount) }}</p>
+													</h2>
+												</div>
+												<div class="border-t-2 bg-gray-300">
+													<h2 class="text-sm text-gray-900 font-normal pl-2">
+														Pay With {{ m.name }}
+													</h2>
+												</div>
+											</div>
+									  	</label>
+									</div>
+									<div class="mt-5 text-right">
+										<button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 mt-2 rounded" v-if="selectedPackageData.length!=0 && selectedpaymentmethod.length!=0 && idCodeIdPasswordForm.email" v-on:click="buynow(user.id)">Buy Now</button>
+										<button class="bg-green-500 text-white font-bold py-2 px-4 rounded opacity-50 cursor-not-allowed mt-2" v-else disabled>Buy Now</button>
+									</div>
 								</div>
-								<button v-if="user!=null" v-on:click="orderWithTransactionId(user.id)" class="appearance-none block w-full bg-orange-500 text-white border border-gray-200 rounded py-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 mt-2">Confirm Order</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div id="spay"></div>
 	</div>
+
+	<div v-if="modal" class="modal sm:px-3">
+		<div class="lg:w-6/12 sm:w-10/12 mx-auto bg-white">
+			<header class="card p-4 border-b-2">
+				<span
+					v-on:click="modal = false"
+					class="float-right hover:text-red-300 text-2xl transform cursor-pointer"
+					>×</span
+				>
+				<div class="justify-center items-center">
+					<div>
+						<h2 class="text-1xl text-gray-900 font-bold" v-if="check == false">
+							Login First To Complete Your Order
+						</h2>
+						<h2 class="text-1xl text-gray-900 font-bold" v-else>
+							Please Complete Your Order
+						</h2>
+					</div>
+				</div>
+			</header>
+			<div class="modal-body bg-gray-300 py-5 px-32 md:px-2 sm:px-2">
+				<div class="bg-white p-4">
+					<div class="mt-8">
+						<form
+							v-if="check == false"
+							@submit.prevent="login"
+							@keydown="form.onKeydown($event)"
+							class="w-full"
+						>
+							<div class="w-full px-3 mb-6 md:mb-3">
+								<label
+									class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+									for="email"
+								>
+									Nshop Email
+								</label>
+								<input
+									v-model="form.email"
+									:class="{ 'is-invalid': form.errors.has('email') }"
+									class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+									type="email"
+									name="email"
+									placeholder="Email"
+								/>
+								<has-error class="text-red-600" :form="form" field="email" />
+							</div>
+							<div class="w-full px-3 mb-6 md:mb-3">
+								<label
+									class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+									for="email"
+								>
+									Nshop Account Password
+								</label>
+								<input
+									v-model="form.password"
+									:class="{ 'is-invalid': form.errors.has('password') }"
+									class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+									type="password"
+									name="password"
+									placeholder="Password"
+								/>
+								<has-error :form="form" field="password" />
+							</div>
+							<div class="text-right px-3">
+								<p class="text-sm text-gray-900 transform -translate-y-2">
+									Login First To Submit Order
+								</p>
+								<div class="flex float-right">
+									<label
+										for="remember-me"
+										class="font-bold text-xs text-red-300 mr-2"
+									>
+										{{ $t("remember_me") }} </label
+									><checkbox
+										v-model="remember"
+										name="remember"
+										class=""
+									></checkbox>
+								</div>
+							</div>
+							<div class="w-full px-3 mb-6 md:mb-3 mt-2">
+								<button
+									class="appearance-none block w-full bg-red-300 text-white border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+									:loading="form.busy"
+								>
+									{{ $t("login") }}
+								</button>
+								<router-link :to="{ name: 'register' }" class="mt-5 text-center block bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2 w-full" active-class="active">
+									{{ $t('register') }}
+								</router-link>
+							</div>
+							<div class="text-center">
+								<h4 class="text-sm">
+									By clicking "Confirm", you agree to
+									<router-link :to="'/privacy-policy'" class="text-red-300"
+										>Nshop Terms and Conditions.</router-link>
+								</h4>
+							</div>
+						</form>
+						<div v-else class="">
+							<div class="w-full mb-6 md:mb-3 mt-2">
+								<button
+									class="appearance-none block w-full bg-orange-500 text-white border border-gray-200 rounded py-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+									v-if="user!=null && user.wallet >= checkedData"
+									v-on:click="orderWithWallet(user.id)"
+								>Your Wallet {{ user.wallet }} BDT
+									Confirm Order
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div v-if="transactionModal" class="modal sm:px-3">
+		<div class="lg:w-6/12 sm:w-10/12 mx-auto bg-white">
+			<header class="card p-4 border-b-2">
+				<span
+					v-on:click="transactionModal = false"
+					class="float-right hover:text-red-300 text-2xl transform cursor-pointer"
+					>×</span
+				>
+				<div class="justify-center items-center">
+					<div>
+						<h2 class="text-1xl text-gray-900 font-bold" v-if="check == false">
+							Login First To Complete Your Order
+						</h2>
+						<h2 class="text-1xl text-gray-900 font-bold" v-else>
+							Please Complete Your Order
+						</h2>
+					</div>
+				</div>
+			</header>
+			<div class="modal-body bg-gray-300 py-5 px-32 md:px-2 sm:px-2">
+				<div class="bg-white p-4">
+					<div class="mt-8">
+						<h2 class="text-1xl text-gray-900 font-bold" v-if="check == false">
+							<p class="appearance-none block w-full bg-red-300 text-white border border-gray-200 rounded py-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">Login First To Complete Your Order</p>
+						</h2>
+						<div v-else>
+							<div class="">
+								<p>Package: <span>{{ selectedPackageData.name }}</span></p>
+								<p>Price: <span>{{ selectedpaymentmethod.currency }} {{ abc1() }}</span></p>
+								<p>Payment Method: <span>{{ selectedpaymentmethod.name }}</span></p>
+								<div v-if="showElement==0">
+									<p>ID CODE: <span>{{ idCodeIdPasswordForm.email }}</span></p>
+									<p>NICK NAME: <span>{{ gamename }}</span></p>
+								</div>
+								<div v-else>
+									<p>ID: <span>{{ idCodeIdPasswordForm.email }}</span></p>
+									<p>PASSWORD: <span>{{ idCodeIdPasswordForm.password }}</span></p>
+								</div>
+							</div>
+							<div v-if="selectedpaymentmethod!=[] && selectedpaymentmethod.id!=0  && selectedpaymentmethod.id!=100000">
+
+								<p class="text-white text-center bg-red-300 hover:bg-pink-500 text-white font-bold py-2 px-2 rounded w-56 mx-auto mt-2">How to add money?</p>
+			                    <span class="my-3 mt-3" style="font-family: auto;" v-html="selectedpaymentmethod.des">
+			                      	
+			                    </span>
+
+								<input
+									v-model="transaction_id"
+									class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-gray-600 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+									placeholder="Transaction Id"
+								/>
+								<input
+									v-model="number"
+									class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-gray-600 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+									placeholder="Sender number"
+								/>
+							</div>
+							<button v-if="user!=null" v-on:click="orderWithTransactionId(user.id)" class="appearance-none block w-full bg-orange-500 text-white border border-gray-200 rounded py-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 mt-2">Confirm Order</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="spay"></div>
+
+</div>
 </template>
 
 <script>
