@@ -143,7 +143,7 @@ class SiteController extends Controller
             $order->transaction_id = $tx_id;
             $order->save();
 
-            return $shurjopay_service->sendPayment(1,$success_route);
+            return $shurjopay_service->sendPayment($packages->sale_price,$success_route);
 
         }else{
 
