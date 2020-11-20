@@ -52,6 +52,9 @@ Route::get('similarproduct/{id}', "Admin\ProductController@similarproduct");
 Route::get('shop-product/{id}', "Admin\CommonController@getSingelProduct");
 Route::get('packages/{id}', "Admin\PackageController@getProductWiseDataFind");
 
+
+Route::get('brands', "Admin\BrandController@getBrand");
+
 //invoices-data
 Route::get('invoices-data/{id}', "Admin\CommonController@getInvoicesData");
 Route::get('invoice-details/{id}/{user_id}', "Admin\CommonController@getInvoiceDetails");

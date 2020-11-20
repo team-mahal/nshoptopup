@@ -10,4 +10,9 @@ class Brand extends Model
         'name',
         'logo'
     ];
+
+    public function product()
+    {
+    	 return $this->hasOne('App\Product');
+    }
 }

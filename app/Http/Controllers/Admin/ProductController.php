@@ -35,7 +35,7 @@ class ProductController extends Controller
     public function similarproduct($id)
     {
         $product = Product::find($id);
-        $products = Product::where('brand_id',$product->brand_id)->get();
+        $products = Product::where('id', '!=', $id)->where('brand_id',$product->brand_id)->get();
         return response()->json($products, 200);
     }
 

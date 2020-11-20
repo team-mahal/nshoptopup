@@ -87,4 +87,16 @@ class brandController extends Controller
         return back()
             ->with('success','Brand Delete Successfully.');
     }
+
+    public function getBrand()
+    {
+        $brand = Brand::with('product')->latest()->get();
+        return response()->json($brand, 200);
+    }
+
+    public function getProductBrand($id)
+    {
+        $brand = Product::where('brand_id',$id)->get();
+        return response()->json($brand, 200);
+    }
 }

@@ -65,7 +65,7 @@
 							<li class="nav-item ">
 								<a class="nav-link" href="{{ url('/admin/brand') }}">
 									<img src="{{ asset('admin/img/icons/common/bag-brand.png') }}" class="mr-2"/>
-									<span class="nav-link-text">Group</span>
+									<span class="nav-link-text">Brand</span>
 								</a>
 							</li>
 							<li class="nav-item ">

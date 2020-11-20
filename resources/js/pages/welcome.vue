@@ -14,31 +14,30 @@
 				<h2 class="text-4xl text-red-300 font-bold">FAVOURITE GAMES</h2>
 				<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 md:gap-4 p-2 lg:p-0">
 					<div
-						v-for="product in products"
-						:key="product.id"
+						v-for="brand in brands"
+						v-if="brand.product"
+						:key="brand.id"
 						class="rounded overflow-hidden shadow-lg hover:shadow-xl border-2 mt-5"
 					>
 						<router-link
 							:to="{
 								name: 'details',
-								params: { id: product.id, slug: makeSlug(product.name) }
+								params: { id: brand.product.id, slug: makeSlug(brand.name) }
 							}"
 						>
 							<!-- params: { id: product.id,slug: makeSlug(product.name) }, -->
 
 							<img
 								class="w-full"
-								:src="'/product/' + product.logo"
-								v-bind:alt="product.name"
+								:src="'/brand/' + brand.logo"
+								v-bind:alt="brand.name"
 							/>
 							<div class="px-2 py-4">
-								<div class="font-bold text-sm mb-2">{{ product.name }}</div>
-								<p class="text-gray-700 text-base">
-									{{ product.tag_line }}
-								</p>
+								<div class="font-bold text-sm mb-2">{{ brand.name }}</div>
+								
 							</div>
 						</router-link>
-					</div>
+					</div> 
 				</div>
 			</div>
 		</section>
@@ -118,6 +117,7 @@ export default {
 		title: "Kmf Gaming Mall",
 		products: [],
 		blogs: [],
+		brands: [],
 		sliders: [],
 		loaded:false
 	}),
@@ -128,7 +128,11 @@ export default {
 				this.sliders = response.data;
 				this.loaded=true;
 			});
-
+		},
+		loadBrands() {
+			axios.get("/api/brands").then(response => {
+				this.brands = response.data;
+			});
 		},
 		loadProducts() {
 			axios.get("/api/products").then(response => {
@@ -157,6 +161,7 @@ export default {
 		this.loadProducts();
 		this.loadBlogs();
 		this.loadSliders();
+		this.loadBrands();
 	}
 };
 </script>
