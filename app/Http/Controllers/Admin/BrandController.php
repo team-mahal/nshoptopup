@@ -4,10 +4,10 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\brand;
+use App\Brand;
 use DB;
 
-class brandController extends Controller
+class BrandController extends Controller
 {
     public function index()
     {
