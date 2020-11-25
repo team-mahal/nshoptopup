@@ -19,7 +19,7 @@ class TransactionInfoController extends Controller
         if (empty($user_id) && empty($transaction_id) && empty($status)) {
             $datas = WalletInfo::orderBy('id', 'DESC')->paginate(10);
         }else{
-            $datas = WalletInfo::orderBy('id', 'DESC')->where('user_id', $user_id)->orWhere('status', $status)->orWhere('id', $transaction_id)->paginate(10);
+            $datas = WalletInfo::orderBy('id', 'DESC')->where('user_id', $user_id)->orWhere('status', $status)->orWhere('transactionid', $transaction_id)->paginate(10);
         }
         return view('admin.setup.transactionInfo.index', ['datas' => $datas]);
     }

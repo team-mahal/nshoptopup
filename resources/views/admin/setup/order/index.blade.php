@@ -27,12 +27,18 @@
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-12">
 							<div class="form-group">
+								<label for="transaction_id">Transaction ID</label>
+								<input value="{{ old('transaction_id') }}"  type="text" name="transaction_id" id="name" class="form-control" placeholder="Enter Order ID">
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="form-group">
 								<label for="subject">Status</label>
 								<select name="status" id="status" class="form-control">
 									<option value="">Select Once</option>
-									<option value="pandding">Pending</option>
+									<option value="pending">Pending</option>
 									<option value="complete">Complete</option>
-									<option value="cencel">Cencel</option>
+									<option value="cancel">Cencel</option>
 								</select>
 							</div>
 						</div>

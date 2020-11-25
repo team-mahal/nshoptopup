@@ -18,11 +18,12 @@ class OrderController extends Controller
         $request->flash();
         $user_id = $request->user_id;
         $order_id = $request->order_id;
+        $transaction_id = $request->transaction_id;
         $status = $request->status;
-        if (empty($user_id) && empty($order_id) && empty($status)) {
+        if (empty($user_id) && empty($order_id) && empty($status) && empty($transaction_id)) {
             $datas = Order::with('paymentm')->where('payment', '!=' , 'waiting')->orderBy('id', 'DESC')->paginate(10);
         }else{
-            $datas = Order::with('paymentm')->where('user_id', $user_id)->orWhere('status', $status)->orWhere('id', $order_id)->paginate(101000);
+            $datas = Order::with('paymentm')->where('user_id', $user_id)->orWhere('status', $status)->orWhere('transaction_id', $transaction_id)->orWhere('id', $order_id)->paginate(101000);
         }
         return view('admin.setup.order.index', ['datas' => $datas]);
     }
