@@ -186,8 +186,12 @@
 						@endforeach
 					</tbody>
 				</table>
-				{{ $datas->render() }}
-			</div>
+				
+				@if ($datas instanceof \Illuminate\Pagination\AbstractPaginator)
+				    {{ $datas->links() }}
+				@endif
+
+				</div>
 			<?php } ?>
 		</div>
 	</div>
