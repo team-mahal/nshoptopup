@@ -55,7 +55,7 @@ class BlogController extends Controller
             'description' => 'required'
             ]);
         $description = $request->input('description');
-        $title = $request->input('title');
+        $title = $request->input('title'); 
 
         if($request->file('logo') != ''){        
             if($request->hasFile('logo')) {

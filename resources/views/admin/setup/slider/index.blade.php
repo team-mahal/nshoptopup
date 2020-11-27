@@ -48,6 +48,7 @@
 						<tr>
 							<th scope="col">#</th>
 							<th scope="col">Slider</th>
+							<th scope="col">Link</th>
 							<th scope="col">Action</th>
 						</tr>
 					</thead>
@@ -57,6 +58,7 @@
 							<td scope="row">{{ $key+1 }}</td>
 							<td style=""><img src="{{ asset('slider/' . $data->logo) }}" alt="Oops"
 									style="max-height: 50px; max-width:100px"> </td>
+							<td style="">{{$data->link}}</td>
 							<td style="display: -webkit-inline-box;">
 								<a href="{{ route('slider.edit',[$data->id]) }}" class="btn btn-success btn-sm">Edit</a>
 								<!-- <a href="productDelete/{{ $data->id }}" class="btn btn-danger btn-sm">Delete</a> -->

@@ -4,7 +4,10 @@
 			<carousel-3d :perspective="0"  v-if="loaded" :controls-visible="true" :controls-prev-html="'&#10092;'" :controls-next-html="'&#10093;'" 
                :controls-width="30" :controls-height="60" :space="600" :display="3" :autoplay="true" :autoplay-timeout="4000" :width="713" :height="255">
 			    <slide v-for="(slide, i) in sliders" :index="i" :key="i">
+			    	<router-link :to="{slide.link}">
 			       <img  :src="'/slider/'+slide.logo" class="object-contain">
+			       </router-link>
+			       </a>
 			    </slide>
 			  </carousel-3d>
 		</div>

@@ -41,13 +41,19 @@
 				</div>
 				@endif
 					<div class="row">
-						<div class="col-lg-4 col-md-6 col-sm-12">
+						<div class="col-lg-6 col-md-6 col-sm-12">
 							<div class="form-group">
 								   <label for="exampleFormControlSelect1">Logo</label>
 								   <input type="file" name="logo" class="form-control" style="padding-top: 3px;">
 								   <input type="hidden" name="oldlogo">
 							 </div>
 						</div>
+						<div class="col-lg-6 col-md-6 col-sm-12">
+						<div class="form-group">
+							<label for="exampleFormControlSelect1">Link</label>
+							<input type="text" value="{{ $slider->link }}" name="link" class="form-control" style="padding-top: 10px;">
+						</div>
+					</div>
 						<div class="col-lg-4 col-md-6 col-sm-12">
 							<div class="form-group">
 							   <button type="submit" class="btn btn-primary form-control" style="margin-top: 30px;">Update</button>
