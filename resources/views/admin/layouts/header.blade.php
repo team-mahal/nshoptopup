@@ -4,8 +4,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
-	<meta name="author" content="Creative Tim">
+	<meta name="description" content="Start your developed with Team mahal">
+	<meta name="author" content="Team Mahal">
 	<meta name="csrf-token" content="{{ csrf_token() }}" />
 	<title>Nshop-Admin</title>
 	<!-- Favicon -->
@@ -153,6 +153,14 @@
 									<span class="nav-link-text">WebSite Info</span>
 								</a>
 							</li>
+
+							<li class="nav-item ">
+								<a class="nav-link" href="{{ route('depositeconfig.index') }}">
+									<img  src="{{ asset('admin/img/icons/common/purchase-order.png') }}" class="mr-2">
+									<span class="nav-link-text">Deposite Config</span>
+								</a>
+							</li>
+							
 					</ul>
 				</div>
 			</div>

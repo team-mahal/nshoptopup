@@ -80,6 +80,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::resource('aboutprivacy', 'Admin\AboutPrivacyController');
     Route::resource('slider', 'Admin\SliderCotroller');
     Route::resource('notice', 'Admin\NoticeController');
+    Route::resource('depositeconfig', 'DepositeconfigController');
 
     Route::resource('match', 'Admin\MatchController');
     Route::get('match/prize/{id}', 'Admin\MatchController@prize');
