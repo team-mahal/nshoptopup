@@ -60,4 +60,10 @@ class DepositeconfigController extends Controller
         return back()
             ->with('success','Deposite Config Delete Successfully.');
     }
+
+    public function getPercentage()
+    {
+        $depositeconfig = Depositeconfig::latest()->first();
+        return response()->json($depositeconfig->percentage_fee, 200);
+    }
 }

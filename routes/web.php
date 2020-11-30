@@ -90,6 +90,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::delete('prize/delete/{id}', 'Admin\MatchController@prizedelete')->name('prize.delete');
     Route::post('match/updateStatus', 'Admin\MatchController@updateStatus')->name('updateStatus');
     Route::post('match/playerPrizeUpdate', 'Admin\MatchController@playerPrizeUpdate')->name('playerPrizeUpdate');
+    
 
     Route::get('users', "Auth\UserController@getUser")->name('users.index');
 
