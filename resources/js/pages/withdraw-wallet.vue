@@ -79,13 +79,13 @@ export default {
         charge()
         {
             var charge = this.user.wallet * this.discount_percentage / 100;
-            var nowAmount = Math.floor(charge);
+            var nowAmount = Math.ceil(charge);
             return nowAmount;
         },
         checkAmount(event)
         {
             var charge = this.user.wallet * this.discount_percentage / 100;
-            var nowAmount = this.user.earn_wallet + (this.user.wallet - Math.floor(charge));
+            var nowAmount = this.user.earn_wallet + (this.user.wallet - Math.ceil(charge));
             if(this.amount > nowAmount)
             {
                 this.amount = nowAmount;
@@ -96,7 +96,7 @@ export default {
         },
         totalDeposite(){
             var charge = this.user.wallet * this.discount_percentage / 100;
-            return this.user.earn_wallet + (this.user.wallet - Math.floor(charge));
+            return this.user.earn_wallet + (this.user.wallet - Math.ceil(charge));
         },
         addAmount(){
             if(this.check == false){
