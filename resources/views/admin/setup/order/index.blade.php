@@ -39,6 +39,17 @@
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-12">
 							<div class="form-group">
+								<label for="payment_status">Payment Status</label>
+								<select name="payment_status" id="payment_status" class="form-control">
+									<option value="">Select Once</option>
+									<option value="waiting">waiting</option>
+									<option value="complete">Complete</option>
+									<option value="cancel">Cencel</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="form-group">
 								<label for="subject">Status</label>
 								<select name="status" id="status" class="form-control">
 									<option value="">Select Once</option>
