@@ -31,6 +31,7 @@ class SliderCotroller extends Controller
             $request->file('logo')->move(public_path('slider'), $fileName);
 
             $slider->logo = $fileName;
+            $slider->link = $request->input('link');
             $slider->save();
 
             return back()
@@ -51,6 +52,7 @@ class SliderCotroller extends Controller
             'logo' => 'mimes:jpeg,png,jpg|max:2048',
         ]);
 
+         $link = $request->input('link');
         if($request->hasFile('logo')) {
             $file_path = public_path().'/slider/'.$request->logo;
             if(is_file($file_path)){
@@ -63,7 +65,7 @@ class SliderCotroller extends Controller
         $filename = $request->logo;
        }
 
-       $slider->update(['logo' => $filename]);
+       $slider->update(['logo' => $filename, 'link' => $link]);
        return redirect('admin/slider');
 
     }

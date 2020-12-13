@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('transactions-data/{id}', "Admin\TransactionInfoController@getTransaction");
     Route::get('withdraws-data/{id}', "Admin\WithdrawInfoController@getWithdraw");
     Route::post('join/{id}', "MatchController@join"); 
+    Route::get('getPercentage', 'DepositeconfigController@getPercentage');
 });
 
 Route::get('sliders', "Admin\SiteController@getSlider");
@@ -51,6 +52,7 @@ Route::get('product/{id}', "Admin\ProductController@getSingelProduct");
 Route::get('similarproduct/{id}', "Admin\ProductController@similarproduct");
 Route::get('shop-product/{id}', "Admin\CommonController@getSingelProduct");
 Route::get('packages/{id}', "Admin\PackageController@getProductWiseDataFind");
+
 
 
 Route::get('brands', "Admin\BrandController@getBrand");

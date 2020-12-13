@@ -80,6 +80,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::resource('aboutprivacy', 'Admin\AboutPrivacyController');
     Route::resource('slider', 'Admin\SliderCotroller');
     Route::resource('notice', 'Admin\NoticeController');
+    Route::resource('depositeconfig', 'DepositeconfigController');
 
     Route::resource('match', 'Admin\MatchController');
     Route::get('match/prize/{id}', 'Admin\MatchController@prize');
@@ -89,6 +90,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::delete('prize/delete/{id}', 'Admin\MatchController@prizedelete')->name('prize.delete');
     Route::post('match/updateStatus', 'Admin\MatchController@updateStatus')->name('updateStatus');
     Route::post('match/playerPrizeUpdate', 'Admin\MatchController@playerPrizeUpdate')->name('playerPrizeUpdate');
+    
 
     Route::get('users', "Auth\UserController@getUser")->name('users.index');
 

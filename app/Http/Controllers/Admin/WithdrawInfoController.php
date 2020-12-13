@@ -33,17 +33,15 @@ class WithdrawInfoController extends Controller
         $wallet_data = WithdrawInfo::find($id);
         $user = User::find($wallet_data->user_id);
         $amount = $wallet_data->amount;
-        if($user->earn_wallet < $amount){
-            $datas['res'] =  false;
-        }else{
-            $datas['res'] =  true;
-            $wallet_data->update(['status' => $status]);
-            $wallet = $user->earn_wallet;
-            if($status == 'complete'){
-                $update_wallet = $wallet - $amount;
-                $user->update(['earn_wallet' => $update_wallet]);
-            }
+        
+        $datas['res'] =  true;
+        $wallet_data->update(['status' => $status]);
+        $wallet = $user->earn_wallet;
+        if($status == 'cancel'){
+            $update_wallet = $wallet + $amount;
+            $user->update(['earn_wallet' => $update_wallet]);
         }
+        
         return $datas;
     }
 

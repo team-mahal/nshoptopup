@@ -38,12 +38,14 @@
                     <img src="/img/roket.png" alt="" class="w-24 mx-auto">
                     <!-- <h5 class="text-base font-bold">Our rocket number: <b class="text-red-300">01784565598</b> </h5> -->
                 </div>
-                <h5 class="font-bold mt-3">Your earn wallet : {{ user.earn_wallet }}</h5>
+                <h5 class="font-bold mt-3">Your wallet : {{ user.wallet }} BDT <span>( Charge {{ charge() }} )</span></h5>
+                <h5 class="font-bold mt-1">Your earn wallet : {{ user.earn_wallet }} BDT</h5>
+                <h5 class="font-bold mt-1 text-red-300">The maximum amount of your deposit : {{ totalDeposite() }}  BDT</h5>
                 <div class="mt-5">
                     <h4 class="font-bold text-base">Withdraw Amount</h4>
-                    <input v-model="amount" required type="number" placeholder="Amount To Withdraw" class="p-2 class-manual-width bg-white hover:bg-gray-100 hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
+                    <input v-model="amount" required type="number" @input="checkAmount()" placeholder="Amount To Withdraw" class="p-2 class-manual-width bg-white hover:bg-gray-100 hover:border-gray-300 border-lg border-gray-500 border-2 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300" />
                     <p v-if="amount === ''" class="text-pink-700">Amount is required</p>  
-                    <p v-else-if="user.earn_wallet < amount" class="text-pink-700">Withdraw amount must less than earn wallet</p> 
+                    <p v-if="checkErr" class="text-pink-700">Withdraw amount must less than your maximum deposite amount</p> 
                 </div>
                 <div class="">
                     <h4 class="font-bold text-base">Receiver Number</h4>
@@ -69,9 +71,33 @@ export default {
             paymentMethod: 1,
             paymentNumber: '',
             amount: '',
+            discount_percentage: '',
+            checkErr : '',
         }
     },
     methods: {
+        charge()
+        {
+            var charge = this.user.wallet * this.discount_percentage / 100;
+            var nowAmount = Math.ceil(charge);
+            return nowAmount;
+        },
+        checkAmount(event)
+        {
+            var charge = this.user.wallet * this.discount_percentage / 100;
+            var nowAmount = this.user.earn_wallet + (this.user.wallet - Math.ceil(charge));
+            if(this.amount > nowAmount)
+            {
+                this.amount = nowAmount;
+                this.checkErr = 1;
+            }else{
+                this.checkErr = 0;
+            }
+        },
+        totalDeposite(){
+            var charge = this.user.wallet * this.discount_percentage / 100;
+            return this.user.earn_wallet + (this.user.wallet - Math.ceil(charge));
+        },
         addAmount(){
             if(this.check == false){
                 Swal.fire({
@@ -81,11 +107,19 @@ export default {
                     reverseButtons: true,
                     confirmButtonText: "ok"
                 });
-            }else if(this.user.earn_wallet < this.amount){
+            }else if(this.amount == ''){
                 Swal.fire({
                     type: "warning",
-                    title: "Wallet Error",
-                    html: "<p style='color: red;'>Your earn wallet is less than withdraw Amoun</p>",
+                    title: "Amount not amount",
+                    html: "<p style='color: red;'>Withdraw amount not empty or required</p>",
+                    reverseButtons: true,
+                    confirmButtonText: "ok"
+                });
+            }else if(this.paymentNumber == ''){
+                Swal.fire({
+                    type: "warning",
+                    title: "Receiver number not empty",
+                    html: "<p style='color: red;'>Receiver number not empty or required </p>",
                     reverseButtons: true,
                     confirmButtonText: "ok"
                 });
@@ -98,29 +132,37 @@ export default {
                 axios.post(`/api/withdraw-wallet/${this.user.id}`, params).then(response => {
                 console.log(response.data);
                     if (response.data == 'true') {
-                    this.paymentMethod = 1;
-                    this.paymentNumber = '';
-                    this.amount = '';
-                    Swal.fire({
-                        type: "success",
-                        title: "Request sent Successfully !",
-                        html: "<p style='color: green;'>Your withdraw request has been successfully sent</p>",
-                        reverseButtons: true,
-                        confirmButtonText: "ok"
-                    });
+                        this.paymentMethod = 1;
+                        this.paymentNumber = '';
+                        this.amount = '';
+                        Swal.fire({
+                            type: "success",
+                            title: "Request sent Successfully !",
+                            html: "<p style='color: green;'>Your withdraw request has been successfully sent</p>",
+                            reverseButtons: true,
+                            confirmButtonText: "ok"
+                        });
                     } else {
-                    Swal.fire({
-                        type: "error",
-                        title: "Request sent Failed",
-                        text: "<p style='color: red;'>Your withdraw request has been Not sent</p>",
-                        reverseButtons: true,
-                        confirmButtonText: "ok"
-                    });
+                        Swal.fire({
+                            type: "error",
+                            title: "Request sent Failed",
+                            text: "<p style='color: red;'>Your withdraw request has been Not sent</p>",
+                            reverseButtons: true,
+                            confirmButtonText: "ok"
+                        });
                     }
                 });
             }
+        },
+        getPercentage(){
+            axios.get("/api/getPercentage").then(response => {
+                this.discount_percentage = response.data;
+			});
         }
-    }
+    },
+	created() {
+		this.getPercentage();
+	}
 }
 </script>
 

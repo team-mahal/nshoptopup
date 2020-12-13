@@ -20,7 +20,9 @@ class OrderController extends Controller
         $order_id = $request->order_id;
         $transaction_id = $request->transaction_id;
         $status = $request->status;
-        if (empty($user_id) && empty($order_id) && empty($status) && empty($transaction_id)) {
+        $note = $request->note;
+        $payment_status = $request->payment_status;
+        if (empty($user_id) && empty($order_id) && empty($status) && empty($transaction_id) && empty($note) && empty($payment_status)) {
             $datas = Order::with('paymentm')->where('payment', '!=' , 'waiting')->orderBy('id', 'DESC')->paginate(10);
         }else{
             $datas = Order::with('paymentm');
@@ -34,8 +36,14 @@ class OrderController extends Controller
             if(!empty($status)){
                 $datas->where('status', $status);
             }
-                $datas->where('payment','!=', 'waiting');
-             $datas=$datas->get();  
+            if(!empty($note)){
+                $datas->where('note', 'LIKE', "%$note%");
+            }
+            if(!empty($payment_status)){
+                $datas->where('payment', $payment_status);
+            }
+            $datas->where('payment','!=', 'waiting');
+            $datas=$datas->get();  
         }
         return view('admin.setup.order.index', ['datas' => $datas]);
     }

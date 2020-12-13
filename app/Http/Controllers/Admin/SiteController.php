@@ -15,6 +15,7 @@ use App\Slider;
 use App\WalletInfo;
 use App\WithdrawInfo;
 use App\Websiteinfo;
+use App\Depositeconfig;
 
 
 use smasif\ShurjopayLaravelPackage\ShurjopayService;
@@ -301,15 +302,35 @@ class SiteController extends Controller
     {
         $user_data = User::find($id);
         $amount = (int)($request->amount);
-        if($user_data->earn_wallet < $amount ){
+        $depositeconfig = Depositeconfig::latest()->first();
+
+        $charge = $user_data->wallet * $depositeconfig->percentage_fee / 100;
+        $user_amount = $user_data->earn_wallet + ($user_data->wallet - ceil($charge));
+
+        if($user_amount < $amount ){
             return response()->json('false', 404);
         }else{
+            if($user_data->earn_wallet >= $amount){
+                $user = User::find($id);
+                $user->earn_wallet = $user->earn_wallet - $amount;
+                $user->update();
+            }else{
+                $user_minus_amount = $amount - $user_data->earn_wallet;
+                $charge = $user_minus_amount * $depositeconfig->percentage_fee / 100;
+                $user_amount = ceil($user_minus_amount + $charge);
+
+                $user = User::find($id);
+                $user->earn_wallet = 0;
+                $user->wallet = $user->wallet - $user_amount;
+                $user->update();
+            }
+
             $withdrawInfo = new WithdrawInfo;
             $withdrawInfo->user_id = $id;
             $withdrawInfo->paymentMethod = $request->paymentMethod;
             $withdrawInfo->receiverNumber = $request->paymentNumber;
             $withdrawInfo->amount = $amount;
-            $withdrawInfo->status = 'pending';
+            $withdrawInfo->status = 'pandding';
             $withdrawInfo->save();
             return response()->json('true', 200);
         }

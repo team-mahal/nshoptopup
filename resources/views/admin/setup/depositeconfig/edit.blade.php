@@ -13,14 +13,14 @@
 			<div class="card-header border-1 bg-gradient-primary">
 				<div class="row align-items-center">
 					<div class="col">
-						<h3 class="mb-0 text-white">Slider Edit</h3>
+						<h3 class="mb-0 text-white">Deposite Config Edit</h3>
 					</div>
 					<div class="col text-right">
-						<a href="{{ route('slider.index') }}" class="btn btn-sm btn-success">Slider List</a>
+						<a href="{{ route('depositeconfig.index') }}" class="btn btn-sm btn-success">Deposite Config List</a>
 					</div>
 				</div>
 			</div>
-			<form action="{{ route('slider.update',[$slider->id]) }}" method="post" enctype="multipart/form-data" class="p-4">
+			<form action="{{ route('depositeconfig.update',[$depositeconfig->id]) }}" method="post" enctype="multipart/form-data" class="p-4">
 				@csrf
 				@method('PUT')
 				@if ($message = Session::get('success'))
@@ -41,19 +41,12 @@
 				</div>
 				@endif
 					<div class="row">
-						<div class="col-lg-6 col-md-6 col-sm-12">
+						<div class="col-lg-4 col-md-6 col-sm-12">
 							<div class="form-group">
-								   <label for="exampleFormControlSelect1">Logo</label>
-								   <input type="file" name="logo" class="form-control" style="padding-top: 3px;">
-								   <input type="hidden" name="oldlogo">
-							 </div>
+								<label for="exampleFormControlSelect1">Fee Amount <sub>(%)</sub></label>
+								<input name="percentage_fee" class="form-control" value="{{ $depositeconfig->percentage_fee }}">
+							</div>
 						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12">
-						<div class="form-group">
-							<label for="exampleFormControlSelect1">Link</label>
-							<input type="text" value="{{ $slider->link }}" name="link" class="form-control" style="padding-top: 10px;">
-						</div>
-					</div>
 						<div class="col-lg-4 col-md-6 col-sm-12">
 							<div class="form-group">
 							   <button type="submit" class="btn btn-primary form-control" style="margin-top: 30px;">Update</button>
