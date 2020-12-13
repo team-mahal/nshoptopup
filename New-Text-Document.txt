@@ -1,0 +1,7 @@
+1. Instant Code Delivery.
+   Email Delivery.
+2. Playzone Desing.
+3. Order check Page with Order id, Transaction id, Order status, Payment status, Order id Name & Order note etc.
+4. Slider click link.
+5. Wallet withdraw fee with min fee, max fee, percentage fee customize from admin panel.
+6. Sms marketing bulk sms send from site to all user with another bulk sms api service.
