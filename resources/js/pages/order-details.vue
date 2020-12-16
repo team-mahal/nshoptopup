@@ -8,11 +8,11 @@
             <thead class="bg-gray-300">
                 <tr class="text-gray-800">
                     <th class="border border-gray-400 px-4 py-2">ORDER ID</th>
-                    <th class="border border-gray-400 px-4 py-2">PLAYER ID</th>
-                    <th class="border border-gray-400 px-4 py-2">PRODUCT ID</th>
+                    <th class="border border-gray-400 px-4 py-2">USER ID</th>
+                    <th class="border border-gray-400 px-4 py-2">PRODUCT ID</th>    
                     <th class="border border-gray-400 px-4 py-2">PRODUCT NAME</th>
-                    <th class="border border-gray-400 px-4 py-2">PRICE</th>
                     <th class="border border-gray-400 px-4 py-2">QUANTITY</th>
+                    <th class="border border-gray-400 px-4 py-2">details</th>
                     <th class="border border-gray-400 px-4 py-2">ORDER DATE TIME</th>
                 </tr>
             </thead>
@@ -22,13 +22,9 @@
                     <td class="border border-gray-400 px-4 py-2">{{ invoice.user_id }}</td>
                     <td class="border border-gray-400 px-4 py-2">{{ invoice.id }}</td>
                     <td class="border border-gray-400 px-4 py-2">{{ invoice.name }}</td>
-                    <td class="border border-gray-400 px-4 py-2">{{ formatPrice(invoice.sale_price) }}</td>
                     <td class="border border-gray-400 px-4 py-2">{{ invoice.quantity }}</td>
+                    <td class="border border-gray-400 px-4 py-2">{{ invoice.details }}</td>
                     <td class="border border-gray-400 px-4 py-2">{{ invoice.created_at }}</td>
-                </tr>
-                <tr>
-                    <td class="border border-gray-400 px-4 py-2 text-right font-bold" colspan="4">Total</td>
-                    <td class="border border-gray-400 px-4 py-2 text-left font-bold" colspan="3">{{ formatPrice(totalPrice()) }}</td>
                 </tr>
             </tbody>
             </table>

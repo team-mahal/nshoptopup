@@ -33,6 +33,7 @@ export default [
   { path: '/shop-details/:id/:slug', name: 'shop-details', component: page('shop-details.vue')},
   { path: '/check-out', name: 'check-out', component: page('check-out.vue')},
   { path: '/my-orders', name: 'my-orders', component: page('my-orders.vue')},
+  { path: '/my-invoice', name: 'my-invoice', component: page('my-invoice.vue')},
   { path: '/order-details/:id', name: 'order-details', component: page('order-details.vue')},
   { path: '/my-account', name: 'my-account', component: page('my-account.vue')},
   { path: '/my-wallet', name: 'my-wallet', component: page('my-wallet.vue')},

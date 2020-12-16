@@ -21,6 +21,7 @@ class CreateShopDetailsTable extends Migration
             $table->integer('invoice_id');
             $table->integer('user_id');
             $table->integer('quantity');
+            $table->text('details');
             $table->timestamps();
         });
     }

@@ -5,39 +5,43 @@
         </div>
         <div v-if="check === true">
             <div class="text-center md:my-2">
-                <h2 class="text-xl md:text-3xl text-red-300 font-bold uppercase section-title">Offer Orders</h2>
+                <h2 class="text-xl md:text-3xl text-red-300 font-bold section-title">SHOP ORDERS</h2>
             </div>
             <div class="div overflow-x-scroll" style="height: 500px;">
                 <table class="border-collapse border-2 border-gray-500 mx-auto">
                 <thead class="bg-gray-300">
                     <tr class="text-gray-800">
                         <th class="border border-gray-400 px-4 py-2">ORDER ID</th>
-                        <th class="border border-gray-400 px-4 py-2">PLAYER ID</th>
-                        <th class="border border-gray-400 px-4 py-2">PACKAGE ID</th>
-                        <th class="border border-gray-400 px-4 py-2">PRODUCT NAME</th>
+                        <th class="border border-gray-400 px-4 py-2">USER ID</th>
                         <th class="border border-gray-400 px-4 py-2">AMOUNT</th>
                         <th class="border border-gray-400 px-4 py-2">STATUS</th>
-                        <th class="border border-gray-400 px-4 py-2">PAYMENT</th>
+                        <th class="border border-gray-400 px-4 py-2">ACTION</th>
                     </tr>
                 </thead>
                 <tbody class="text-center">
-                    <tr v-for="order in orders" :key="order.id" >
-                        <td class="border border-gray-400 px-4 py-2">{{ order.id }}</td>
-                        <td class="border border-gray-400 px-4 py-2">{{ order.email }}</td>
-                        <td class="border border-gray-400 px-4 py-2">{{ order.package_id }}</td>
-                        <td class="border border-gray-400 px-4 py-2">{{ order.name }}</td>
-                        <td class="border border-gray-400 px-4 py-2">{{ formatPrice(order.sale_price) }}</td>
-                        <td class="border border-gray-400 px-4 py-2">{{ order.status }}</td>
-                        <td class="border border-gray-400 px-4 py-2">{{ order.payment }}</td>
+                    <tr v-for="invoice in invoices" :key="invoice.id" >
+                        <td class="border border-gray-400 px-4 py-2">{{ invoice.id }}</td>
+                        <td class="border border-gray-400 px-4 py-2">{{ invoice.user_id }}</td>
+                        <td class="border border-gray-400 px-4 py-2">{{ formatPrice(invoice.total) }}</td>
+                        <td class="border border-gray-400 px-4 py-2">{{ invoice.status }}</td>
+                        <td class="border border-gray-400 px-4 py-2">
+                            <router-link :to="{
+                                name: 'order-details',
+                                params: { id: invoice.id } }"  
+                                class="px-2 py-1 mt-2  mr-2 text-sm font-semibold bg-orange-400 text-white rounded dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-200 focus:text-gray-900 hover:bg-red-300 focus:bg-gray-200 focus:outline-none focus:shadow-outline" 
+                                href="#"
+                            >
+                                Detials
+                            </router-link>
+                        </td>
                     </tr>
                     <tr>
-                        <td class="border border-gray-400 px-4 py-2 text-right font-bold" colspan="4">Total</td>
+                        <td class="border border-gray-400 px-4 py-2 text-right font-bold" colspan="2">Total</td>
                         <td class="border border-gray-400 px-4 py-2 text-left font-bold" colspan="3">{{ formatPrice(totalPrice()) }}</td>
                     </tr>
                 </tbody>
                 </table>
             </div>
-
 
         </div>
     </div>
@@ -86,7 +90,8 @@ export default {
         }
     },
     mounted() {
-        this.getOrdersData();
+        this.getInvoicesData();
+
     },
     created(){
 

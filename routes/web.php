@@ -18,7 +18,6 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
 Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::get('deshboard', "Admin\AdminController@index");
-
     //Product
     Route::get('product', "Admin\ProductController@index")->name('product.index');
     Route::get('productCreate', "Admin\ProductController@create");
@@ -66,6 +65,8 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::get('shopOrder', "Admin\ShopOrderController@index")->name('shopOrder.index');
     Route::post('shopOrderUpdate','Admin\ShopOrderController@update')->name('shopOrderUpdate');
     Route::get('shopOrderDetials/{id}','Admin\ShopOrderController@show')->name('shopOrderDetials');
+    Route::get('findorderdetails','Admin\ShopOrderController@findorderdetails')->name("findorderdetails");
+    Route::post('updateorderdetails','Admin\ShopOrderController@updateorderdetails')->name("updateorderdetails");
 
     //paymentMethod
     Route::get('paymentMethod', "Admin\PaymentMethodController@index")->name('paymentMethod.index');

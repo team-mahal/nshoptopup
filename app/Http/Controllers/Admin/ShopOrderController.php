@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Invoice;
+use App\Shop_details;
 use App\User;
 use DB;
 
@@ -44,12 +45,22 @@ class ShopOrderController extends Controller
 
     public function show($id)
     {
-        $invoices = DB::table('invoices')
-        ->select('*')
-        ->join('shop_details', 'shop_details.invoice_id', '=', 'invoices.id')
-        ->join('products', 'products.id', '=', 'shop_details.product_id')
-        ->where('invoices.id', $id)
-        ->get();
+        $invoices = Shop_details::with('product')->where('invoice_id', $id)->get();
         return view('admin.setup.shopOrder.show', ['datas' => $invoices]);
+    }
+
+    public function findorderdetails(Request $r)
+    {
+        $details = Shop_details::find($r->id);
+        return response()->json($details);
+    }
+
+    public function updateorderdetails(Request $r)
+    {
+
+        $d = Shop_details::find($r->id);
+        $d->details=$r->desc;
+        $d->save();
+        return response()->json('success');
     }
 }
